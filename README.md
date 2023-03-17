@@ -1,13 +1,13 @@
 ###BACKEND
 
 1.    Open powershell and get to the Software-Project folder
-2.    Type the command 'Set-ExecutionPolicy Unrestricted -Scope Process'
-3.    Create virtual environment 'python -m venv .venv'
-4.    Enable virtual environment '.\.venv\Scripts\Activate.ps1'
-5.    Download dependencies 'pip install -r backend\requirements.txt'
-6.    Go into '.\backend'
-7.    Set the application file with 'set FLASK_APP=app.py'
-8.    Run the site with 'flask run'
+2.    Type the command `Set-ExecutionPolicy Unrestricted -Scope Process`
+3.    Create virtual environment `python -m venv .venv`
+4.    Enable virtual environment `.\.venv\Scripts\Activate.ps1`
+5.    Download dependencies `pip install -r backend\requirements.txt`
+6.    Go into `.\backend`
+7.    Set the application file with `set FLASK_APP=app.py`
+8.    Run the site with `flask run`
 
 
 # Getting Started with Create React App
