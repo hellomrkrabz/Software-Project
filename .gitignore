@@ -277,5 +277,8 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/react,flask,python
 
 package-lock.json
-package.json
 /.vscode
+/.vs
+Software-Project.sln
+Software-Project.pyproj
+Software-Project.pyproj.user
