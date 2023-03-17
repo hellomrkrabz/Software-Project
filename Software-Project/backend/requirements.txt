@@ -1,7 +1,0 @@
-flask
-Flask-SQLAlchemy
-psycopg2
-flask_cors
-python-dotenv
-flask_migrate
-flask_script

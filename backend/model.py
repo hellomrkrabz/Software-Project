@@ -1,6 +1,19 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 import datetime
-db = SQLAlchemy()
+app =  Flask(__name__)
+POSTGRES = {
+ 'user': 'rwybqwpr',
+ 'pw': 'n0S3V5DoHv3s4MK3n2IZIaYU43LS7mCU',
+ 'db': 'rwybqwpr',
+ 'host': 'mouse.db.elephantsql.com',
+ 'port': '5432',
+}
+
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
+%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+db = SQLAlchemy(app)
 class BaseModel(db.Model):
     """Base data model for all objects"""
     __abstract__ = True
@@ -20,11 +33,11 @@ def json(self):
             column: value if not isinstance(value, datetime.date) else value.strftime('%Y-%m-%d')
             for column, value in self._to_dict().items()
         }
-class Station(BaseModel, db.Model):
+class Station(db.Model):
     __tablename__ = 'stations'
-id = db.Column(db.Integer, primary_key = True)
-lat = db.Column(db.Float)
-lng = db.Column(db.Float)
+    id = db.Column(db.Integer, primary_key = True)
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
 
 def __init__(self,id,lat,lng):
         self.id = id
