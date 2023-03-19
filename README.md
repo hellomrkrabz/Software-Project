@@ -1,5 +1,13 @@
 Required to install: npm, nodejs, yarn
 
+https://nodejs.org/en
+
+https://www.npmjs.com/
+
+https://yarnpkg.com/getting-started/install
+
+Before launching, install the above, then enter the project directory and type the command `yarn install`. It should take care of setting up the project
+
 ###BACKEND
 
 1.    Open powershell and get to the Software-Project folder
