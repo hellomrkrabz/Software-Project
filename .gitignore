@@ -282,3 +282,4 @@ package-lock.json
 Software-Project.sln
 Software-Project.pyproj
 Software-Project.pyproj.user
+/.yarn
