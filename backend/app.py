@@ -10,7 +10,8 @@ connection = psycopg2.connect(POSTGRESQL_URI)
 with connection:
     with connection.cursor() as cursor:
         cursor.execute("CREATE TABLE IF NOT EXISTS books (book_id INTEGER, author TEXT, title TEXT);")
-
+    cursor.close()
+connection.close()
 
 @app.route("/", methods=["GET", "POST"])
 def main():
