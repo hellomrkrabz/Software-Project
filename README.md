@@ -24,3 +24,14 @@ After new commits you have to create virtual environment and check for new depen
 ###FRONTEND
 1.    Open powershell and get to the Software-Project folder
 2.    Run the site with `yarn start`
+
+Adding custom styling to bootstrap:
+1. It's best to use VS Code
+2. Install VS Code plugin called 'Live Sass Compiler'
+3. Be sure to change default location of compiled css files, on the right: 
+    1. Extension, Extension settings (gear icon)
+    2. change tab to Workspace
+    3. press 'Edit in settings.json' under 'Live Sass Compiler>Setting: formats'
+    4. "savePath": "src/style/bootstrap/css"
+4. If you open project with sass files you should have button 'Watch Sass' with eye icon
+5. After pressing it plugin will trigger sass compilation after every sass file save
