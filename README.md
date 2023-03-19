@@ -15,13 +15,14 @@ After new commits you have to create virtual environment and check for new depen
 4.    Enable virtual environment `.\.venv\Scripts\Activate.ps1`
 5.    Download dependencies `pip install -r backend\requirements.txt`
 
-###BACKEND
+Launching:
+a) BACKEND
 
 1.    Open powershell and get to the Software-Project folder
 2.    Type the command `Set-ExecutionPolicy Unrestricted -Scope Process`
 3.    Run with `yarn start-back`
 
-###FRONTEND
+b) FRONTEND
 1.    Open powershell and get to the Software-Project folder
 2.    Run the site with `yarn start`
 
