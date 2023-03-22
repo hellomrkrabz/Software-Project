@@ -1,9 +1,11 @@
 from flask import Flask, request, Blueprint, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
+from flask_cors import CORS
 
 #db = SQLAlchemy()
 app = Flask(__name__)
+CORS(app)
 #POSTGRESQL_URI = "postgres://rwybqwpr:n0S3V5DoHv3s4MK3n2IZIaYU43LS7mCU@mouse.db.elephantsql.com/rwybqwpr"
 
 from . import api

@@ -5,7 +5,7 @@ bp = Blueprint("api", __name__, url_prefix='/api')
 
 @bp.route('/bookinfo/<book_id>', methods=['GET'])
 def get_book_info(book_id):
-    book = Book
+    book = Book(book_id)
     print('HALLOOOOOO')
     '''book = Book.query.filter_by(id=book_id).first()
     if book is not None:
@@ -15,4 +15,4 @@ def get_book_info(book_id):
             'title': book.get_title()
         })'''
     #return jsonify({'msg': 'Specified book does not exist:('})
-    return jsonify({'msg': book.get_book_id(book)})
+    return jsonify({'msg': book.get_book()})

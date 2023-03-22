@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Book from './components/Book.jsx'
+import axios from 'axios'
 
 function App() {
 
-  const [books, setBooks] = useState([{title:"Układy mikroprocesorowe. Przykłady rozwiązań",author:"Bartłomiej Zieliński"},{title:"Windows 3.1 PL",author:"Urszula Stańczyk"}])
+  const [books, setBooks] = useState(new Array())
 
-  useEffect(() =>
-	{
-		(async () =>
-		{
-			const response = await fetch("http://localhost:5000/api/data")
-			const responseJson = await response.json()
-      setBooks(responseJson)
+  useEffect(() => {
+    var tmp=new Array()
+    for(var i=0;i<4;i++)
+    {
+      axios.get("http://localhost:5000/api/bookinfo/"+i).then((response) => {
+        tmp.push(response.data.msg[0])
+      });
+    }
+    setBooks(tmp)
+  }, []);
 
-		})();
-	}, []);
-
-  const listOfBooks = books.map((book) =>
-    <Book {...book}/>
-  );
+  setTimeout(() => {
+    setBooks(books)
+    if(books.length==0)
+      setBooks(books)
+  }, 2500);
 
   return (
     <div className="d-flex flex-column align-items-center">
-      {listOfBooks}
+      {books.map((book)=>
+        <Book id={book[0]} author={book[1]} title={book[2]}/>
+      )}
     </div>
   );
 }
