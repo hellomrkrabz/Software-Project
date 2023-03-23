@@ -11,7 +11,7 @@ function App() {
     for(var i=0;i<4;i++)
     {
       axios.get("http://localhost:5000/api/bookinfo/"+i).then((response) => {
-        tmp.push(response.data.msg[0])
+        tmp.push(response.data)
       });
     }
     setBooks(tmp)
@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="d-flex flex-column align-items-center">
       {books.map((book)=>
-        <Book id={book[0]} author={book[1]} title={book[2]}/>
+        <Book id={book.book_id} author={book.author} title={book.title}/>
       )}
     </div>
   );

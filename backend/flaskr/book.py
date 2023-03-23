@@ -1,19 +1,10 @@
 from flask import Flask, request
 import psycopg2
-
+from . import db
+'''
 id = 1
 POSTGRESQL_URI = "postgres://rwybqwpr:n0S3V5DoHv3s4MK3n2IZIaYU43LS7mCU@mouse.db.elephantsql.com/rwybqwpr"
-'''
-connection = psycopg2.connect(POSTGRESQL_URI)
-with connection:
-    with connection.cursor() as cursor:
-        #cursor.execute("CREATE TABLE IF NOT EXISTS books (book_id INTEGER, author TEXT, title TEXT);")
-        #cursor.execute("INSERT INTO books VALUES (1, 'test', 'testbook');")
-        id = cursor.execute("SELECT book_id FROM books WHERE title = 'testbook';")
 
-    cursor.close()
-connection.close()
-'''
 class Book:
     def __init__(self, book_id):
         self.book_id = book_id
@@ -32,6 +23,22 @@ class Book:
 
     def get_book_id(self):
         return id
+
+    def get_author(self):
+        return self.author
+
+    def get_title(self):
+        return self.title
+'''
+
+class Book(db.Model):
+    __tablename__ = 'books'
+    book_id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.Text)
+    title = db.Column(db.Text)
+
+    def get_book_id(self):
+        return self.book_id
 
     def get_author(self):
         return self.author

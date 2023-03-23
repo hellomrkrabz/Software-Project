@@ -2,36 +2,56 @@ from flask import Flask, request, Blueprint, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from flask_cors import CORS
+from .config import config
+import os
 
-#db = SQLAlchemy()
-app = Flask(__name__)
+db = SQLAlchemy()
+
+
+'''app = Flask(__name__)
 CORS(app)
-#POSTGRESQL_URI = "postgres://rwybqwpr:n0S3V5DoHv3s4MK3n2IZIaYU43LS7mCU@mouse.db.elephantsql.com/rwybqwpr"
 
 from . import api
 app.register_blueprint(api.bp)
-'''
-connection = psycopg2.connect(POSTGRESQL_URI)
-with connection:
-    with connection.cursor() as cursor:
-        cursor.execute("CREATE TABLE IF NOT EXISTS books (book_id INTEGER, author TEXT, title TEXT);")
-    cursor.close()
-connection.close()'''
 
 @app.route("/", methods=["GET", "POST"])
 def main():
-    '''if request.method == "POST":
-        with connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO books VALUES (%s, %s, %s);",
-                    (
-                    request.form.get("b_id"),
-                    request.form.get("author"),
-                    request.form.get("title"),
-                    ),
-                )'''
     return "Hello"
 
 if __name__ == '__main__':
    app.run()
+'''
+
+def create_app(test_config=None):
+    # create and configure the app
+    app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
+    app.config.from_object(config['development'])
+    config['development'].init_app(app)
+
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
+
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+
+    # blueprint responsible for fetching some data from the API
+    from . import api
+    app.register_blueprint(api.bp)
+
+
+    db.init_app(app)
+
+    # create database tables
+    with app.app_context():
+        db.create_all()
+
+    return app
+
