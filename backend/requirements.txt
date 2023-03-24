@@ -5,3 +5,5 @@ flask_cors
 python-dotenv
 flask_migrate
 flask_script
+werkzeug
+sqlalchemy_utils

@@ -7,21 +7,6 @@ import os
 
 db = SQLAlchemy()
 
-
-'''app = Flask(__name__)
-CORS(app)
-
-from . import api
-app.register_blueprint(api.bp)
-
-@app.route("/", methods=["GET", "POST"])
-def main():
-    return "Hello"
-
-if __name__ == '__main__':
-   app.run()
-'''
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -42,16 +27,25 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    from . import user_validation
+    app.register_blueprint(user_validation.bp)
+
     # blueprint responsible for fetching some data from the API
     from . import api
     app.register_blueprint(api.bp)
 
 
+
+
     db.init_app(app)
+
+    from .book import Book
+    from .user import User
 
     # create database tables
     with app.app_context():
         db.create_all()
+
 
     return app
 

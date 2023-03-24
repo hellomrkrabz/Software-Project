@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from .book import Book
+from .user import User
 from . import db
 
 bp = Blueprint("api", __name__, url_prefix='/api')
@@ -26,3 +27,15 @@ def get_book_info(b_id):
             'title': book.get_title()
         })
     return jsonify({'msg': 'Specified book does not exist:('})
+
+@bp.route('/user_info', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    print(users)
+    users_json = [{
+        'id': u.get_id(),
+        'email': u.get_email(),
+        'password': u.get_password()
+    }for u in users]
+
+    return jsonify({'users': users_json})

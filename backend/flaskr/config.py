@@ -5,6 +5,8 @@ DATABASE_URL = "postgresql://rwybqwpr:n0S3V5DoHv3s4MK3n2IZIaYU43LS7mCU@mouse.db.
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = True
 
     @staticmethod
     def init_app(app):
