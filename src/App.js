@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Book from './components/Book.jsx'
 import axios from 'axios'
+import { v4 } from 'uuid'
 
 function App() {
 
-  const [books, setBooks] = useState(new Array())
+  const [books, setBooks] = useState([])
 
   useEffect(() => {
 
@@ -17,7 +18,7 @@ function App() {
   return (
     <div className="d-flex flex-column align-items-center">
       {books.map((book)=>
-        <Book {...book}/>
+        <Book key={v4()} {...book}/>
       )}
     </div>
   );
