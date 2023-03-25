@@ -50,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-easy-router", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:2.1.2"],\
             ["react-router-dom", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:6.9.0"],\
             ["react-scripts", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:5.0.1"],\
+            ["reactjs-popup", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:2.0.5"],\
             ["router", "npm:1.3.8"],\
             ["uuid", "npm:9.0.0"],\
             ["web-vitals", "npm:2.1.4"]\
@@ -16539,6 +16540,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["reactjs-popup", [\
+        ["npm:2.0.5", {\
+          "packageLocation": "./.yarn/cache/reactjs-popup-npm-2.0.5-81fb047d0e-7b9ebd49e6.zip/node_modules/reactjs-popup/",\
+          "packageDependencies": [\
+            ["reactjs-popup", "npm:2.0.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:2.0.5", {\
+          "packageLocation": "./.yarn/__virtual__/reactjs-popup-virtual-6c3005cd7a/0/cache/reactjs-popup-npm-2.0.5-81fb047d0e-7b9ebd49e6.zip/node_modules/reactjs-popup/",\
+          "packageDependencies": [\
+            ["reactjs-popup", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:2.0.5"],\
+            ["@types/react", null],\
+            ["@types/react-dom", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["read-all-stream", [\
         ["npm:3.1.0", {\
           "packageLocation": "./.yarn/cache/read-all-stream-npm-3.1.0-9d556e310b-ff7bf7c548.zip/node_modules/read-all-stream/",\
@@ -17527,6 +17554,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-easy-router", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:2.1.2"],\
             ["react-router-dom", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:6.9.0"],\
             ["react-scripts", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:5.0.1"],\
+            ["reactjs-popup", "virtual:eda7fb88361eb39d619a7b204664532a5e6ad4619940c6ed27faa2768caa0bd8de22678301e1b8bfd0d1686577e2bf53b44081f9bcdbd3ad649700ee4dac1550#npm:2.0.5"],\
             ["router", "npm:1.3.8"],\
             ["uuid", "npm:9.0.0"],\
             ["web-vitals", "npm:2.1.4"]\
