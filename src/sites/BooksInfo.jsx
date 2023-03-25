@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Book from './../components/Book'
 import axios from 'axios'
 import { v4 } from 'uuid';
+import Navbar from './../components/Navbar'
 
 function BookInfo() {
 
@@ -16,11 +17,17 @@ function BookInfo() {
   }, []);
 
   return (
-    <div className="d-flex flex-column align-items-center">
-      {books.map((book)=>
-        <Book key={v4()} {...book}/>
-      )}
-    </div>
+    <>
+      <div>
+          <Navbar site={"/"}/>
+        </div>
+
+      <div className="d-flex flex-column align-items-center">
+        {books.map((book)=>
+          <Book key={v4()} {...book}/>
+        )}
+      </div>
+    </>
   );
 }
 
