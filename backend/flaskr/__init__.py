@@ -1,4 +1,5 @@
 from flask import Flask, request, Blueprint, jsonify
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from flask_cors import CORS
@@ -6,6 +7,7 @@ from .config import config
 import os
 
 db = SQLAlchemy()
+mail = Mail()
 
 def create_app(test_config=None):
     # create and configure the app
@@ -46,6 +48,16 @@ def create_app(test_config=None):
     with app.app_context():
         db.create_all()
 
+    #initialize email sender
+    app.config['MAIL_SERVER']='smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_DEFAULT_SENDER'] = 'books.project.sp@mail.com'
+    app.config['MAIL_USERNAME'] = 'books.project.sp@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'syjyouavxhpsxuin'
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_SSL'] = False
+
+    mail = Mail(app)
 
     return app
 

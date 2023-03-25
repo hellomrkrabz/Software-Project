@@ -7,3 +7,4 @@ flask_migrate
 flask_script
 werkzeug
 sqlalchemy_utils
+flask_mail

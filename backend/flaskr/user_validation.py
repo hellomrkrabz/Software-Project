@@ -4,6 +4,7 @@ from flask import Blueprint, g, redirect, request, make_response, session, url_f
 from werkzeug.security import generate_password_hash
 import json
 import re
+from .email_sender import send_mail
 
 bp = Blueprint("user_validation", __name__, url_prefix='/user_validation')
 
