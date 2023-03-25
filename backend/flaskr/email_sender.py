@@ -2,8 +2,23 @@ from . import mail
 from flask_mail import Mail
 from flask_mail import Message
 
-def send_mail(target_email, title, email_body):
+def send_mail_with_msg(target_email, title, msg_body):
     msg = Message(title, recipients = [target_email])
-    msg.body = email_body
+    msg.body = msg_body
     mail.send(msg)
-    return "Email '"+title+"' sent to: '"+target_email+"' "
+    print("Email '"+title+"' sent to: '"+target_email+"'")
+
+def send_mail_with_html(target_email, title, html_body):
+    msg = Message(title, recipients = [target_email])
+    msg.html = html_body
+    mail.send(msg)
+    print("Email '"+title+"' sent to: '"+target_email+"'")
+
+def send_mail_from_html_file(target_email, title, filename):
+    html_file = open('../src/email_htmls/'+filename, 'r')
+    html_string = html_file.read()
+
+    msg = Message(title, recipients = [target_email])
+    msg.html = html_string
+    mail.send(msg)
+    print("Email '"+title+"' sent to: '"+target_email+"'")
