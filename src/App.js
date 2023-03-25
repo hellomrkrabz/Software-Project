@@ -3,6 +3,7 @@ import Router from "react-easy-router";
 import Register from "./sites/Register.jsx";
 import BookInfo from "./sites/BooksInfo.jsx";
 import Login from "./sites/Login.jsx"
+import Profile from "./sites/Profile.jsx";
 
 function App() {
 
@@ -18,6 +19,10 @@ function App() {
     {
       path: '/Login',
       element: <Login />,
+    },
+    {
+      path: '/Profile',
+      element: <Profile />,
     }
   ];
 
