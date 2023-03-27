@@ -1,1 +1,55 @@
+//all of this must be here because "prolog: yes"
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/mixins";
+@import "../../../../node_modules/bootstrap/scss/mixins/buttons";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
+
+//===================================================================================COLORS=================================================================================
+
+$banana-blue: #21C5BB;
+
+$mynewcolor: $banana-blue;
+
+//testing
+$white: #fff;
+
+//=================================================================================THEMES======================================================================================
+
+//custom banana themes
+$banana-theme-colors: (
+    "banana-blue" : $banana-blue
+);
+
+//merging all color themes together
+$theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
+
+
+//=============================================================================================================================================================================
+
+//importing bootstrap, I know... very weird place for it but SASS is stupid piece of shit and other things will not work otherwise XD 
 @import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+//=================================================================================MIXINS=====================================================================================
+
+.btn-banana-primary{
+    @include button-variant(
+        $background: $banana-blue,
+        $border: $banana-blue,
+        $color: $white, 
+        $hover-color: $white
+    );
+
+    border-radius: var(--bs-border-radius-sm) !important;
+
+}
+
+.btn-banana-white-outline{
+    @include button-outline-variant(
+        $color: $white,
+        $color-hover: $white,
+        $active-background: tint-color($banana-blue, $btn-active-bg-shade-amount),
+    );
+    margin: 0.25rem;
+    border-radius: var(--bs-border-radius-sm) !important;
+}

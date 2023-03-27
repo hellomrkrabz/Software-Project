@@ -56,7 +56,7 @@ function Profile() {
                 <Navbar site={"/Profile"}/>
             </div>
 
-            <div className="d-flex flex-column align-items-center">
+            <div className="d-flex flex-column align-items-center justify-content-between">
 
                 {isEditing ? 
                 <>  {/* this is for editing */}
@@ -103,6 +103,7 @@ function Profile() {
                 </>
                 :
                 <>  {/* this is for displaying */}
+                <div>
                     <img src={profilePicture} height="100px" width="100px"/>
                     <div>
                         <TextField disabled  margin='normal' name="username" id="username" type={'text'}
@@ -112,18 +113,19 @@ function Profile() {
                         <TextField disabled  margin='normal' name="email" id="email" type={'email'}
                         variant='outlined' label='Email' value={email}/>
                     </div>
-
-                    <div>
-                        <button onClick={()=>{
-                            setIsEditing(true)
-                            setNewEmail(email)
-                            setNewUserName(userName)
-                            setNewProfilePicture(profilePicture)
-                            setNewPassword("")
-                            setNewPasswordConfirmation("")
-                            setPassword("")
-                            }}>Edit</button>
-                    </div>
+                </div>
+                <div>
+                    <button onClick={()=>{
+                        setIsEditing(true)
+                        setNewEmail(email)
+                        setNewUserName(userName)
+                        setNewProfilePicture(profilePicture)
+                        setNewPassword("")
+                        setNewPasswordConfirmation("")
+                        setPassword("")
+                        }}>Edit</button>
+                </div>
+                
                 </>
                 }
 

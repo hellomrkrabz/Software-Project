@@ -33,13 +33,15 @@ function Login() {
             </div>
 
             <div className="d-flex flex-column align-items-center">
-                <form>
+                <div>Banana :)</div>
+                <div className="fs-1">Login</div>
+                <form className="col-2">
                     <div> <label htmlFor="email">Email:</label> </div>
-                    <div> <TextField margin='normal' name="email" id="email" type={'email'} variant='outlined' placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} ></TextField></div>
+                    <div> <TextField fullWidth margin='normal' name="email" id="email" type={'email'} variant='outlined' placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} ></TextField></div>
                     <div> <label htmlFor="password">Password:</label> </div>
-                    <div> <TextField margin='normal' name="password" id="password" type={'password'} variant='outlined' placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} ></TextField></div>
+                    <div> <TextField fullWidth margin='normal' name="password" id="password" type={'password'} variant='outlined' placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} ></TextField></div>
                 </form>
-                <div> <button id="submit" name="submit" onClick={() => { submit() }}>Submit</button></div>
+                <div className="col-2"> <button id="submit" name="submit" className="btn btn-banana-primary col-12" onClick={() => { submit() }}>Login</button></div>
                 <Popup open={openPopup} position="right center" closeOnDocumentClick onClose={() => { setOpen(false) }}>  <span> Password incorrect, try again :) </span></Popup>
             </div>
         </>
