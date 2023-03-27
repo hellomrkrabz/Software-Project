@@ -29,7 +29,7 @@ b) FRONTEND
 Adding custom styling to bootstrap:
 1. It's best to use VS Code.
 2. Install VS Code plugin called 'Live Sass Compiler'.
-3. Be sure to change default location of compiled css files, on the right: 
+3. Be sure to change default location of compiled css files, on the left: 
     1. Extension, Extension settings (gear icon).
     2. change tab to Workspace.
     3. press 'Edit in settings.json' under 'Live Sass .Compiler>Setting: formats'.
