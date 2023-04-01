@@ -16,6 +16,7 @@ def Register():
 
     email = data['sentEmail']
     password = data['sentPassword']
+    avatar = '/avatars/swinior.jpg'
 
     error = None
 
@@ -30,7 +31,8 @@ def Register():
 
     try:
         user = User(email=email,
-                    password=generate_password_hash(password))
+                    password=generate_password_hash(password),
+                    avatar=avatar)
         db.session.add(user)
         db.session.commit()
         print(f"User sold data to us without knowing:)")
@@ -43,3 +45,39 @@ def Register():
         else:
             print('[ERROR] ::', error)
             return jsonify({"msg": error})
+
+@bp.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+
+    email = data['sentEmail']
+    password = data['sentPassword']
+    print("NICE SUCCESS")
+
+    error = None
+
+    user = User.query.filter_by(email=email).first()
+
+    if user is None:
+        error = 'No such user'
+    elif not user.verify_password(password):
+        error = 'Wrong password'
+
+    if error is None:
+        session.clear()
+        session['user_id'] = user.get_id()
+        print("[INFO]", f"User id: {user.get_id()}")
+
+        resp = jsonify({'user_id': user.get_id(), 'msg': 'logged in'})
+
+        response = make_response(resp)
+        response.headers['Access-Control-Allow-Credentials'] = True
+        return response, 200
+
+    print(f"error: {error}")
+    return jsonify({"msg": error})
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))

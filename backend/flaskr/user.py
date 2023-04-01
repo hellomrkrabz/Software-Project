@@ -7,9 +7,10 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(EmailType, unique=True, index=True)
     password = db.Column(db.String(128))
+    avatar = db.Column(db.String(128))
 
     def verify_password(self, password) -> bool:
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password, password)
 
     def get_id(self):
         return self.id
@@ -22,3 +23,6 @@ class User(db.Model):
 
     def set_password_hash(self, new_password):
         self.password = generate_password_hash(new_password)
+
+    def get_avatar(self):
+        return self.avatar
