@@ -12,39 +12,18 @@ function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [openPopup, setOpenPopup] = useState(false);
-    const [popupMessage, setPopupMessage] = useState("xd");
+    const [popupMessage, setPopupMessage] = useState("");
 
 
-    async function submit() {
+    function submit() {
         axios.post("http://localhost:5000/user_validation/register", {
             sentEmail: email,
             sentPassword: password,
             confirmPassword: confirmPassword
-        }).then(async (response) => {
+        }).then((response) => {
             console.log(response.data.msg);
             setPopupMessage(response.data.msg);
-            /*if (response.data.msg === "WORKING") {
-                console.log("alleluja chwalmy pana");
-                setPopupMessage("alleluja chwalmy pana");
-            } else if (response.data.msg === "No password provided") {
-                console.log("no password");
-                setPopupMessage("no password set");
-            } else if (response.data.msg === "Passwords don\'t match") {
-                console.log("Passwords don\'t match");
-                setPopupMessage("Passwords don\'t match");
-            } else if (reponse.data.msg === "E-mail is already taken") {
-                console.log("email taken");
-                setPopupMessage("email taken");
-            } else if (response.data.msg === "No email provided") {
-                console.log("no mail");
-                setPopupMessage("no mail");
-            } else {
-                console.log("o chuj");
-                setPopupMessage("o chuj");
-            }
-            */
         });
-            
     }
 
     return (

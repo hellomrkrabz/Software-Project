@@ -9,20 +9,16 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [openPopup, setOpen] = useState(false);
+    const [openPopup, setOpenPopup] = useState(false);
+    const [popupMessage, setPopupMessage] = useState("");
 
     function submit() {
         axios.post("http://localhost:5000/user_validation/login", {
             sentEmail: email,
             sentPassword: password
         }).then((response) => {
-            if (response = "OK") {
-                console.log("we happy")
-            }
-            else {
-                console.log("we not happy");
-                setOpen(true);
-            }
+            setPopupMessage(response.data.msg);
+            setOpenPopup(true);
         });
     }
 
@@ -42,7 +38,7 @@ function Login() {
                     <div> <TextField fullWidth margin='normal' name="password" id="password" type={'password'} variant='outlined' placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} ></TextField></div>
                 </form>
                 <div className="col-2"> <button id="submit" name="submit" className="btn btn-banana-primary col-12" onClick={() => { submit() }}>Login</button></div>
-                <Popup open={openPopup} position="right center" closeOnDocumentClick onClose={() => { setOpen(false) }}>  <span> Password incorrect, try again :) </span></Popup>
+                <Popup open={openPopup} position="right center" closeOnDocumentClick onClose={() => { setOpenPopup(false) }}>  <span> { popupMessage }</span></Popup>
             </div>
         </>
     );
