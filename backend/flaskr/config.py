@@ -1,7 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-DATABASE_URL = "postgresql://rwybqwpr:n0S3V5DoHv3s4MK3n2IZIaYU43LS7mCU@mouse.db.elephantsql.com/rwybqwpr"
+DATABASE_URL = "postgresql://sp_project_user:i8wHkmkDzID5HGhfFEfpZIurZX7f6M32@dpg-cgkqb6ceoogkndknfuvg-a.frankfurt-postgres.render.com/sp_project"
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'

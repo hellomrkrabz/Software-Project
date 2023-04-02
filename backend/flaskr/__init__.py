@@ -32,9 +32,11 @@ def create_app(test_config=None):
     from . import user_validation
     app.register_blueprint(user_validation.bp)
 
-    # blueprint responsible for fetching some data from the API
     from . import api
     app.register_blueprint(api.bp)
+
+    from . import profile
+    app.register_blueprint(profile.bp)
 
 
 
