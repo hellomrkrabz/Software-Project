@@ -12,11 +12,13 @@ bp = Blueprint("user_validation", __name__, url_prefix='/user_validation')
 
 regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
+
 @bp.route('/register', methods=['POST'])
 def Register():
     data = request.get_json()
 
     email = data['sentEmail']
+    username = data['sentUsername']
     password = data['sentPassword']
     confirmPassword = data['confirmPassword']
     avatar = '/avatars/swinior.jpg'
@@ -25,6 +27,8 @@ def Register():
 
     if email == '' or not re.fullmatch(regex, email):
         error = 'No email provided'
+    elif username == '':
+        error = 'No username provided'
     elif password == '' or not password:
         error = 'No password provided'
     elif password != confirmPassword:
@@ -41,15 +45,18 @@ def Register():
         db.session.add(user)
         db.session.commit()
         print(f"User sold data to us without knowing:)")
-        send_mail_from_html_file(email, "email confirmation", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke 
+        send_mail_from_html_file(email, "email confirmation", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke
         return jsonify({"msg": "user added to db"})
     except Exception as e:
         error = str(e)
-        if 'psycopg2.errors.UniqueViolation' in error:
+        if '(psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_users_email"' in error:
             error = "E-mail is already taken"
+        elif 'Daily user sending quota exceeded' in error:
+            error = "Internal error"
         else:
             print('[ERROR] ::', error)
         return jsonify({"msg": error})
+
 
 @bp.route('/login', methods=['POST'])
 def login():
