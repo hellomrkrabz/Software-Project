@@ -4,6 +4,7 @@ import Register from "./sites/Register.jsx";
 import BookInfo from "./sites/BooksInfo.jsx";
 import Login from "./sites/Login.jsx"
 import Profile from "./sites/Profile.jsx";
+import ForeignProfile from "./sites/ForeignProfile.jsx";
 
 function App() {
 
@@ -23,6 +24,14 @@ function App() {
     {
       path: '/Profile',
       element: <Profile />,
+    },
+    {
+      path: '/ForeignProfile/:username',
+      element: <ForeignProfile />,
+    },
+    {
+      path: '/ForeignProfile',
+      element: <ForeignProfile />,
     }
   ];
 
