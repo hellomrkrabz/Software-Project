@@ -16,6 +16,7 @@ def Register():
 
     email = data['sentEmail']
     password = data['sentPassword']
+    confirmPassword = data['confirmPassword']
     avatar = '/avatars/swinior.jpg'
 
     error = None
@@ -24,6 +25,8 @@ def Register():
         error = 'No email provided'
     elif password == '' or not password:
         error = 'No password provided'
+    elif password != confirmPassword:
+        error = 'Passwords don\'t match'
 
     if error is not None:
         print(error)
@@ -41,7 +44,7 @@ def Register():
     except Exception as e:
         error = str(e)
         if 'users.email' in error:
-            error = f"E-mail {email} is already taken"
+            error = "E-mail is already taken"
         else:
             print('[ERROR] ::', error)
             return jsonify({"msg": error})
