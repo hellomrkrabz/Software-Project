@@ -4,6 +4,7 @@ import axios from 'axios'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Navbar from "../components/Navbar";
+import popupStyle from "../style/popup_style.css"
 
 function Login() {
 
@@ -29,7 +30,6 @@ function Login() {
             </div>
 
             <div className="d-flex flex-column align-items-center">
-                <div>Banana :)</div>
                 <div className="fs-1">Login</div>
                 <form className="col-2">
                     <div> <label htmlFor="email">Email:</label> </div>
@@ -38,7 +38,7 @@ function Login() {
                     <div> <TextField fullWidth margin='normal' name="password" id="password" type={'password'} variant='outlined' placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} ></TextField></div>
                 </form>
                 <div className="col-2"> <button id="submit" name="submit" className="btn btn-banana-primary col-12" onClick={() => { submit() }}>Login</button></div>
-                <Popup open={openPopup} position="right center" closeOnDocumentClick onClose={() => { setOpenPopup(false) }}>  <span> { popupMessage }</span></Popup>
+                <Popup open={openPopup} position="right center" contentStyle={popupStyle} overlayStyle={popupStyle} arrowStyle={popupStyle} closeOnDocumentClick onClose={() => { setOpenPopup(false) }}>  <span> { popupMessage }</span></Popup>
             </div>
         </>
     );
