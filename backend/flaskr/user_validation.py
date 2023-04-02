@@ -5,6 +5,8 @@ from werkzeug.security import generate_password_hash
 import json
 import re
 from .email_sender import send_mail_with_msg, send_mail_with_html, send_mail_from_html_file
+from psycopg2.errorcodes import UNIQUE_VIOLATION
+from psycopg2 import errors
 
 bp = Blueprint("user_validation", __name__, url_prefix='/user_validation')
 
@@ -40,14 +42,14 @@ def Register():
         db.session.commit()
         print(f"User sold data to us without knowing:)")
         send_mail_from_html_file(email, "email confirmation", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke 
-        return jsonify({"msg": "WORKING"})
+        return jsonify({"msg": "user added to db"})
     except Exception as e:
         error = str(e)
-        if 'users.email' in error:
+        if 'psycopg2.errors.UniqueViolation' in error:
             error = "E-mail is already taken"
         else:
             print('[ERROR] ::', error)
-            return jsonify({"msg": error})
+        return jsonify({"msg": error})
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -55,7 +57,7 @@ def login():
 
     email = data['sentEmail']
     password = data['sentPassword']
-    print("NICE SUCCESS")
+    print("Successfully logged in")
 
     error = None
 
