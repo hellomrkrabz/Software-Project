@@ -73,7 +73,7 @@ def login():
         session['user_id'] = user.get_id()
         print("[INFO]", f"User id: {user.get_id()}")
 
-        resp = jsonify({'user_id': user.get_id(), 'msg': 'logged in'})
+        resp = jsonify({'user_id': user.get_id(), 'msg': 'Logged in'})
 
         response = make_response(resp)
         response.headers['Access-Control-Allow-Credentials'] = True
