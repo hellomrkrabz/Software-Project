@@ -6,6 +6,7 @@ from flask import (
 )
 from . import db
 from .user import User
+import base64
 
 bp = Blueprint("profile", __name__, url_prefix="/profile")
 
@@ -14,6 +15,7 @@ def get_user_data(id):
     user = User.query.filter_by(id=id).first()
     return jsonify({
         'username': user.get_username(),
+        'avatar': user.get_avatar(),
         'email': user.get_email()
     })
 
@@ -25,6 +27,7 @@ def edit_profile():
     password = data['password']
     new_password = data['newPassword']
     new_password_confirmation = data['newPasswordConfirmation']
+    avatar = data['avatar']
     user_id = session.get("user_id") or data['userID']
 
     if user_id is None:
@@ -46,6 +49,12 @@ def edit_profile():
                 user.email = email
             if new_password != '' and new_password == new_password_confirmation:
                 user.set_password_hash(new_password)
+            if avatar != '':
+                decoded_avatar = base64.b64decode(avatar.split(',')[1])
+                path_to_image = f"../public/avatars/{user_id}.png" 
+                with open(path_to_image, "wb") as img:
+                    img.write(decoded_avatar)
+                user.avatar = path_to_image
             db.session.commit()
             print(f"User {user_id} edited succesfully")
             return jsonify({'msg': 'User edited successfully'})
