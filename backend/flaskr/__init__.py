@@ -53,9 +53,9 @@ def create_app(test_config=None):
     #initialize email sender
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
-    app.config['MAIL_DEFAULT_SENDER'] = 'books.project.sp@mail.com'
-    app.config['MAIL_USERNAME'] = 'books.project.sp@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'syjyouavxhpsxuin'
+    app.config['MAIL_DEFAULT_SENDER'] = 'banana.books.exchange@gmail.com'
+    app.config['MAIL_USERNAME'] = 'banana.books.exchange@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'wfvqdpjysvtdfqvt'
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
 

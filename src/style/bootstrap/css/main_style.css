@@ -10940,4 +10940,8 @@ textarea.form-control-lg {
   --bs-gradient: none;
   margin: 0.25rem;
   border-radius: var(--bs-border-radius-sm) !important;
+}
+
+.circle {
+  border-radius: 50%;
 }/*# sourceMappingURL=main_style.css.map */

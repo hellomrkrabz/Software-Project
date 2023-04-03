@@ -36,3 +36,7 @@ Adding custom styling to bootstrap:
     4. "savePath": "src/style/bootstrap/css".
 4. If you open project with sass files you should have button 'Watch Sass' with eye icon.
 5. After pressing it plugin will trigger sass compilation after every sass file save.
+
+Email:
+banana.books.exchange@gmail.com
+SoftwareProject2137

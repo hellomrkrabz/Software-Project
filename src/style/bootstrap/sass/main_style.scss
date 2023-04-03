@@ -50,3 +50,8 @@ $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
     margin: 0.25rem;
     border-radius: var(--bs-border-radius-sm) !important;
 }
+
+//=================================================================================CIRCLE=====================================================================================
+.circle{
+    border-radius :50%;
+}
