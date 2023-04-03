@@ -7025,7 +7025,7 @@ textarea.form-control-lg {
   float: none !important;
 }
 
-.opacity-0 {
+.opacity-0, .book-title {
   opacity: 0 !important;
 }
 
@@ -7041,7 +7041,7 @@ textarea.form-control-lg {
   opacity: 0.75 !important;
 }
 
-.opacity-100 {
+.opacity-100, .book-title:hover {
   opacity: 1 !important;
 }
 
@@ -8061,7 +8061,7 @@ textarea.form-control-lg {
   text-align: right !important;
 }
 
-.text-center {
+.text-center, .book-title {
   text-align: center !important;
 }
 
@@ -8154,7 +8154,7 @@ textarea.form-control-lg {
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-white {
+.text-white, .book-title {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
@@ -8245,7 +8245,7 @@ textarea.form-control-lg {
   background-color: rgba(var(--bs-banana-blue-rgb), var(--bs-bg-opacity)) !important;
 }
 
-.bg-black {
+.bg-black, .book-title {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
 }
@@ -8269,7 +8269,7 @@ textarea.form-control-lg {
   --bs-bg-opacity: 0.1;
 }
 
-.bg-opacity-25 {
+.bg-opacity-25, .book-title {
   --bs-bg-opacity: 0.25;
 }
 
@@ -10944,4 +10944,11 @@ textarea.form-control-lg {
 
 .circle {
   border-radius: 50%;
+}
+
+.book-title {
+  position: absolute;
+  height: 200px;
+  width: 130px;
+  line-height: 200px;
 }/*# sourceMappingURL=main_style.css.map */

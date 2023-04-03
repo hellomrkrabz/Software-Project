@@ -55,3 +55,22 @@ $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
 .circle{
     border-radius :50%;
 }
+
+//=================================================================================BOOK COVER=================================================================================
+.book-title{
+    @extend .bg-black;
+    @extend .bg-opacity-25;
+    @extend .text-center;
+    @extend .opacity-0;
+    @extend .text-white;
+
+    position: absolute;
+    height: 200px;
+    width: 130px;
+    line-height: 200px;
+
+    &:hover {
+        @extend .opacity-100;
+    }  
+}
+  

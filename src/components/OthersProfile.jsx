@@ -21,14 +21,24 @@ function OthersProfile(props) {
                     <div className="row">
                         <p>Wanted books</p>
                         <div className="d-flex justify-content-around col-10">
-                            <div style={{position: "absolute",bottom: "10px",right: "10px",width: "30px",height: "30px",background: "red"}}>
-                                <p style={{background : "white"}}>test</p>
-                                <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div> 
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div>      
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div>  
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
                             </div>
 
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
                         </div>
                         <div className="align-self-center col-2">
                                 <button className="btn btn-banana-blue col-10">See more 1</button>
@@ -38,10 +48,24 @@ function OthersProfile(props) {
                     <div className="row">
                         <p>Offered books</p>
                         <div className="d-flex justify-content-around col-10">
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            <img src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div> 
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div>      
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div>  
+                            <div >
+                                <div className="book-title">test</div>
+                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
+                            </div>
+
                         </div>
                         <div className="align-self-center col-2">
                                 <button className="btn btn-banana-blue col-10">See more 2</button>
