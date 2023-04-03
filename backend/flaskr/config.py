@@ -1,7 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-DATABASE_URL = "postgresql://sp_project_user:i8wHkmkDzID5HGhfFEfpZIurZX7f6M32@dpg-cgkqb6ceoogkndknfuvg-a.frankfurt-postgres.render.com/sp_project"
+DATABASE_URL = "postgres://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books"
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'
