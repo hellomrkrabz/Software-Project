@@ -9,8 +9,10 @@ function Book(props) {
             <Link to={props.link}>
                 <div >
                     <div className="book-title">
-                        {props.title}
-                        {props.author}
+                        <div className="d-flex flex-column justify-content-center h-100">
+                            {props.title}<br/>
+                            {props.author}
+                        </div>
                     </div>
                     {props.src !== undefined &&
                         <img src={props.src} alt="book" height="200"/>

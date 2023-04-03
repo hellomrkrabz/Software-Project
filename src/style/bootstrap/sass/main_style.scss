@@ -59,7 +59,7 @@ $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
 //=================================================================================BOOK COVER=================================================================================
 .book-title{
     @extend .bg-black;
-    @extend .bg-opacity-25;
+    @extend .bg-opacity-50;
     @extend .text-center;
     @extend .opacity-0;
     @extend .text-white;
@@ -67,7 +67,6 @@ $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
     position: absolute;
     height: 200px;
     width: 130px;
-    line-height: 200px;
 
     &:hover {
         @extend .opacity-100;

@@ -8269,11 +8269,11 @@ textarea.form-control-lg {
   --bs-bg-opacity: 0.1;
 }
 
-.bg-opacity-25, .book-title {
+.bg-opacity-25 {
   --bs-bg-opacity: 0.25;
 }
 
-.bg-opacity-50 {
+.bg-opacity-50, .book-title {
   --bs-bg-opacity: 0.5;
 }
 
@@ -10950,5 +10950,4 @@ textarea.form-control-lg {
   position: absolute;
   height: 200px;
   width: 130px;
-  line-height: 200px;
 }/*# sourceMappingURL=main_style.css.map */
