@@ -46,7 +46,7 @@ def Register():
         db.session.commit()
         print(f"User sold data to us without knowing:)")
         send_mail_from_html_file(email, "email confirmation", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke
-        return jsonify({"msg": "user added to db"})
+        return jsonify({"msg": "Successfully registered. Check your email and activate your account! :)"})
     except Exception as e:
         error = str(e)
         if '(psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_users_email"' in error:
