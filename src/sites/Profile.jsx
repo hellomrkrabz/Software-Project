@@ -28,7 +28,7 @@ function Profile(props) {
     return (
         <>
             <div>
-                <Navbar site={"/Profile"}/>
+                <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing}/>
             </div>
 
             <div className="d-flex flex-column align-items-center justify-content-between">

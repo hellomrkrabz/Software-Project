@@ -9,7 +9,7 @@ function Navbar(props) {
     <nav className="navbar navbar-expand-lg bg-banana-blue">
         <div className="container-fluid">
             <a className="navbar-brand btn" href="/">
-                Softwaree Project
+                Banana Books
                 <img src={banana} alt="Logo" width="30" height="24" className="d-inline-block align-text-top" />
             </a>
 
@@ -24,6 +24,22 @@ function Navbar(props) {
                 <>
                     <a className="btn btn-banana-white-outline" href="/Login">Login</a>
                     <a className="btn btn-banana-white-outline" href="/Register">Sign Up</a>
+                </>
+            }
+            {props.site == "/ForeignProfile" && 
+                <>
+                    <a className="btn btn-banana-white-outline" href="/Profile">My Profile</a>
+                    <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
+                </>
+            }
+            {props.site == "/Profile" && 
+                <>
+                    {props.isEditing ? 
+                        <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(false)}>Profile</a>
+                    :
+                        <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(true)}>Edit Profile</a>
+                    }
+                    <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
                 </>
             }
             </div>

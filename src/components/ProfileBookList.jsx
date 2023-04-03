@@ -13,6 +13,7 @@ function ProfileBookList(props) {
                 <Book {...book}></Book>
                 <Book {...book}></Book>
                 <Book {...book}></Book>
+                <Book {...book}></Book>
             </div>
 
             <div className="align-self-center col-2">
