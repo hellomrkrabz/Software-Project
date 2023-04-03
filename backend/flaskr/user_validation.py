@@ -47,7 +47,7 @@ def Register():
         db.session.commit()
         print(f"User sold data to us without knowing:)")
         # we have to somehow add the link http://localhost:3000/AccountVerification/verificationHash to the sent email, idk how //kuba
-        send_mail_from_html_file(email, "email confirmation", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke
+        send_mail_from_html_file(email, "Banana books account verification", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke
         return jsonify({"msg": "Successfully registered. Check your email and activate your account! :)"})
     except Exception as e:
         error = str(e)
