@@ -41,10 +41,12 @@ def Register():
     try:
         user = User(email=email,
                     password=generate_password_hash(password),
+                    verificationHash = generate_password_hash(email),
                     avatar=avatar)
         db.session.add(user)
         db.session.commit()
         print(f"User sold data to us without knowing:)")
+        # we have to somehow add the link http://localhost:3000/AccountVerification/verificationHash to the sent email, idk how //kuba
         send_mail_from_html_file(email, "email confirmation", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke
         return jsonify({"msg": "Successfully registered. Check your email and activate your account! :)"})
     except Exception as e:
@@ -72,6 +74,8 @@ def login():
 
     if user is None:
         error = 'No such user'
+    elif not user.get_verified:
+        error = 'Account is not verified. Check your email and try again later'
     elif not user.verify_password(password):
         error = 'Wrong password'
 

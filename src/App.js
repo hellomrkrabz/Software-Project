@@ -5,6 +5,7 @@ import BookInfo from "./sites/BooksInfo.jsx";
 import Login from "./sites/Login.jsx"
 import Profile from "./sites/Profile.jsx";
 import ForeignProfile from "./sites/ForeignProfile.jsx";
+import AccountVerification from "./sites/AccountVerification.jsx";
 
 function App() {
 
@@ -30,9 +31,14 @@ function App() {
       element: <ForeignProfile />,
     },
     {
+        path: '/AccountVerification/:generatedstring',
+        element: <AccountVerification />,
+    },
+    {
       path: '/ForeignProfile',
       element: <ForeignProfile />,
     }
+
   ];
 
   return(

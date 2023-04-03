@@ -9,6 +9,8 @@ class User(db.Model):
     password = db.Column(db.String(128))
     avatar = db.Column(db.String(128))
     username = db.Column(db.String(20))
+    verifiedAccount = db.Column(db.Boolean, default=False)
+    verificationHash = db.Column(db.String(128))
     key = db.Column(db.String(128))
 
     def verify_password(self, password) -> bool:
@@ -28,6 +30,9 @@ class User(db.Model):
 
     def get_avatar(self):
         return self.avatar
+
+    def get_verified(self):
+        return self.verifiedAccount
 
     def get_username(self):
         return self.username
