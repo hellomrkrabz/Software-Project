@@ -1,4 +1,7 @@
 import React, { useEffect, useState, Component } from "react";
+import ProfileBookList from "./ProfileBookList";
+import ProfileOpinionsList from "./ProfileOpinionsList";
+import ScoreComponnent from "./ScoreComponent";
 
 function OthersProfile(props) {
 
@@ -11,99 +14,24 @@ function OthersProfile(props) {
                         <img className="circle col-12"src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/01/14/12/monkey-bananav3.jpg?width=1200" height="300px"alt="monke"/> 
                     </div>
                     <div>userName</div>
-                    <div>stars ★☆☆☆☆</div>
+                    <div>
+                        stars
+                        <ScoreComponnent score={3}></ScoreComponnent>
+                    </div>
                     <div>&#128205;where</div>
                     <div>bio</div>
                 </div>
                 
                 <div className="col-10 mt-5">
 
-                    <div className="row">
-                        <p>Wanted books</p>
-                        <div className="d-flex justify-content-around col-10">
+                    <ProfileBookList title={"Wanted Books"} moreLink={"/WantedBooks"}></ProfileBookList>
 
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div> 
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div>      
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div>  
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div>
+                    <ProfileBookList title={"Offered Books"} moreLink={"/OfferedBooks"} addLink={"/OfferedBooks"}></ProfileBookList>
 
-                        </div>
-                        <div className="align-self-center col-2">
-                                <button className="btn btn-banana-blue col-10">See more 1</button>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <p>Offered books</p>
-                        <div className="d-flex justify-content-around col-10">
-                            
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div> 
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div>      
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div>  
-                            <div >
-                                <div className="book-title">test</div>
-                                <img className="" src="https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" alt="book" height="200"/>
-                            </div>
-
-                        </div>
-                        <div className="align-self-center col-2">
-                                <button className="btn btn-banana-blue col-10">See more 2</button>
-                        </div>
-                    </div>
-
-                    <div className="mt-5 row">
-                        <div className="d-flex col-10 justify-content-around">
-                            <div className="card text-center col-4">
-                                <div className="card-header">
-                                    User1 ★☆☆☆☆
-                                </div>
-                                <div className="card-body">
-                                opinion1opinion1opinion1opinion1opinion1opinion1opinion1opinion1
-                                opinion1opinion1opinion1opinion1opinion1opinion1opinion1opinion1
-                                opinion1opinion1opinion1opinion1opinion1opinion1opinion1opinion1
-                                opinion1opinion1opinion1opinion1
-                                </div>
-                            </div>
-
-                            <div className="card text-center col-4">
-                                <div className="card-header">
-                                    User2 ★☆☆☆☆
-                                </div>
-                                <div className="card-body">
-                                    opinion2opinion2opinion2opinion2opinion2opinion2opinion2opinion2
-                                    opinion2opinion2opinion2opinion2opinion2opinion2opinion2opinion2
-                                    opinion2opinion2opinion2opinion2opinion2opinion2opinion2opinion2
-                                    opinion2opinion2opinion2opinion2opinion2opinion2opinion2opinion2
-                                    opinion2opinion2opinion2opinion2opinion2opinion2opinion2opinion2
-                                </div>
-                            </div>      
-                        </div>
-
-                        <div className="align-self-center col-2">
-                            <button className="btn btn-banana-blue col-10">See more 3</button>
-                        </div>
-                    </div>
+                    <ProfileOpinionsList 
+                        sender1={"idiot1"} text1={"not gut"} moreLink={"/Opinions"}
+                        sender2={"idiot2"} text2={"it was great 2/10"}>
+                    </ProfileOpinionsList>
                  </div>
             </div>
         </div>
