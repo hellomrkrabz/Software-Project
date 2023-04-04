@@ -56,6 +56,32 @@ $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
     border-radius :50%;
 }
 
+//=================================================================================TEXT SHADOWS===============================================================================
+.text-shadow-light{
+    text-shadow: 0px 3px 4px #858585;
+}
+
+//=================================================================================CUSTOM ANIMATONS===========================================================================
+@keyframes fadeIn {
+    0% {background-color: white; }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes App-logo-spin {
+
+    from {
+  
+      transform: rotate(0deg);
+  
+    }
+  
+    to {
+  
+      transform: rotate(360deg);
+  
+    }
+  
+  }
 //=================================================================================BOOK COVER=================================================================================
 .book-title{
     @extend .bg-black;
@@ -68,8 +94,14 @@ $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
     height: 200px;
     width: 130px;
 
+
     &:hover {
         @extend .opacity-100;
+        animation: fadeIn infinite 1s linear; 
     }  
+}
+
+.fidget-spinner{
+    animation: App-logo-spin infinite 20s linear; 
 }
   

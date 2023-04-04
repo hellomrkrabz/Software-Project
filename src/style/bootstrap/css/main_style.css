@@ -10946,8 +10946,35 @@ textarea.form-control-lg {
   border-radius: 50%;
 }
 
+.text-shadow-light {
+  text-shadow: 0px 3px 4px #858585;
+}
+
+@keyframes fadeIn {
+  0% {
+    background-color: white;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .book-title {
   position: absolute;
   height: 200px;
   width: 130px;
+}
+.book-title:hover {
+  animation: fadeIn infinite 1s linear;
+}
+
+.fidget-spinner {
+  animation: App-logo-spin infinite 20s linear;
 }/*# sourceMappingURL=main_style.css.map */

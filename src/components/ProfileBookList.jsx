@@ -19,11 +19,11 @@ function ProfileBookList(props) {
             <div className="align-self-center col-2">
                     {props.addLink !== undefined &&
                         <Link to={props.addLink}>
-                            <button className="btn btn-banana-blue col-10">Add new</button>
+                            <button className="btn btn-banana-primary col-10">Add new</button>
                         </Link>
                     }
                     <Link to={props.moreLink}>
-                        <button className="btn btn-banana-blue col-10 mt-2">See more 1</button>
+                        <button className="btn btn-banana-primary col-10 mt-2">See more 1</button>
                     </Link>
             </div>
         </div>

@@ -8,7 +8,7 @@ function Navbar(props) {
   return (
     <nav className="navbar navbar-expand-lg bg-banana-blue">
         <div className="container-fluid">
-            <a className="navbar-brand btn" href="/">
+            <a className="navbar-brand btn fidget-spinner" href="/">
                 Banana Books
                 <img src={banana} alt="Logo" width="30" height="24" className="d-inline-block align-text-top" />
             </a>

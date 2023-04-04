@@ -29,7 +29,7 @@ function ForeignProfile(props) {
                 <Navbar site={"/ForeignProfile"}/>
             </div>
 
-            <div className="d-flex flex-column align-items-center justify-content-between">
+            <div className="flex-grow-1 d-flex">
                 <OthersProfile {...props}></OthersProfile>
             </div>
         </>
