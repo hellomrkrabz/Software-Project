@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash
 import json
 import re
 from .email_sender import send_mail_with_msg, send_mail_with_html, send_mail_from_html_file
+from .html_proccesors import html_attr_inputter,attr_input_args
 from psycopg2.errorcodes import UNIQUE_VIOLATION
 from psycopg2 import errors
 
@@ -46,8 +47,12 @@ def Register():
         db.session.add(user)
         db.session.commit()
         print(f"User sold data to us without knowing:)")
-        # we have to somehow add the link http://localhost:3000/AccountVerification/verificationHash to the sent email, idk how //kuba
-        send_mail_from_html_file(email, "Banana books account verification", "email_confirmation.html") #FIXME: email_confirmation.html is just placeholder with image of monke
+
+        inputter_args = attr_input_args("a",0,"href","insert url here!")#FIXME @Kuba I have no idea where is the link... You have told me but I forgor XD
+        url_inputter = html_attr_inputter(inputter_args)
+
+        send_mail_from_html_file(email, "Banana books account verification", "email_confirmation.html",url_inputter) 
+        
         return jsonify({"msg": "Successfully registered. Check your email and activate your account! :)"})
     except Exception as e:
         error = str(e)
