@@ -25,6 +25,7 @@ function Register() {
             confirmPassword: confirmPassword
         }).then((response) => {
             console.log(response.data.msg);
+            setOpenPopup(!openPopup);
             setPopupMessage(response.data.msg);
         });
     }
@@ -47,7 +48,7 @@ function Register() {
                     <div> <label htmlFor="confirmPassword">Confirm password:</label> </div>
                     <div> <TextField margin='normal' name="confirmPassword" id="confirmPassword" type={'password'} variant='outlined' placeholder='Confirm password' onChange={(e) => { setConfirmPassword(e.target.value) }} ></TextField></div>
                 </form>
-                <div> <button onClick={() => { setOpenPopup(!openPopup); submit() }} id="submit" name="submit">Submit</button> </div>
+                <div> <button onClick={() => { submit() }} id="submit" name="submit">Submit</button> </div>
                 <Popup open={openPopup} position="right center" contentStyle={popupStyle} overlayStyle={popupStyle} arrowStyle={popupStyle} closeOnDocumentClick onClose={() => { setOpenPopup(false) } }>  <span> { popupMessage } </span></Popup>
             </div>
         </>

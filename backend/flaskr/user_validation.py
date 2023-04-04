@@ -74,7 +74,7 @@ def login():
 
     if user is None:
         error = 'No such user'
-    elif not user.get_verified:
+    elif not user.get_verified():
         error = 'Account is not verified. Check your email and try again later'
     elif not user.verify_password(password):
         error = 'Wrong password'
