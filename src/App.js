@@ -4,7 +4,6 @@ import Register from "./sites/Register.jsx";
 import BookInfo from "./sites/BooksInfo.jsx";
 import Login from "./sites/Login.jsx"
 import Profile from "./sites/Profile.jsx";
-import ForeignProfile from "./sites/ForeignProfile.jsx";
 import AccountVerification from "./sites/AccountVerification.jsx";
 
 function App() {
@@ -23,20 +22,20 @@ function App() {
       element: <Login />,
     },
     {
+      path: '/Profile/:username',
+      element: <Profile />,
+    },
+    {
       path: '/Profile',
       element: <Profile />,
     },
     {
-      path: '/ForeignProfile/:username',
-      element: <ForeignProfile />,
+      path: '/Profile/',
+      element: <Profile />,
     },
     {
         path: '/AccountVerification/:generatedstring',
         element: <AccountVerification />,
-    },
-    {
-      path: '/ForeignProfile',
-      element: <ForeignProfile />,
     }
 
   ];

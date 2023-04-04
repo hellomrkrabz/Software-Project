@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
-import { v4 } from 'uuid';
 import Navbar from './../components/Navbar'
-import banana from "./../media/banana.png"
-import TextField from "@mui/material/TextField"
 import MyProfile from "../components/MyProfile";
 import OthersProfile from "../components/OthersProfile";
 import EditProfile from "../components/EditProfile";
 
+function getUserNameFromLink()
+{
+    const pathParts = window.location.pathname.split('/')
+    return pathParts.pop()
+}
 
 function Profile(props) {
 
+    const user = {username: "zenek"}
+
     const [isEditing, setIsEditing] = useState(!true)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+
     var params = {name : "test name"}
 
     useEffect(() => {
@@ -22,6 +28,13 @@ function Profile(props) {
             setProfilePicture(response.avatar)
         });*/
 
+        
+
+        if(getUserNameFromLink()===user.username)
+        {
+            setIsLoggedIn(true)
+        }
+
     }, []);
 
 
@@ -31,9 +44,10 @@ function Profile(props) {
                 <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing}/>
             </div>
 
-            <div className="d-flex flex-column align-items-center justify-content-between">
+            <div className="d-flex flex-grow-1">
                 {
-                    isEditing ? 
+                    isLoggedIn ?
+                        isEditing ? 
                         <>{/* edition */}
                             <EditProfile {...params}></EditProfile>
                         </>
@@ -41,6 +55,8 @@ function Profile(props) {
                         <>{/* displying */}
                             <MyProfile {...params}></MyProfile>
                         </>
+                    :
+                    <OthersProfile></OthersProfile>
                 }
             </div>
         </>
