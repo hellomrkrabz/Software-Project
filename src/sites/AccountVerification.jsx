@@ -6,15 +6,13 @@ import Navbar from './../components/Navbar'
 function AccountVerification() {
 
     const [verification, setVerification] = useState(false)
-    const [verificationString, setVerificationString] = useState("")
-
 
     useEffect(() => {
         const pathParts = window.location.pathname.split('/')
-        setVerificationString(pathParts.pop())
-        axios.post("http://localhost:5000/account_verification", {
-            sentVerificationString: verificationString
+        axios.post("http://localhost:5000/user_validation/account_verification", {
+            sentVerificationString: pathParts.pop()
         }).then((response) => {
+            console.log(response)
             if (response.data.msg == "true") {
                 setVerification(true)
             }

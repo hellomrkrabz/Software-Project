@@ -48,7 +48,7 @@ def Register():
         db.session.commit()
         print(f"User sold data to us without knowing:)")
 
-        inputter_args = attr_input_args("a",0,"href","insert url here!")#FIXME @Kuba I have no idea where is the link... You have told me but I forgor XD
+        inputter_args = attr_input_args("a",0,"href","http://localhost:3000/AccountVerification/"+user.verificationHash)#FORGOR
         url_inputter = html_attr_inputter(inputter_args)
 
         send_mail_from_html_file(email, "Banana books account verification", "email_confirmation.html",url_inputter) 

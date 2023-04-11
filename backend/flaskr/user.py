@@ -39,3 +39,6 @@ class User(db.Model):
 
     def key(self):
         return self.key
+    
+    def get_verification_hash(self):
+        return self.verificationHash

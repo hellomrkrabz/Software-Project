@@ -12,13 +12,10 @@ function getUserNameFromLink()
 
 function Profile(props) {
 
-    const user = {username: "zenek"}
+    const user = {username:"Zenek", rating:3, bio:"Fajen te banenen",adress:"South Park", src:"https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/01/14/12/monkey-bananav3.jpg?width=1200"}
 
     const [isEditing, setIsEditing] = useState(!true)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-
-    var params = {name : "test name"}
 
     useEffect(() => {
         /*
@@ -49,14 +46,14 @@ function Profile(props) {
                     isLoggedIn ?
                         isEditing ? 
                         <>{/* edition */}
-                            <EditProfile {...params}></EditProfile>
+                            <EditProfile {...user}></EditProfile>
                         </>
                         :
                         <>{/* displying */}
-                            <MyProfile {...params}></MyProfile>
+                            <MyProfile {...user}></MyProfile>
                         </>
                     :
-                    <OthersProfile></OthersProfile>
+                    <OthersProfile {...user}></OthersProfile>
                 }
             </div>
         </>

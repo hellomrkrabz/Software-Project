@@ -8,7 +8,7 @@ function myProfile(props) {
             my profile
         </div>
         <div>
-            {props.name}
+            {props.username}
         </div>
     </>
   );
