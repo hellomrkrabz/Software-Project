@@ -11,15 +11,14 @@ function OthersProfile(props) {
     <>
         <div className="container-fluid flex-grow-1 d-flex">
             <div className="row flex-grow-1">
-                <div className="col-2 bg-banana-blue bg-opacity-25">
+                <div className="col-3 bg-banana-blue bg-opacity-25">
                     <ProfileInfoComponent {...props}></ProfileInfoComponent>
                 </div>
                 
-                <div className="col-10 mt-5">
+                <div className="col-9 mt-5">
 
                     <ProfileBookList title={"Wanted Books"} moreLink={"/WantedBooks"}></ProfileBookList>
-
-                    <ProfileBookList title={"Offered Books"} moreLink={"/OfferedBooks"} addLink={"/OfferedBooks"}></ProfileBookList>
+                    <ProfileBookList title={"Offered Books"} moreLink={"/OfferedBooks"}></ProfileBookList>
 
                     <ProfileOpinionsList 
                         sender1={"JustAnormalUser"} text1={"not gut"} moreLink={"/Opinions"}
