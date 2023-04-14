@@ -54,7 +54,7 @@ def get_user_by_id(id):
             'username': user.get_username(),
             'password': user.get_password(),
             'avatar': user.get_avatar(),
-            'key': u.get_key()
+            'key': user.get_key()
         }
     else:
         user_json = {
@@ -73,7 +73,7 @@ def get_user_by_username(username):
             'username': user.get_username(),
             'password': user.get_password(),
             'avatar': user.get_avatar(),
-            'key': u.get_key()
+            'key': user.get_key()
         }
     else:
         user_json = {

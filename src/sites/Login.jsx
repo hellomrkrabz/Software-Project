@@ -20,6 +20,7 @@ function Login() {
             sentPassword: password
         }).then((response) => {
             setPopupMessage(response.data.msg);
+            console.log(response.data);
             setOpenPopup(true);
         });
     }
