@@ -39,3 +39,38 @@ def get_users():
     }for u in users]
 
     return jsonify({'users': users_json})
+
+
+@bp.route('/user/<id>', methods=['GET'])
+def get_user_by_id(id):
+    user = User.query.filter_by(id=id).first()
+    print(user)
+    if user is not None:
+        user_json = {
+            'id': user.get_id(),
+            'email': user.get_email(),
+            'username': user.get_username(),
+            'password': user.get_password()
+        }
+    else:
+        user_json = {
+            'error': 'No such user'
+        }
+    return jsonify({'user': user_json})
+
+@bp.route('/user_info/<username>', methods=['GET'])
+def get_user_by_username(username):
+    user = User.query.filter_by(username=username).first()
+    print(user)
+    if user is not None:
+        user_json = {
+            'id': user.get_id(),
+            'email': user.get_email(),
+            'username': user.get_username(),
+            'password': user.get_password()
+        }
+    else:
+        user_json = {
+            'error': 'No such user'
+        }
+    return jsonify({'user': user_json})
