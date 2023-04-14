@@ -35,6 +35,7 @@ def get_users():
     users_json = [{
         'id': u.get_id(),
         'email': u.get_email(),
+        'username': u.get_username(),
         'password': u.get_password(),
         'key': u.get_key()
     }for u in users]
