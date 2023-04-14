@@ -8,6 +8,7 @@ from .email_sender import send_mail_with_msg, send_mail_with_html, send_mail_fro
 from .html_proccesors import html_attr_inputter,attr_input_args
 from psycopg2.errorcodes import UNIQUE_VIOLATION
 from psycopg2 import errors
+import secrets
 
 bp = Blueprint("user_validation", __name__, url_prefix='/user_validation')
 
@@ -23,6 +24,7 @@ def Register():
     password = data['sentPassword']
     confirmPassword = data['confirmPassword']
     avatar = '/avatars/swinior.jpg'
+    key = 'null'
 
     error = None
 
@@ -43,7 +45,9 @@ def Register():
         user = User(email=email,
                     password=generate_password_hash(password),
                     verificationHash = generate_password_hash(email),
-                    avatar=avatar)
+                    avatar=avatar,
+                    username=username,
+                    key=key)
         db.session.add(user)
         db.session.commit()
         print(f"User sold data to us without knowing:)")
@@ -71,6 +75,7 @@ def login():
 
     email = data['sentEmail']
     password = data['sentPassword']
+    key = secrets.token_urlsafe(20)
     print("Successfully logged in")
 
     error = None
@@ -87,6 +92,8 @@ def login():
     if error is None:
         session.clear()
         session['user_id'] = user.get_id()
+        user.key = key
+        db.session.commit()
         print("[INFO]", f"User id: {user.get_id()}")
 
         resp = jsonify({'user_id': user.get_id(), 'msg': 'Logged in'})
@@ -100,5 +107,10 @@ def login():
 
 @bp.route('/logout')
 def logout():
+    data = request.get_json()
+    email = data['sentEmail']
+    user = User.query.filter_by(email=email).first()
+    user.key = 'null'
+    db.session.commit()
     session.clear()
     return redirect(url_for('home'))
