@@ -21,7 +21,7 @@ export default function ComposedTextField(props) {
     >
       <FormControl fullWidth variant="filled">
         <InputLabel>{props.label}</InputLabel>
-        <FilledInput fullWidth type={props.type} onChange={props.onChange} disableUnderline={true} sx={{ backgroundColor: 'none', border: 1, borderColor: 'gray', borderRadius: 2,}}/>
+        <FilledInput fullWidth type={props.type} onChange={props.onChange} disableUnderline={true} sx={{ backgroundColor: 'transparent', border: 1, borderColor: 'gray', borderRadius: 2,}}/>
       </FormControl>
     </Box>
   );

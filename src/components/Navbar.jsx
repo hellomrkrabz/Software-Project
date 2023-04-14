@@ -15,7 +15,7 @@ function Navbar(props) {
 
             <div className="d-flex flex-end">
             {props.site == "Register" && 
-                <a className="btn btn-outline-banana-blue" href="/Login">Login</a>
+                <a className="btn btn-banana-white-outline" href="/Login">Login</a>
             }
             {props.site == "Login" && 
                 <a className="btn btn-banana-white-outline" href="/Register">Sign Up</a>
