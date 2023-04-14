@@ -23,9 +23,11 @@ function changePassword()
 function apply()
 {
     axios.post("http://localhost:5000/profile/edit_profile", {
-        "password":password.value,
-        "newPassword":newPassword.value,
-        "confirmPassword":confirmPassword.value
+        "username":username,
+        "address":address,
+        "bio":bio,
+        "contact":contact,
+        "avatar":avatar
     }).then((response) => { if (response = "OK") { console.log("we happy") } else { console.log("we not happy") } });
 }
 
@@ -74,18 +76,21 @@ function EditProfile(props) {
                     id="username"
                     label="Username"
                     value={username}
+                    onChange={()=>setUsername(e.target.value)}
                 />
 
                 <TextField
                     id="address"
                     label="Address"
                     value={address}
+                    onChange={()=>setAddress(e.target.value)}
                 />
 
                 <TextField
                     id="contact"
                     label="Contact"
                     value={contact}
+                    onChange={()=>setContact(e.target.value)}
                 />
             </div>
             <div>
@@ -96,6 +101,7 @@ function EditProfile(props) {
                     rows={6}
                     fullWidth
                     value={bio}
+                    onChange={()=>setBio(e.target.value)}
                 />
             </div>
             <div className="d-flex justify-content-center mt-2">
