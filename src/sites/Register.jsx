@@ -6,6 +6,7 @@ import 'reactjs-popup/dist/index.css';
 import Navbar from "../components/Navbar";
 import popupStyle from "../style/popup_style.css"
 import BetterTextField from "../components/BetterTextField";
+import Logo from "../components/Logo";
 
 
 
@@ -40,7 +41,8 @@ function Register() {
 
             <div className="d-flex flex-column align-items-center">
                 <div className="col-2">
-                        <div className="fs-1 text-center">Sing Up</div>
+                        <Logo></Logo>
+                        <div className="fs-1 text-center mb-4">Sing Up</div>
                         <div><BetterTextField label={"Email"} type={'email'} onChange={(e) => { setEmail(e.target.value) }} ></BetterTextField></div>
                         <div><BetterTextField label={"Username"} type={'text'} onChange={(e) => { setUsername(e.target.value) }} ></BetterTextField></div>
                         <div><BetterTextField label={"Password"} type={'password'} onChange={(e) => { setPassword(e.target.value) }} ></BetterTextField></div>

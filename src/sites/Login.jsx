@@ -6,6 +6,7 @@ import 'reactjs-popup/dist/index.css';
 import Navbar from "../components/Navbar";
 import popupStyle from "../style/popup_style.css"
 import BetterTextField from "../components/BetterTextField";
+import Logo from "../components/Logo";
 
 function Login() {
 
@@ -38,7 +39,8 @@ function Login() {
             </div>
 
             <div className="d-flex flex-column align-items-center">
-                <div className="fs-1">Login</div>
+                <Logo></Logo>
+                <div className="fs-1 mb-4">Login</div>
                 <div className="col-2">
                     <div><BetterTextField label={"Email"} type={'email'} onChange={(e) => { setEmail(e.target.value) }} ></BetterTextField></div>
                     <div><BetterTextField label={"Password"} type={'password'} onChange={(e) => { setPassword(e.target.value) }} ></BetterTextField></div>
