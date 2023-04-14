@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Navbar from './../components/Navbar'
-import MyProfile from "../components/MyProfile";
-import OthersProfile from "../components/OthersProfile";
+import Navbar from "./../components/Navbar"
+import ProfileComponent from "../components/ProfileComponent";
 import EditProfile from "../components/EditProfile";
+import axios from "axios"
 
 function getUserNameFromLink()
 {
@@ -12,33 +12,30 @@ function getUserNameFromLink()
 
 function Profile(props) {
 
-    const user = {username:"Zenek", rating:3, bio:"Fajen te banenen",adress:"South Park", src:"https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/01/14/12/monkey-bananav3.jpg?width=1200"}
 
-    const [isEditing, setIsEditing] = useState(!true)
+    const [isEditing, setIsEditing] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [user, setUser] = useState({username:"", rating:0, bio:"",adress:"", src:""})
+
+    var sessionUserUsername = sessionStorage.getItem("sessionUserUsername")
+    var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 
     useEffect(() => {
-        /*
-        axios.get("http://localhost:5000/api/user_info/"+userId).then((response) => {
-            setEmail(response.email)
-            setUserName(response.userName)
-            setProfilePicture(response.avatar)
-        });*/
-
         
-
-        if(getUserNameFromLink()===user.username)
-        {
-            setIsLoggedIn(true)
-        }
-
+        axios.get("http://localhost:5000/api/user_info/" + getUserNameFromLink()).then((response) => {
+            setUser(response.data.user)
+            if(sessionUserUsername===response.data.user.username)
+            {
+                setIsLoggedIn(true)
+            }
+        });
     }, []);
 
 
     return (
         <>
             <div>
-                <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing}/>
+                <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing} isLoggedIn={isLoggedIn}/>
             </div>
 
             <div className="d-flex flex-grow-1">
@@ -50,10 +47,10 @@ function Profile(props) {
                         </>
                         :
                         <>{/* displying */}
-                            <MyProfile {...user}></MyProfile>
+                            <ProfileComponent isLoggedIn={isLoggedIn} {...user}></ProfileComponent>
                         </>
                     :
-                    <OthersProfile {...user}></OthersProfile>
+                    <ProfileComponent isLoggedIn={isLoggedIn} {...user}></ProfileComponent>
                 }
             </div>
         </>

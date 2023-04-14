@@ -21,6 +21,13 @@ function Login() {
         }).then((response) => {
             setPopupMessage(response.data.msg);
             setOpenPopup(true);
+            console.log(response.data)
+            if(response.data.msg==="Logged in")
+            {
+                sessionStorage.setItem("sessionUserUsername", response.data.username);
+                sessionStorage.setItem("sessionUserKey", response.data.key);
+                window.location.replace("/Profile/"+response.data.username)
+            }
         });
     }
 

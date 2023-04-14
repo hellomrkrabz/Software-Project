@@ -105,12 +105,13 @@ def login():
     print(f"error: {error}")
     return jsonify({"msg": error})
 
-@bp.route('/logout')
+@bp.route('/logout', methods=['POST'])
 def logout():
     data = request.get_json()
-    email = data['sentEmail']
-    user = User.query.filter_by(email=email).first()
+    key = data['key']
+    user = User.query.filter_by(key=key).first()
     user.key = 'null'
     db.session.commit()
     session.clear()
-    return redirect(url_for('home'))
+    return True
+    #return redirect("http://www.google.com")

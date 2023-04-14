@@ -3,7 +3,7 @@ import ProfileBookList from "./ProfileBookList";
 import ProfileOpinionsList from "./ProfileOpinionsList";
 import ProfileInfoComponent from "./ProfileInfoComponent";
 
-function myProfile(props) {
+function ProfileComponent(props) {
 
   return (
     <>
@@ -15,11 +15,14 @@ function myProfile(props) {
                 
                 <div className="col-9 mt-5">
 
-                    <ProfileBookList title={"Wanted Books"} moreLink={"/WantedBooks"} addLink={"/AddWanted"}></ProfileBookList>
-                    <ProfileBookList title={"Offered Books"} moreLink={"/OfferedBooks"} addLink={"/AddOffered"}></ProfileBookList>
-                    <ProfileBookList title={"Personal Library"} moreLink={"/Library"} addLink={"/AddBook"}></ProfileBookList>
+                    <ProfileBookList title={"Wanted Books"} moreLink={"/WantedBooks"} addLink={"/AddWanted"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                    <ProfileBookList title={"Offered Books"} moreLink={"/OfferedBooks"} addLink={"/AddOffered"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                    {props.isLoggedIn &&
+                        <ProfileBookList title={"Personal Library"} moreLink={"/Library"} addLink={"/AddBook"}></ProfileBookList>
+                    }
+                    
 
-                    <ProfileOpinionsList 
+                    <ProfileOpinionsList
                         sender1={"JustAnormalUser"} text1={"not gut"} moreLink={"/Opinions"}
                         sender2={"AdiffrentUser"} text2={"it was great 2/10"} addLink={"/AddOpinion"}>
                     </ProfileOpinionsList>
@@ -30,4 +33,4 @@ function myProfile(props) {
   );
 }
 
-export default myProfile;
+export default ProfileComponent;

@@ -34,10 +34,13 @@ function Navbar(props) {
             }
             {props.site == "/Profile" && 
                 <>
-                    {props.isEditing ? 
-                        <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(false)}>Profile</a>
+                    {props.isLoggedIn ?
+                        props.isEditing ? 
+                            <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(false)}>Profile</a>
+                        :
+                            <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(true)}>Edit Profile</a>
                     :
-                        <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(true)}>Edit Profile</a>
+                        <a className="btn btn-banana-white-outline" href="/Profile">My Profile</a>
                     }
                     <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
                 </>
