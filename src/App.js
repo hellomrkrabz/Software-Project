@@ -7,17 +7,18 @@ import Profile from "./sites/Profile.jsx";
 import AccountVerification from "./sites/AccountVerification.jsx";
 import Logout from "./sites/Logout.jsx";
 import { BrowserRouter } from 'react-router-dom';
+import FrontPage from "./sites/FrontPage.jsx";
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 
 function App() {
 
   if(sessionUserKey!==null)
-  {
+  {//logged in
     var routes = [
       {
         path: '/',
-        element: <BookInfo />,
+        element: <FrontPage isLoggedIn={true}/>,
       },
       {
         path: '/Profile/:username',
@@ -33,11 +34,11 @@ function App() {
       },
     ];
   }else
-  {
+  {//not logged in
     var routes = [
       {
         path: '/',
-        element: <BookInfo />,
+        element: <FrontPage isLoggedIn={false}/>,
       },
       {
         path: '/Register',
