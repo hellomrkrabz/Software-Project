@@ -38,7 +38,7 @@ function Profile(props) {
                 <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing} isLoggedIn={isLoggedIn} username={sessionUserUsername}/>
             </div>
 
-            <div className="d-flex flex-grow-1">
+            <div className="d-flex flex-grow-1 justify-content-center">
                 {
                     isLoggedIn ?
                         isEditing ? 
