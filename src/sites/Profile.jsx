@@ -35,7 +35,7 @@ function Profile(props) {
     return (
         <>
             <div>
-                <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing} isLoggedIn={isLoggedIn}/>
+                <Navbar site={"/Profile"} setIsEditing={setIsEditing} isEditing={isEditing} isLoggedIn={isLoggedIn} username={sessionUserUsername}/>
             </div>
 
             <div className="d-flex flex-grow-1">
