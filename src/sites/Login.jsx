@@ -42,8 +42,22 @@ function Login() {
                 <Logo></Logo>
                 <div className="fs-1 mb-4">Login</div>
                 <div className="col-2">
-                    <div><BetterTextField label={"Email"} type={'email'} onChange={(e) => { setEmail(e.target.value) }} ></BetterTextField></div>
-                    <div><BetterTextField label={"Password"} type={'password'} onChange={(e) => { setPassword(e.target.value) }} ></BetterTextField></div>
+                    <div><TextField
+                            id="email"
+                            label="email"
+                            type="email"
+                            fullWidth
+                            onChange={(e) => { setEmail(e.target.value) }}
+                        />
+                    </div>
+                    <div><TextField
+                            id="password"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            onChange={(e) => { setPassword(e.target.value) }}
+                        />
+                    </div>
                 </div>
                 <div className="col-2"> <button id="submit" name="submit" className="btn btn-banana-primary col-12" onClick={() => { submit() }}>Login</button></div>
                 <Popup open={openPopup} position="right center" contentStyle={popupStyle} overlayStyle={popupStyle} arrowStyle={popupStyle} closeOnDocumentClick onClose={() => { setOpenPopup(false) }}>  <span> { popupMessage }</span></Popup>

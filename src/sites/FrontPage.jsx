@@ -61,7 +61,7 @@ function FrontPage(props) {
             :
             <>
                 <div>xd</div>
-                <div>logged</div>   
+                <div>not logged</div>   
             </>
             }
         </>

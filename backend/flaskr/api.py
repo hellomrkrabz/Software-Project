@@ -69,7 +69,6 @@ def get_user_by_id(id):
 @bp.route('/user_info/<username>', methods=['GET'])
 def get_user_by_username(username):
     user = User.query.filter_by(username=username).first()
-    print(user)
     if user is not None:
         user_json = {
             'id': user.get_id(),
