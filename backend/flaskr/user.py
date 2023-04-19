@@ -57,7 +57,7 @@ class User(db.Model):
         return self.avatar
 
     def get_verified(self):
-        return self.verifiedAccount
+        return self.permissions
 
     def get_username(self):
         return self.username
@@ -67,3 +67,6 @@ class User(db.Model):
     
     def get_verification_hash(self):
         return self.verificationHash
+
+    def get_permissions(self):
+        return self.permissions
