@@ -19,7 +19,8 @@ class User(db.Model):
     email = db.Column(EmailType, unique=True, index=True)
     password = db.Column(db.String(128))
     avatar = db.Column(db.String(128))
-    username = db.Column(db.String(20))
+    username = db.Column(db.String(20), unique=True)
+    details = db.Column(db.String(255))
     city = db.Column(db.String(40))
     phone_number = db.Column(db.Integer)
     permissions = db.Column(db.Enum(Permissions))
@@ -70,3 +71,12 @@ class User(db.Model):
 
     def get_permissions(self):
         return self.permissions
+
+    def get_phone_number(self):
+        return self.phone_number
+
+    def get_city(self):
+        return self.city
+
+    def get_details(self):
+        return self.details

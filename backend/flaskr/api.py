@@ -37,7 +37,11 @@ def get_users():
         'email': u.get_email(),
         'username': u.get_username(),
         'password': u.get_password(),
-        'key': u.get_key()
+        'avatar': u.get_avatar(),
+        'key': u.get_key(),
+        'phone_number': u.get_phone_number(),
+        'city': u.get_city(),
+        'details': u.get_details()
     }for u in users]
 
     return jsonify({'users': users_json})
@@ -73,7 +77,10 @@ def get_user_by_username(username):
             'username': user.get_username(),
             'password': user.get_password(),
             'avatar': user.get_avatar(),
-            'key': user.get_key()
+            'key': user.get_key(),
+            'phone_number': user.get_phone_number(),
+            'city': user.get_city(),
+            'details': user.get_details()
         }
     else:
         user_json = {

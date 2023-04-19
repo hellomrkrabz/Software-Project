@@ -122,6 +122,7 @@ function EditProfile(props) {
                     <div className="d-flex justify-content-center mt-2 col-4">
                         <button id="apply" name="apply" className="btn btn-banana-primary col-12" onClick={() => {
                             axios.post("http://localhost:5000/profile/edit_details", {
+                                "email":props.email,
                                 "username":username,
                                 "address":address,
                                 "bio":bio,
@@ -205,6 +206,7 @@ function EditProfile(props) {
                         <div className="mt-2 col-4">
                             <button id="changePassword" name="changePassword" className="btn btn-banana-primary col-12" onClick={() => {
                                 axios.post("http://localhost:5000/profile/edit_password", {
+                                    "email":props.email,
                                     "password":password,
                                     "newPassword":newPassword,
                                     "confirmPassword":confirmPassword

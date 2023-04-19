@@ -17,7 +17,7 @@ function ProfileInfoComponent(props) {
             </div>
         </div>
 
-        <div className="mt-3">&#128205; {props.adress}</div>
+        <div className="mt-3">&#128205; {props.address}</div>
 
         <div className="mt-5 d-flex justify-content-center ms-3 me-3">
             <TextField
