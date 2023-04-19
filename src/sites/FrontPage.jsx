@@ -7,9 +7,14 @@ import pattern from "../media/datapattern.png"
 import jojo from "../media/jojo.png"
 import beer from "../media/beer.png"
 import Textfield from "@mui/material/TextField"
+import Book from "../components/Book";
 
 function FrontPage(props) {
     
+    var book1={title:"Windows 3.1 PL", description:"'MS Windows 3.1 PL' to książka przeznaczona dla szerokiego kręgu odbiorców zainteresowanych", src:win31, link:"/XD"}
+    var book2={title:"Niebezpieczne Ubezpieczenia", description:"'W czasach mody, czy wręcz manii ubezpieczeniowej, książka jest niezwykle cenną odtrutką na", src:korwin}
+    var book3={title:"Feature Selection for Data and Pattern Recognition", description:"This book presents recent developments and research trends in the field' of feature selection for data and pattern recognition, highlighting a number of latest advances", src:pattern}
+    var book4={title:"JOJO’s Bizzare Adventure", description:"A multigenerational tale of the heroic Joestar family and their never-ending battle against evil!", src:jojo}
 
     return (
         <>
@@ -44,37 +49,11 @@ function FrontPage(props) {
                     </div>
 
                     <div className="row">
-                        <div className="col-3">
-                            <img src={win31} />
-                            <p>Windows 3.1 PL</p>
+                        <Book variant="medium" {...book1}></Book>
+                        <Book variant="medium" {...book2}></Book>
+                        <Book variant="medium" {...book3}></Book>
+                        <Book variant="medium" {...book4}></Book>
 
-                            "MS Windows 3.1 PL" to książka przeznaczona dla szerokiego kręgu odbiorców zainteresowanych"<br />
-                            <button>Details</button>
-                        </div>
-
-                        <div className="col-3">
-                            <img src={korwin} />
-                            <p>Niebezpieczne Ubezpieczenia</p>
-
-                            "W czasach mody, czy wręcz manii ubezpieczeniowej, książka jest niezwykle cenną odtrutką na "<br />
-                            <button>Details</button>
-                        </div>
-
-                        <div className="col-3">
-                            <img src={pattern} />
-                            <p> Feature Selection for Data and Pattern Recognition</p>
-
-                            "This book presents recent developments and research trends in the field of feature selection for data and pattern recognition, highlighting a number of latest advances."<br />
-                            <button>Details</button>
-                        </div>
-
-                        <div className="col-3">
-                            <img src={jojo} />
-                            <p>JOJO’s Bizzare Adventure</p>
-
-                            "A multigenerational tale of the heroic Joestar family and their never-ending battle against evil! "<br />
-                            <button>Details</button>
-                        </div>
                     </div>
                     
                 </div> 

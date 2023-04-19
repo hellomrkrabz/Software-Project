@@ -5,26 +5,47 @@ import './../style/bootstrap/css/main_style.css'
 
 function Book(props) {
     return(
-        <div key={props.id} className="d-flex flex-column align-items-center">
-            <Link to={props.link}>
-                <div >
-                    <div className="book-title">
-                        <div className="d-flex flex-column justify-content-center h-100">
-                            {props.title}<br/>
-                            {props.author}
+        <>
+        {props.variant==="small" &&
+        <>
+            <div key={props.id} className="d-flex flex-column align-items-center">
+                <Link to={props.link}>
+                    <div >
+                        <div className="book-title">
+                            <div className="d-flex flex-column justify-content-center h-100">
+                                {props.title}<br/>
+                                {props.author}
+                            </div>
                         </div>
-                    </div>
-                    {props.src !== undefined &&
-                        <img src={props.src} alt="book" height="200"/>
-                    }
+                        {props.src !== undefined &&
+                            <img src={props.src} alt="book" height="200"/>
+                        }
 
-                    {props.src === undefined &&
-                        <img src={banana} alt="book" height="200"/>
-                    }
-                    
-                </div> 
-            </Link>
-        </div>
+                        {props.src === undefined &&
+                            <img src={banana} alt="book" height="200"/>
+                        }
+                        
+                    </div> 
+                </Link>
+            </div>
+        </>
+        }
+
+        {props.variant==="medium" &&
+        <>
+            <div className="col-3">
+                <img src={props.src} />
+                <p>{props.title}</p>
+
+                {props.description}<br />
+
+                <Link to={props.link}>
+                    <button>Details</button>
+                </Link>
+            </div>
+        </>
+        }
+        </>
     );
 }
 
