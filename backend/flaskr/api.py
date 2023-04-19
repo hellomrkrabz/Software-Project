@@ -76,7 +76,7 @@ def get_user_by_username(username):
             'email': user.get_email(),
             'username': user.get_username(),
             'password': user.get_password(),
-            'avatar': user.get_avatar(),
+            'avatar': user.encode_avatar(),
             'key': user.get_key(),
             'phone_number': user.get_phone_number(),
             'city': user.get_city(),

@@ -48,12 +48,12 @@ def edit_details():
                 user.city = address
             if bio != '':
                 user.details = bio
-            #if avatar != '':
-             #   decoded_avatar = base64.b64decode(avatar.split(',')[1])
-              #  path_to_image = f"../public/avatars/{user_id}.png"
-              #  with open(path_to_image, "wb") as img:
-               #     img.write(decoded_avatar)
-                #user.avatar = path_to_image
+            if avatar != '':
+                decoded_avatar = base64.b64decode(avatar.split(',')[1])
+                path_to_image = f"../public/avatars/{user_email}.png"
+                with open(path_to_image, "wb") as img:
+                    img.write(decoded_avatar)
+                user.avatar = path_to_image
             db.session.commit()
             print(f"User {user_email} edited succesfully")
             return jsonify({'msg': 'User edited successfully'})

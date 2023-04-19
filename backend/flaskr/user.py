@@ -2,6 +2,7 @@ from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_utils import EmailType
 import enum
+import base64
 from .room import Room
 from .transaction import Transaction
 from .review import Review
@@ -80,3 +81,8 @@ class User(db.Model):
 
     def get_details(self):
         return self.details
+
+    def encode_avatar(self):
+        with open(self.avatar, "rb") as image_file:
+            encoded_avatar = str(base64.b64encode(image_file.read()))
+        return encoded_avatar
