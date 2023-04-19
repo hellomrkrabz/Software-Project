@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import FrontPage from "./sites/FrontPage.jsx";
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
+var sessionUsername= sessionStorage.getItem("sessionUserUsername")
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
     var routes = [
       {
         path: '/',
-        element: <FrontPage isLoggedIn={true}/>,
+        element: <FrontPage isLoggedIn={true} username={sessionUsername}/>,
       },
       {
         path: '/Profile/:username',

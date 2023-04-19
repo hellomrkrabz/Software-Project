@@ -19,7 +19,7 @@ function FrontPage(props) {
     return (
         <>
             <div>
-                <Navbar site={"/FrontPage"} isLoggedIn={props.isLoggedIn}/>
+                <Navbar site={"/FrontPage"} isLoggedIn={props.isLoggedIn} username={props.username}/>
             </div>
 
             {props.isLoggedIn ? 
