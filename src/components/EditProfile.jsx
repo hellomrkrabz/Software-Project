@@ -22,22 +22,23 @@ function changePassword()
 
 function apply()
 {
+    console.log(props)
     axios.post("http://localhost:5000/profile/edit_profile", {
-        "username":username,
-        "address":address,
-        "bio":bio,
-        "contact":contact,
+        "username":username.value,
+        "address":address.value,
+        "bio":bio.value,
+        "contact":contact.value,
         "avatar":avatar
     }).then((response) => { if (response = "OK") { console.log("we happy") } else { console.log("we not happy") } });
 }
 
 function EditProfile(props) {
 
-    const [username, setUsername] = useState(props.username)
-    const [address, setAddress] = useState(props.address)
-    const [contact, setContact] = useState(props.contact)
-    const [bio, setBio] = useState(props.bio)
-    const [avatar, setAvatar] = useState(props.avatar)
+    const [username, setUsername] = useState(props.username ?? "")
+    const [address, setAddress] = useState(props.address ?? "")
+    const [contact, setContact] = useState(props.contact ?? "")
+    const [bio, setBio] = useState(props.bio ?? "")
+    const [avatar, setAvatar] = useState(props.avatar ?? "")
 
 
     const [password, setPassword] = useState("")
@@ -63,8 +64,8 @@ function EditProfile(props) {
                         </div>
                         <div className="align-self-center col-3">
                             <label className="ms-3 col-12 btn btn-banana-primary" >
-                                <input type="file" className="visually-hidden" accept="image/png, image/gif, image/jpeg" onChange={(e)=>{
-                                    
+                                <input type="file" className="visually-hidden" accept="image/png, image/gif, image/jpeg" 
+                                onChange={(e)=>{
                                     const fileReader = new FileReader()
                                     fileReader.readAsDataURL(e.target.files[0])
                                     fileReader.onload = function(e) {
@@ -84,7 +85,7 @@ function EditProfile(props) {
                             label="Username"
                             fullWidth
                             value={username}
-                            onChange={()=>setUsername(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
                     <div className="col-4">
@@ -93,7 +94,7 @@ function EditProfile(props) {
                             label="Address"
                             fullWidth
                             value={address}
-                            onChange={()=>setAddress(e.target.value)}
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                     </div>
                     <div className="col-4">
@@ -102,7 +103,7 @@ function EditProfile(props) {
                             label="Contact"
                             fullWidth
                             value={contact}
-                            onChange={()=>setContact(e.target.value)}
+                            onChange={(e) => setContact(e.target.value)}
                         />
                     </div>
                 </div>
@@ -114,12 +115,20 @@ function EditProfile(props) {
                         rows={6}
                         fullWidth 
                         value={bio}
-                        onChange={()=>setBio(e.target.value)}
+                        onChange={(e) => setBio(e.target.value)}
                     />
                 </div>
                 <div className="row gx-5 d-flex justify-content-center">
                     <div className="d-flex justify-content-center mt-2 col-4">
-                        <button id="apply" name="apply" className="btn btn-banana-primary col-12" onClick={() => { apply() }}>Apply</button>
+                        <button id="apply" name="apply" className="btn btn-banana-primary col-12" onClick={() => {
+                            axios.post("http://localhost:5000/profile/edit_details", {
+                                "username":username,
+                                "address":address,
+                                "bio":bio,
+                                "contact":contact,
+                                "avatar":avatar
+                            }).then((response) => { if (response = "OK") { console.log("we happy") } else { console.log("we not happy") } });                     
+                        }}>Apply</button>
                     </div>         
                 </div>
                 <div>
@@ -194,7 +203,13 @@ function EditProfile(props) {
                     </div>
                     <div className="row gx-5 d-flex justify-content-center">
                         <div className="mt-2 col-4">
-                            <button id="changePassword" name="changePassword" className="btn btn-banana-primary col-12" onClick={() => { changePassword() }}>Change Password</button>
+                            <button id="changePassword" name="changePassword" className="btn btn-banana-primary col-12" onClick={() => {
+                                axios.post("http://localhost:5000/profile/edit_password", {
+                                    "password":password,
+                                    "newPassword":newPassword,
+                                    "confirmPassword":confirmPassword
+                                }).then((response) => { if (response = "OK") { console.log("we happy") } else { console.log("we not happy") } });
+                            }}>Change Password</button>
                         </div>
                     </div>
                 </div>
