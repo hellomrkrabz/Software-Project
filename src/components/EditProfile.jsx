@@ -35,9 +35,9 @@ function apply()
 function EditProfile(props) {
 
     const [username, setUsername] = useState(props.username ?? "")
-    const [address, setAddress] = useState(props.address ?? "")
-    const [contact, setContact] = useState(props.contact ?? "")
-    const [bio, setBio] = useState(props.bio ?? "")
+    const [address, setAddress] = useState(props.city ?? "")
+    const [contact, setContact] = useState(props.phone_number ?? "")
+    const [bio, setBio] = useState(props.details ?? "")
     const [avatar, setAvatar] = useState(props.avatar ?? "")
 
 
