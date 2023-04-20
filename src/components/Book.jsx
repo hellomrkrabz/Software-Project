@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import banana from "./../media/banana.png"
 import './../style/bootstrap/css/main_style.css'

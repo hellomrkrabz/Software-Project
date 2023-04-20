@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useState } from "react";
 import axios from "axios"
 import TextField from "@mui/material/TextField"
 import OutlinedInput from "@mui/material/OutlinedInput"
@@ -10,27 +10,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 const handleMouseDownPassword = (event) => {
   event.preventDefault();
 };
-
-function changePassword() 
-{
-    axios.post("http://localhost:5000/profile/edit_profile", {
-        "password":password.value,
-        "newPassword":newPassword.value,
-        "confirmPassword":confirmPassword.value
-    }).then((response) => { if (response = "OK") { console.log("we happy") } else { console.log("we not happy") } });
-}
-
-function apply()
-{
-    console.log(props)
-    axios.post("http://localhost:5000/profile/edit_profile", {
-        "username":username.value,
-        "address":address.value,
-        "bio":bio.value,
-        "contact":contact.value,
-        "avatar":avatar
-    }).then((response) => { if (response = "OK") { console.log("we happy") } else { console.log("we not happy") } });
-}
 
 function EditProfile(props) {
 

@@ -4,8 +4,6 @@ import TextField from "@mui/material/TextField"
 
 function ProfileInfoComponent(props) {
 
-    console.log(props)
-
   return (
     <>
         <div>

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField"
 import axios from 'axios'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Navbar from "../components/Navbar";
 import popupStyle from "../style/popup_style.css"
-import BetterTextField from "../components/BetterTextField";
 import Logo from "../components/Logo";
 
 function Login() {
