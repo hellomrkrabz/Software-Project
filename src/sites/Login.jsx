@@ -40,7 +40,7 @@ function Login() {
             <div className="d-flex flex-column align-items-center">
                 <Logo></Logo>
                 <div className="fs-1 mb-4">Login</div>
-                <div className="col-2">
+                <div className="col-2 row gy-2">
                     <div><TextField
                             id="email"
                             label="email"
@@ -57,9 +57,11 @@ function Login() {
                             onChange={(e) => { setPassword(e.target.value) }}
                         />
                     </div>
+                    <div>
+                         <button id="submit" name="submit" className="btn btn-banana-primary col-12" onClick={() => { submit() }}>Login</button>
+                    </div>
+                    <Popup open={openPopup} position="right center" contentStyle={popupStyle} overlayStyle={popupStyle} arrowStyle={popupStyle} closeOnDocumentClick onClose={() => { setOpenPopup(false) }}>  <span> { popupMessage }</span></Popup>
                 </div>
-                <div className="col-2"> <button id="submit" name="submit" className="btn btn-banana-primary col-12" onClick={() => { submit() }}>Login</button></div>
-                <Popup open={openPopup} position="right center" contentStyle={popupStyle} overlayStyle={popupStyle} arrowStyle={popupStyle} closeOnDocumentClick onClose={() => { setOpenPopup(false) }}>  <span> { popupMessage }</span></Popup>
             </div>
         </>
     );
