@@ -8,6 +8,7 @@ import jojo from "../media/jojo.png"
 import beer from "../media/beer.png"
 import Textfield from "@mui/material/TextField"
 import Book from "../components/Book";
+import BookViewer from "../components/BookViewer";
 
 function FrontPage(props) {
     
@@ -60,6 +61,7 @@ function FrontPage(props) {
             </>
             :
             <>
+                <BookViewer></BookViewer>
                 <div>xd</div>
                 <div>not logged</div>   
             </>
