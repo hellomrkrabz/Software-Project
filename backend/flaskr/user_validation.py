@@ -23,7 +23,7 @@ def Register():
     username = data['sentUsername']
     password = data['sentPassword']
     confirmPassword = data['confirmPassword']
-    avatar = '/avatars/swinior.jpg'
+    avatar = '../public/avatars/swinior.jpg'
     key = 'null'
 
     error = None

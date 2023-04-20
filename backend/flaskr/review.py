@@ -23,3 +23,18 @@ class Review(db.Model):
     def get_content(self):
         return self.content
 
+#    def get_average_rating(user_id):
+   #     number_of_reviews = 0
+    #    rating = 0
+     #   average_rating = 0
+
+      #  for r in Review.review_id:
+       #     if user_id == r.borrower_id or user_id == r.renter_id:
+        #        number_of_reviews += 1
+         #       rating += r.rating
+       # average_rating = rating/number_of_reviews
+       # return average_rating
+
+
+
+

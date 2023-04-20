@@ -27,6 +27,7 @@ class User(db.Model):
     permissions = db.Column(db.Enum(Permissions))
     verificationHash = db.Column(db.String(128))
     key = db.Column(db.String(128))
+    #user_rating = db.Column(Review.get_average_rating(id))
     rooms = db.relationship('Room',
                                backref='owner',
                                lazy='dynamic',
