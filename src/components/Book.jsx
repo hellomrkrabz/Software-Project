@@ -45,6 +45,34 @@ function Book(props) {
             </div>
         </>
         }
+
+        {props.variant==="block" &&
+        <>
+            <div className="col-2">{/* Bo mnie nie działamło to sem zrobilem nowe ksiomszke   col2 goes brr*/}
+                <div key={props.id} className="d-flex flex-column align-items-center" style={{width: 'auto'}}>
+                    <Link to={props.link}>
+                        <div >
+                            <div className="book-title">
+                                <div className="d-flex flex-column justify-content-center h-100">
+                                    {props.title}<br/>
+                                    {props.author}
+                                </div>
+                            </div>
+                            {props.src !== undefined &&
+                                <img src={props.src} alt="book" height="200"/>
+                            }
+
+                            {props.src === undefined &&
+                                <img src={banana} alt="book" height="200"/>
+                            }
+                            
+                        </div> 
+                    </Link>
+                </div>
+            </div>
+        </>
+        }
+
         </>
     );
 }

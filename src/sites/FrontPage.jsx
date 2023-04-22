@@ -9,6 +9,7 @@ import beer from "../media/beer.png"
 import Textfield from "@mui/material/TextField"
 import Book from "../components/Book";
 import BookViewer from "../components/BookViewer";
+import { Link } from "react-router-dom";
 
 function FrontPage(props) {
     
@@ -32,7 +33,9 @@ function FrontPage(props) {
 
                     <div className="row">
                         <div className="col-2">
-                            <button>My Library</button>
+                            <Link to="/PersonalLibrary">
+                                <button>My Library</button>
+                            </Link>
                         </div>
                         <div className="col-2">
                             <button>Genre</button>
