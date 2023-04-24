@@ -7,6 +7,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { v4 } from "uuid";
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import BookGrid from "../components/BookGrid";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,9 +54,9 @@ function Library(props) {
     const [addPersonalBook, setAddPersonalBook] = useState(!true)
     const [addWantedBook, setAddWantedBook] = useState(!true)
 
-    const book = {title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"}
+    const [book, setBook] = useState({title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
 
-    const books = [book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book]
+    const [books,setBooks] = useState([book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book])
 
     /*useEffect(() => {
         axios.post("http://localhost:5000/user_validation/logout", {
@@ -68,8 +69,6 @@ function Library(props) {
             console.log(wanted)
 
     }, []);*/
-
-    console.log(props)
 
     return (
         <>
@@ -85,9 +84,7 @@ function Library(props) {
                         <div className="col-9 bg-light">
                             <p>Personal Library</p>
                             <div className="row">                                
-                                {books.map((b)=>
-                                    <Book variant="block" {...b} key={v4()}></Book>
-                            )}
+                                <BookGrid books={books}></BookGrid>
                             </div>
                         </div>
                         <div className="col-3 bg-primary">
