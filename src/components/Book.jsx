@@ -35,14 +35,14 @@ function Book(props) {
 
         {props.variant==="medium" &&
         <>
-            <div className="col-3">
-                <img src={props.src} />
+            <div className={`col-12 flex-grow-1 ${props.border ? "border":""}` }>
+                <img src={props.src} style={{width: '100%',}}/>
                 <p>{props.title}</p>
 
                 {props.description}<br />
 
                 <Link to={props.link}>
-                    <button>Details</button>
+                    <button className="btn btn-banana-primary-dark ms-2 mt-4">Details</button>
                 </Link>
             </div>
         </>
