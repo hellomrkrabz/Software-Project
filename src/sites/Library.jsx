@@ -5,9 +5,9 @@ import Book from "../components/Book";
 import TextField from "@mui/material/TextField"
 import { styled, alpha } from '@mui/material/styles';
 import { v4 } from "uuid";
-import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import BookGrid from "../components/BookGrid";
+import banana from "../media/banana.png";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,26 +53,84 @@ function Library(props) {
 
     const [addPersonalBook, setAddPersonalBook] = useState(!true)
     const [addWantedBook, setAddWantedBook] = useState(!true)
+    const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:"", isEmpty: function() {
+        if(this.title==="" && this.author==="" && this.language==="" && this.publisher==="" && this.ISBN==="")
+            return true;
+        else 
+            return false;
+      }})
 
     const [book, setBook] = useState({title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
+    const testBook = {title:"test", author:"test1", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/banana.png"}
+    const test2Book = {title:"test", author:"test1", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://static.vecteezy.com/system/resources/thumbnails/007/839/785/small/cute-monkey-holding-banana-cartoon-icon-illustration-animal-food-icon-concept-isolated-premium-flat-cartoon-style-vector.jpg"}
 
-    const [books,setBooks] = useState([book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book])
+    const [books,setBooks] = useState([book,book,book,book,book,testBook,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,testBook,book,book,book,book,book,book,book,testBook,book,testBook,book,book,book,book,book,book,book,testBook,testBook,test2Book,book,book,book,book,book,book,book,book,book,testBook,testBook,book,book,book,book,book,book,book,book,test2Book,book,testBook,book,book,book,book,book,book,book,testBook,book,book,book,testBook,book,book,book,book,book,testBook,book,book,book,book,book,book,book,testBook,test2Book,testBook,book,book,book,book,book,testBook,test2Book,testBook,book,book,book,testBook,test2Book])
+    const [filteredBooks, setFilteredBooks] = useState(books)
+    //var pageNumber = 0
+    const [pageNumber, setPageNumber] = useState(0)
 
-    /*useEffect(() => {
-        axios.post("http://localhost:5000/user_validation/logout", {
-            key: sessionUserKey,
-        })
+    useEffect(() => {
+        // axios.post("http://localhost:5000/user_validation/logout", {
+        //     key: sessionUserKey,
+        // })
 
-        if(props.type==="personal")
-            console.log(personal)
-        else if(props.type==="wanted")
-            console.log(wanted)
+        // if(props.type==="personal")
+        //     console.log(personal)
+        // else if(props.type==="wanted")
+        //     console.log(wanted)
 
-    }, []);*/
+        if(filteredBooks.length > 20)
+        {
+            let numberOfElements = 20
+            setFilteredBooks(filteredBooks.slice(0, numberOfElements))
+        }
+
+    }, []);
+
+    // useEffect(() => {
+    //     console.log(filter)
+    // }, [filter]);
+
+    function filterBooks(boo, f, p)
+    {
+        const titleFilter = new RegExp(f.title, 'i');
+        const authorFilter = new RegExp(f.author, 'i');
+        const languageFilter = new RegExp(f.language, 'i');
+        const publisherFilter = new RegExp(f.publisher, 'i');
+        const ISBNFilter = new RegExp(f.ISBN, 'i');
+
+        let result = boo
+            .filter(b => titleFilter.exec(b.title))
+            .filter(b => authorFilter.exec(b.author))
+            .filter(b => languageFilter.exec(b.language))
+            .filter(b => publisherFilter.exec(b.publisher))
+            .filter(b => ISBNFilter.exec(b.ISBN))
+
+        console.log(result.length)
+        //pageNumber = 0;
+        setPageNumber(0)
+        console.log(pageNumber)
+        if(result.length > 20)
+        {
+            let numberOfElements = 20
+            console.log(result)
+            if(p===undefined)
+            {
+                result= result.slice(0, numberOfElements);
+            }else
+            {
+                result= result.slice(0+p, numberOfElements+p);
+            }
+            
+            console.log(result)
+        }
+        setFilteredBooks(result)
+    }
 
     return (
         <>
-            <Navbar site={props.site}></Navbar>
+            <Navbar site={props.site} username={props.username}></Navbar>
+            
             <div className="container-fluid">
                 {props.type==="personal" && addPersonalBook &&//personal
                     <div>
@@ -84,45 +142,95 @@ function Library(props) {
                         <div className="col-9 bg-light">
                             <p>Personal Library</p>
                             <div className="row">                                
-                                <BookGrid books={books}></BookGrid>
+                                <BookGrid books={filteredBooks}></BookGrid>
                             </div>
                         </div>
                         <div className="col-3 bg-primary">
-                            <div className="row">{/* xd */}
-                                <Search className="col-10">
-                                    <SearchIconWrapper>
-                                    <SearchIcon />
-                                    </SearchIconWrapper>
-                                    <StyledInputBase
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
-                                    />
-                                </Search>
-                                <button className="col-3">Search</button>
-                            </div>
-                        <TextField
-                            id="language"
-                            label="language"
-                            fullWidth
-                            value="xd"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <TextField
-                            id="Publisher"
-                            label="Publisher"
-                            fullWidth
-                            value="xd"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <TextField
-                            id="isbn"
-                            label="ISBN"
-                            fullWidth
-                            value="xd"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <button>Prev</button>
-                        <button>Next</button>
+                            <Search className="mt-4">
+                                <SearchIconWrapper>
+                                    <img src={banana} height="30px"/>
+                                </SearchIconWrapper>
+                                <StyledInputBase 
+                                placeholder="Find title" 
+                                inputProps={{ 'onChange':(e)=>{
+                                    setFilter({...filter,"title":e.target.value})
+                                } }}/>
+                            </Search>
+                            <Search className="mt-4">
+                                <SearchIconWrapper>
+                                    <img src={banana} height="30px"/>
+                                </SearchIconWrapper>
+                                <StyledInputBase 
+                                    placeholder="Author" 
+                                    inputProps={{ 'onChange':(e)=>{
+                                        setFilter({...filter,"author":e.target.value})
+                                    } }}/>
+                            </Search>
+                            <Search className="mt-4">
+                                <SearchIconWrapper>
+                                    <img src={banana} height="30px"/>
+                                </SearchIconWrapper>
+                                <StyledInputBase  
+                                    placeholder="Language" 
+                                    inputProps={{ 'onChange':(e)=>{
+                                        setFilter({...filter,"language":e.target.value})
+                                    } }}/>
+                            </Search>
+                            <Search className="mt-4">
+                                <SearchIconWrapper>
+                                    <img src={banana} height="30px"/>
+                                </SearchIconWrapper>
+                                <StyledInputBase 
+                                placeholder="Publisher" 
+                                inputProps={{ 'onChange':(e)=>{
+                                    setFilter({...filter,"publisher":e.target.value})
+                                } }}/>
+                            </Search>
+                            <Search className="mt-4 mb-4">
+                                <SearchIconWrapper>
+                                    <img src={banana} height="30px"/>
+                                </SearchIconWrapper>
+                                <StyledInputBase  
+                                placeholder="ISBN" 
+                                inputProps={{ 'onChange':(e)=>{
+                                    setFilter({...filter,"ISBN":e.target.value})
+                                } }}/>
+                            </Search>
+                        
+                        <button className="col-12" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
+                        <button onClick={()=>{
+                            console.log(pageNumber)
+                            if(pageNumber>0)
+                            {
+                                //pageNumber--;
+                                
+                                let noe = 20
+                                setFilteredBooks(books.slice(0 + (pageNumber-1) * noe, noe + (pageNumber-1) * noe))
+                                setPageNumber(pageNumber-1)
+                            }
+                        }}>Prev</button>
+                        <button onClick={()=>{
+                            console.log(pageNumber)
+                            if(filter.isEmpty() && pageNumber < (books.length/20) -1)
+                            {
+                                //pageNumber++;
+                                
+                                console.log(pageNumber)
+                                let noe = 20
+                                setFilteredBooks(books.slice(0 + (pageNumber+1) * noe, noe + (pageNumber+1) * noe))
+                                setPageNumber(pageNumber+1)
+                            }else if(!filter.isEmpty() && pageNumber < (filteredBooks.length/20))
+                            {
+                                //pageNumber++;
+                                
+                                console.log(pageNumber)
+                                let noe = 20
+                                console.log(filter)
+                                //setFilteredBooks(filteredBooks.slice(0 + (pageNumber+1) * noe, noe + (pageNumber+1) * noe))
+                                filterBooks(books,filter,pageNumber)
+                                setPageNumber(pageNumber+1)
+                            }
+                        }}>Next</button>
                         </div>
                     </div>
                 }
