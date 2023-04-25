@@ -4,7 +4,6 @@ import banana from './../media/banana.png'
 
 
 function Navbar(props) {
-
   return (
     <nav className="navbar navbar-expand-lg bg-banana-blue">
         <div className="container-fluid">
@@ -29,6 +28,7 @@ function Navbar(props) {
             {props.site == "/Library" && 
                 <>
                     <a className="btn btn-banana-white-outline" href={"/Profile/"+props.username}>My Profile</a>
+                    <a className="btn btn-banana-white-outline" href={"/Transactions"}>Transactions</a>
                     <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
                 </>
             }
@@ -41,16 +41,23 @@ function Navbar(props) {
                             <a className="btn btn-banana-white-outline" onClick={()=>props.setIsEditing(true)}>Edit Profile</a>
                     :
                         <a className="btn btn-banana-white-outline" href={"/Profile/"+props.username}>My Profile</a>
-                    }
+                      }
+                      <a className="btn btn-banana-white-outline" href={"/Transactions"}>Transactions</a>
+                      <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
+                </>
+            }
+            {props.site == "/Transactions" &&
+                <>
+                    <a className="btn btn-banana-white-outline" href={"/Profile/" + props.username}>My Profile</a>
                     <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
                 </>
             }
-
             {props.site == "/FrontPage" && 
                 <>
                 {props.isLoggedIn ?
                 <>
-                    <a className="btn btn-banana-white-outline" href={"/Profile/"+props.username}>My Profile</a>
+                    <a className="btn btn-banana-white-outline" href={"/Profile/" + props.username}>My Profile</a>
+                    <a className="btn btn-banana-white-outline" href={"/Transactions"}>Transactions</a>
                     <a className="btn btn-banana-white-outline" href="/Logout">Logout</a>
                 </>
                 :

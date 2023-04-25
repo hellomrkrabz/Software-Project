@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ScoreComponnent from "./ScoreComponent";
+import ScoreComponent from "./ScoreComponent";
 
 function ProfileOpinionsList(props) {
 
@@ -11,7 +11,7 @@ function ProfileOpinionsList(props) {
                 <div className="card text-center col-4">
                     <div className="card-header">
                         {props.sender1} 
-                        <ScoreComponnent score={1.4}></ScoreComponnent>
+                        <ScoreComponent score={1.4}></ScoreComponent>
                     </div>
                     <div className="card-body">
                         {props.text1}
@@ -21,7 +21,7 @@ function ProfileOpinionsList(props) {
                 <div className="card text-center col-4">
                     <div className="card-header">
                         {props.sender2} 
-                        <ScoreComponnent score={1.8}></ScoreComponnent>
+                        <ScoreComponent score={1.8}></ScoreComponent>
                     </div>
                     <div className="card-body">
                         {props.text2}
