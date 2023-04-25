@@ -31,11 +31,11 @@ function App() {
       },
       {
         path: '/PersonalLibrary',
-        element: <Library type="personal" site="/Library"/>,
+        element: <Library type="personal" site="/Library" username={sessionUsername}/>,
       },
       {
         path: '/WantedLibrary',
-        element: <Library type="wanted" site="/Library"/>,
+        element: <Library type="wanted" site="/Library" username={sessionUsername}/>,
       },
       {
         path: '*',
