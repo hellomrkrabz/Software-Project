@@ -8,6 +8,7 @@ import { v4 } from "uuid";
 import InputBase from '@mui/material/InputBase';
 import BookGrid from "../components/BookGrid";
 import banana from "../media/banana.png";
+import AddBookComponent from "../components/AddBookComponent";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -51,8 +52,8 @@ const Search = styled('div')(({ theme }) => ({
 
 function Library(props) {
 
-    const [addPersonalBook, setAddPersonalBook] = useState(!true)
-    const [addWantedBook, setAddWantedBook] = useState(!true)
+    const [addPersonalBook, setAddPersonalBook] = useState(true)
+    const [addWantedBook, setAddWantedBook] = useState(true)
     const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:""})
 
     const [book, setBook] = useState({title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
@@ -107,9 +108,7 @@ function Library(props) {
             
             <div className="container-fluid">
                 {props.type==="personal" && addPersonalBook &&//personal
-                    <div>
-                        add personal book
-                    </div>
+                    <AddBookComponent type="personal"/>
                 }
                 {props.type==="personal" && !addPersonalBook &&
                     <div className="row">
@@ -189,14 +188,83 @@ function Library(props) {
                 }
 
                 {props.type==="wanted" && addWantedBook &&//wanted
-                    <div>
-                        add wanted book
-                    </div>
+                    <AddBookComponent type="wanted"/>
                 }
                 {props.type==="wanted" && !addWantedBook &&
-                    <div>
-                        display wanted book
+                    <div className="row">
+                    <div className="col-9 bg-light">
+                        <p>Wanted Library</p>
+                        <div className="row">                                
+                            <BookGrid books={booksToDisplay}></BookGrid>
+                        </div>
                     </div>
+                    <div className="col-3 bg-primary">
+                        <Search className="mt-4">
+                            <SearchIconWrapper>
+                                <img src={banana} height="30px"/>
+                            </SearchIconWrapper>
+                            <StyledInputBase 
+                            placeholder="Find title" 
+                            inputProps={{ 'onChange':(e)=>{
+                                setFilter({...filter,"title":e.target.value})
+                            } }}/>
+                        </Search>
+                        <Search className="mt-4">
+                            <SearchIconWrapper>
+                                <img src={banana} height="30px"/>
+                            </SearchIconWrapper>
+                            <StyledInputBase 
+                                placeholder="Author" 
+                                inputProps={{ 'onChange':(e)=>{
+                                    setFilter({...filter,"author":e.target.value})
+                                } }}/>
+                        </Search>
+                        <Search className="mt-4">
+                            <SearchIconWrapper>
+                                <img src={banana} height="30px"/>
+                            </SearchIconWrapper>
+                            <StyledInputBase  
+                                placeholder="Language" 
+                                inputProps={{ 'onChange':(e)=>{
+                                    setFilter({...filter,"language":e.target.value})
+                                } }}/>
+                        </Search>
+                        <Search className="mt-4">
+                            <SearchIconWrapper>
+                                <img src={banana} height="30px"/>
+                            </SearchIconWrapper>
+                            <StyledInputBase 
+                            placeholder="Publisher" 
+                            inputProps={{ 'onChange':(e)=>{
+                                setFilter({...filter,"publisher":e.target.value})
+                            } }}/>
+                        </Search>
+                        <Search className="mt-4 mb-4">
+                            <SearchIconWrapper>
+                                <img src={banana} height="30px"/>
+                            </SearchIconWrapper>
+                            <StyledInputBase  
+                            placeholder="ISBN" 
+                            inputProps={{ 'onChange':(e)=>{
+                                setFilter({...filter,"ISBN":e.target.value})
+                            } }}/>
+                        </Search>
+                    
+                    <button className="col-12" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
+                    <button onClick={()=>{
+                        if(pageNumber>0)
+                        {
+                            setPageNumber(pageNumber-1)
+                        }
+                    }}>Prev</button>
+                    <button onClick={()=>{
+                        if(pageNumber < (filteredBooks.length/20) -1)
+                        {
+                            setPageNumber(pageNumber+1)
+                        }
+                    }}>Next</button>
+                    </div>
+                </div>
                 }
             </div>
         </>
