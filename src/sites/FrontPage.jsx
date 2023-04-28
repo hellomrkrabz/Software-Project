@@ -49,7 +49,7 @@ function FrontPage(props) {
                         
                         <div className="col-xl-9 col-md-6 d-flex justify-content-end col-12">
                             <div className="col-3 align-self-center">
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"></input>
+                                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)"></input>
                             </div>
  
                             <button className="btn btn-banana-white-outline">Search</button>
