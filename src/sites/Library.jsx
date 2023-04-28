@@ -53,20 +53,15 @@ function Library(props) {
 
     const [addPersonalBook, setAddPersonalBook] = useState(!true)
     const [addWantedBook, setAddWantedBook] = useState(!true)
-    const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:"", isEmpty: function() {
-        if(this.title==="" && this.author==="" && this.language==="" && this.publisher==="" && this.ISBN==="")
-            return true;
-        else 
-            return false;
-      }})
+    const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:""})
 
     const [book, setBook] = useState({title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
     const testBook = {title:"test", author:"test1", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/banana.png"}
     const test2Book = {title:"test", author:"test1", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://static.vecteezy.com/system/resources/thumbnails/007/839/785/small/cute-monkey-holding-banana-cartoon-icon-illustration-animal-food-icon-concept-isolated-premium-flat-cartoon-style-vector.jpg"}
 
     const [books,setBooks] = useState([book,book,book,book,book,testBook,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,testBook,book,book,book,book,book,book,book,testBook,book,testBook,book,book,book,book,book,book,book,testBook,testBook,test2Book,book,book,book,book,book,book,book,book,book,testBook,testBook,book,book,book,book,book,book,book,book,test2Book,book,testBook,book,book,book,book,book,book,book,testBook,book,book,book,testBook,book,book,book,book,book,testBook,book,book,book,book,book,book,book,testBook,test2Book,testBook,book,book,book,book,book,testBook,test2Book,testBook,book,book,book,testBook,test2Book])
-    const [filteredBooks, setFilteredBooks] = useState(books)
-    //var pageNumber = 0
+    const [filteredBooks, setFilteredBooks] = useState([])
+    const [booksToDisplay, setBooksTodisplay] = useState([])
     const [pageNumber, setPageNumber] = useState(0)
 
     useEffect(() => {
@@ -79,19 +74,16 @@ function Library(props) {
         // else if(props.type==="wanted")
         //     console.log(wanted)
 
-        if(filteredBooks.length > 20)
-        {
-            let numberOfElements = 20
-            setFilteredBooks(filteredBooks.slice(0, numberOfElements))
-        }
-
+        filterBooks(books,filter)
     }, []);
 
-    // useEffect(() => {
-    //     console.log(filter)
-    // }, [filter]);
+    useEffect(() => {
+        let noe=20;
+        let offset=pageNumber*noe;
+        setBooksTodisplay(filteredBooks.slice(offset,offset+noe))
+    }, [filteredBooks,pageNumber]);
 
-    function filterBooks(boo, f, p)
+    function filterBooks(boo, f)
     {
         const titleFilter = new RegExp(f.title, 'i');
         const authorFilter = new RegExp(f.author, 'i');
@@ -105,26 +97,8 @@ function Library(props) {
             .filter(b => languageFilter.exec(b.language))
             .filter(b => publisherFilter.exec(b.publisher))
             .filter(b => ISBNFilter.exec(b.ISBN))
-
-        console.log(result.length)
-        //pageNumber = 0;
-        setPageNumber(0)
-        console.log(pageNumber)
-        if(result.length > 20)
-        {
-            let numberOfElements = 20
-            console.log(result)
-            if(p===undefined)
-            {
-                result= result.slice(0, numberOfElements);
-            }else
-            {
-                result= result.slice(0+p, numberOfElements+p);
-            }
-            
-            console.log(result)
-        }
         setFilteredBooks(result)
+        setPageNumber(0)
     }
 
     return (
@@ -142,7 +116,7 @@ function Library(props) {
                         <div className="col-9 bg-light">
                             <p>Personal Library</p>
                             <div className="row">                                
-                                <BookGrid books={filteredBooks}></BookGrid>
+                                <BookGrid books={booksToDisplay}></BookGrid>
                             </div>
                         </div>
                         <div className="col-3 bg-primary">
@@ -199,35 +173,14 @@ function Library(props) {
                         
                         <button className="col-12" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
                         <button onClick={()=>{
-                            console.log(pageNumber)
                             if(pageNumber>0)
                             {
-                                //pageNumber--;
-                                
-                                let noe = 20
-                                setFilteredBooks(books.slice(0 + (pageNumber-1) * noe, noe + (pageNumber-1) * noe))
                                 setPageNumber(pageNumber-1)
                             }
                         }}>Prev</button>
                         <button onClick={()=>{
-                            console.log(pageNumber)
-                            if(filter.isEmpty() && pageNumber < (books.length/20) -1)
+                            if(pageNumber < (filteredBooks.length/20) -1)
                             {
-                                //pageNumber++;
-                                
-                                console.log(pageNumber)
-                                let noe = 20
-                                setFilteredBooks(books.slice(0 + (pageNumber+1) * noe, noe + (pageNumber+1) * noe))
-                                setPageNumber(pageNumber+1)
-                            }else if(!filter.isEmpty() && pageNumber < (filteredBooks.length/20))
-                            {
-                                //pageNumber++;
-                                
-                                console.log(pageNumber)
-                                let noe = 20
-                                console.log(filter)
-                                //setFilteredBooks(filteredBooks.slice(0 + (pageNumber+1) * noe, noe + (pageNumber+1) * noe))
-                                filterBooks(books,filter,pageNumber)
                                 setPageNumber(pageNumber+1)
                             }
                         }}>Next</button>
