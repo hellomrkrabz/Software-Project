@@ -9,6 +9,7 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Popup from 'reactjs-popup';
 import { v4 } from "uuid";
+import axios from "axios"
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 
@@ -52,7 +53,7 @@ color: 'inherit',
 },
 }));
 
-function submit() {
+function submit(book) {
     axios.post("http://localhost:5000/XD", {
         ISBN:book.ISBN,
         key:sessionUserKey
@@ -176,7 +177,7 @@ useEffect(() => {
                     {props.type==="wanted" &&
                         <button className="col-3" onClick={()=>window.location.href="/WantedLibrary"}>Cancel</button>
                     }
-                    <button className="col-3" onClick={()=>submit()}>Add Book</button>
+                    <button className="col-3" onClick={()=>submit(book)}>Add Book</button>
                 </div>
             </div>
             

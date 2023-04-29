@@ -8,7 +8,8 @@ import Logout from "./sites/Logout.jsx";
 import { BrowserRouter } from 'react-router-dom';
 import FrontPage from "./sites/FrontPage.jsx";
 import Library from "./sites/Library.jsx";
-import Transactions from "./sites/Transactions.jsx";
+import Transactions from './sites/Transactions.jsx';
+import Reports from './sites/Reports.jsx'
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 var sessionUsername= sessionStorage.getItem("sessionUserUsername")
@@ -57,6 +58,10 @@ function App() {
       {
         path: '/Transactions',
         element: <Transactions site="/Transactions" username={sessionUsername} />,
+      },
+      {
+        path: '/Reports',
+        element: <Reports/>,
       },
       {
         path: '*',
