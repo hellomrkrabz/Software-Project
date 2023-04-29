@@ -15,10 +15,10 @@ function ProfileComponent(props) {
                 
                 <div className="col-9 mt-5">
 
-                    <ProfileBookList title={"Wanted Books"} moreLink={"/WantedBooks"} addLink={"/AddWanted"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
-                    <ProfileBookList title={"Offered Books"} moreLink={"/OfferedBooks"} addLink={"/AddOffered"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                    <ProfileBookList title={"Wanted Books"} moreLink={"/WantedLibrary"} addLink={"/AddWanted"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                    <ProfileBookList title={"Offered Books"} moreLink={"/PersonalLibrary"} addLink={"/AddOffered"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
                     {props.isLoggedIn &&
-                        <ProfileBookList title={"Personal Library"} moreLink={"/Library"} addLink={"/AddBook"}></ProfileBookList>
+                        <ProfileBookList title={"Personal Library"} moreLink={"/PersonalLibrary"} addLink={"/AddBook"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
                     }
                     
 

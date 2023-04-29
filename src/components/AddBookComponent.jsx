@@ -7,8 +7,10 @@ import Switch from '@mui/material/Switch'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import BookViewer from "./BookViewer";
 import Popup from 'reactjs-popup';
+import { v4 } from "uuid";
+
+var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -51,15 +53,21 @@ color: 'inherit',
 }));
 
 function submit() {
-    console.log(":D")
+    axios.post("http://localhost:5000/XD", {
+        ISBN:book.ISBN,
+        key:sessionUserKey
+    }).then((response) => {
+        
+    });
 }
 
-function searchBooks()
+function searchBooks(filter)//to zamienic na funkcje z api
 {
-    let book1={title:"test1",author:"author1",src:"src1"}
-    let book2={title:"test2",author:"author2",src:"src2"}
-    let book3={title:"test3",author:"author3",src:"src3"}
-    let tmpBooks =[book1,book2,book3]
+    console.log(filter)
+    let book1={title:"test1",author:"author1",src:"src1",ISBN:1}
+    let book2={title:"test2",author:"author2",src:"src2",ISBN:2}
+    let book3={title:"test3",author:"author3",src:"src3",ISBN:3}
+    let tmpBooks = [book1,book2,book3]
     return tmpBooks
 }
 
@@ -102,7 +110,7 @@ useEffect(() => {
                     </Search>
                     
                     <button onClick={()=>{
-                        var tmp = searchBooks()
+                        var tmp = searchBooks(filter)
                         setFoundBooks(tmp)
                         setHasSearched(true)
                         }}>Search</button>
@@ -113,7 +121,7 @@ useEffect(() => {
                             setBook({title: value, author: value, src: value, description: value})
                             setHasSearched(false)
                             }}>
-                            {foundBooks.map((b)=><p value={b.src}>{b.title}</p>)} {/*zmienic potem value na isbn */}
+                            {foundBooks.map((b)=><p value={b.ISBN} key={v4()}>{b.title}</p>)}
                         </div>
                     </Popup>
                     </div>

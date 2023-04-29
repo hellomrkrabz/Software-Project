@@ -52,8 +52,8 @@ const Search = styled('div')(({ theme }) => ({
 
 function Library(props) {
 
-    const [addPersonalBook, setAddPersonalBook] = useState(true)
-    const [addWantedBook, setAddWantedBook] = useState(true)
+    const [addPersonalBook, setAddPersonalBook] = useState(!true)
+    const [addWantedBook, setAddWantedBook] = useState(!true)
     const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:""})
 
     const [book, setBook] = useState({title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
