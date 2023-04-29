@@ -23,6 +23,8 @@ $banana-theme-colors: (
 $theme-colors: map-merge-multiple($theme-colors, $banana-theme-colors);
 
 
+//==========================================================================FIXING BOOTSTRAP SHIT==============================================================================
+$grid-row-columns:8;
 //=============================================================================================================================================================================
 
 //importing bootstrap, I know... very weird place for it but SASS is stupid piece of shit and other things will not work otherwise XD 

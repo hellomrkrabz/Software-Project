@@ -19,11 +19,11 @@ function Book(props) {
                                 </div>
                             </div>
                             {props.src !== undefined &&
-                                <img src={props.src} alt="book" height="200"/>
+                                <img src={props.src} alt="book" height="200" width="130"/>
                             }
 
                             {props.src === undefined &&
-                                <img src={banana} alt="book" height="200"/>
+                                <img src={banana} alt="book" height="200" width="130"/>
                             }
                             
                         </div> 

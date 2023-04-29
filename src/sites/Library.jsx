@@ -141,7 +141,7 @@ function Library(props) {
                                 <BookGrid books={booksToDisplay}></BookGrid>
                             </div>
                         </div>
-                        <div className="col-3 bg-primary">
+                        <div className="col-3 bg-banana-blue bg-opacity-25">
                             <Search className="mt-4">
                                 <SearchIconWrapper>
                                     <img src={banana} height="30px"/>
@@ -193,14 +193,14 @@ function Library(props) {
                                 } }}/>
                             </Search>
                         
-                        <button className="col-12" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
-                        <button onClick={()=>{
+                        <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
+                        <button className="btn btn-banana-primary-dark" onClick={()=>{
                             if(pageNumber>0)
                             {
                                 setPageNumber(pageNumber-1)
                             }
                         }}>Prev</button>
-                        <button onClick={()=>{
+                        <button className="btn btn-banana-primary-dark" onClick={()=>{
                             if(pageNumber < (filteredBooks.length/20) -1)
                             {
                                 setPageNumber(pageNumber+1)
