@@ -35,8 +35,24 @@ function App() {
         element: <Library type="personal" site="/Library" username={sessionUsername}/>,
       },
       {
+        path: '/PersonalLibrary/Add',
+        element: <Library type="personal" mode="add" site="/Library" username={sessionUsername}/>,
+      },
+      {
+        path: '/PersonalLibrary/AddOffered',
+        element: <Library type="personal" mode="addoffered" site="/Library" username={sessionUsername}/>,
+      },
+      {
+        path: '/PersonalLibrary/Offered',
+        element: <Library type="personal" mode="offered" site="/Library" username={sessionUsername}/>,
+      },
+      {
         path: '/WantedLibrary',
         element: <Library type="wanted" site="/Library" username={sessionUsername}/>,
+      },
+      {
+        path: '/WantedLibrary/Add',
+        element: <Library type="wanted" mode="add" site="/Library" username={sessionUsername}/>,
       },
       {
         path: '/Transactions',

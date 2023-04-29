@@ -52,13 +52,15 @@ const Search = styled('div')(({ theme }) => ({
 
 function Library(props) {
 
-    const [addPersonalBook, setAddPersonalBook] = useState(!true)
-    const [addWantedBook, setAddWantedBook] = useState(!true)
+    const [addPersonalBook, setAddPersonalBook] = useState((props.mode==="add"|| props.mode==="addoffered") && props.type==="personal" ? true : false)
+    const [addWantedBook, setAddWantedBook] = useState(props.mode==="add" && props.type==="wanted" ? true : false)
+    const [offered, setOffered] = useState(props.mode==="offered" && props.type==="personal" ? true : false)
+    const [isOffered, setIsOffered] = useState(props.mode==="addoffered" && props.type==="personal" ? true : false)
     const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:""})
 
-    const [book, setBook] = useState({title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
-    const testBook = {title:"test", author:"test1", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/banana.png"}
-    const test2Book = {title:"test", author:"test2", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://static.vecteezy.com/system/resources/thumbnails/007/839/785/small/cute-monkey-holding-banana-cartoon-icon-illustration-animal-food-icon-concept-isolated-premium-flat-cartoon-style-vector.jpg"}
+    const [book, setBook] = useState({title:"Instytut", author:"Stephen King", isOffered:true, link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"})
+    const testBook = {title:"test", author:"test1", isOffered:false, link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/banana.png"}
+    const test2Book = {title:"test", author:"test2", isOffered:true, link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://static.vecteezy.com/system/resources/thumbnails/007/839/785/small/cute-monkey-holding-banana-cartoon-icon-illustration-animal-food-icon-concept-isolated-premium-flat-cartoon-style-vector.jpg"}
 
     const [books,setBooks] = useState([book,book,book,book,book,testBook,book,book,book,book,book,book,book,book,book,book,book,book,book,book,book,testBook,book,book,book,book,book,book,book,testBook,book,testBook,book,book,book,book,book,book,book,testBook,testBook,test2Book,book,book,book,book,book,book,book,book,book,testBook,testBook,book,book,book,book,book,book,book,book,test2Book,book,testBook,book,book,book,book,book,book,book,testBook,book,book,book,testBook,book,book,book,book,book,testBook,book,book,book,book,book,book,book,testBook,test2Book,testBook,book,book,book,book,book,testBook,test2Book,testBook,book,book,book,testBook,test2Book])
     const [filteredBooks, setFilteredBooks] = useState([])
@@ -91,16 +93,37 @@ function Library(props) {
         const languageFilter = new RegExp(f.language, 'i');
         const publisherFilter = new RegExp(f.publisher, 'i');
         const ISBNFilter = new RegExp(f.ISBN, 'i');
+        const offeredFilter = new RegExp(offered, 'i');
 
-        let result = boo
+        
+
+        if(offered)
+        {
+            var result = boo
             .filter(b => titleFilter.exec(b.title))
             .filter(b => authorFilter.exec(b.author))
             .filter(b => languageFilter.exec(b.language))
             .filter(b => publisherFilter.exec(b.publisher))
             .filter(b => ISBNFilter.exec(b.ISBN))
+            .filter(b => offeredFilter.exec(b.isOffered))
+        }else{
+            var result = boo
+            .filter(b => titleFilter.exec(b.title))
+            .filter(b => authorFilter.exec(b.author))
+            .filter(b => languageFilter.exec(b.language))
+            .filter(b => publisherFilter.exec(b.publisher))
+            .filter(b => ISBNFilter.exec(b.ISBN))
+        }
         setFilteredBooks(result)
         setPageNumber(0)
     }
+
+    // useEffect(() => {
+    //     console.log("o")
+    //     console.log(offered)
+    //     console.log("io")
+    //     console.log(isOffered)
+    // }, [offered,isOffered]);
 
     return (
         <>
@@ -108,7 +131,7 @@ function Library(props) {
             
             <div className="container-fluid">
                 {props.type==="personal" && addPersonalBook &&//personal
-                    <AddBookComponent type="personal"/>
+                    <AddBookComponent type="personal" offered={isOffered}/>
                 }
                 {props.type==="personal" && !addPersonalBook &&
                     <div className="row">

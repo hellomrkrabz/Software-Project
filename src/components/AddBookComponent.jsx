@@ -74,10 +74,9 @@ function searchBooks(filter)//to zamienic na funkcje z api
 
 function AddBookComponent(props)
 {
-
 const [filter, setFilter] = useState("")
 const [condition, setCondition] = useState("good")
-const [isOffered, setIsOffered] = useState(false)
+const [isOffered, setIsOffered] = useState(props.offered)
 const [foundBooks, setFoundBooks] = useState([])
 const [book, setBook] = useState({title:"", author:"", src:"", description:""})
 const [hasSearched, setHasSearched] = useState(false)
@@ -165,13 +164,18 @@ useEffect(() => {
                             </FormControl>
                         </div>
                         <div className="col-6 bg-warning">
-                            <Switch value={isOffered} onChange={()=>setIsOffered(!isOffered)}/>
+                            <Switch checked={isOffered? "checked":""} value={isOffered} onChange={()=>setIsOffered(!isOffered)}/>
                         </div>
                     </div>
                 }
                 
                 <div className="row d-flex justify-content-center">
-                    <button className="col-3">Cancel</button>
+                    {props.type==="personal" &&
+                        <button className="col-3" onClick={()=>window.location.href="/PersonalLibrary"}>Cancel</button>
+                    }
+                    {props.type==="wanted" &&
+                        <button className="col-3" onClick={()=>window.location.href="/WantedLibrary"}>Cancel</button>
+                    }
                     <button className="col-3" onClick={()=>submit()}>Add Book</button>
                 </div>
             </div>
