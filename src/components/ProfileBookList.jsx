@@ -9,8 +9,10 @@ function ProfileBookList(props) {
     <>
         <div className="row">
             <p>{props.title}</p>
-            <div className="d-flex justify-content-around col-6 col-lg-10">
-                <div className="row row-cols-sm-2 row-cols-xl-4 row-cols-1">
+            <div className="d-flex justify-content-around col-9 col-xl-10">
+                <div className="row row-cols-sm-2 row-cols-xxl-6 row-cols-xl-3 gy-2 gx-2 row-cols-1 col-12">
+                    <Book variant="small" {...book}></Book>
+                    <Book variant="small" {...book}></Book>
                     <Book variant="small" {...book}></Book>
                     <Book variant="small" {...book}></Book>
                     <Book variant="small" {...book}></Book>
@@ -18,15 +20,15 @@ function ProfileBookList(props) {
                 </div>
             </div>
 
-            <div className="align-self-center col-6 col-lg-2">
+            <div className="align-self-center col-3 col-xl-2">
                     {props.isLoggedIn &&
                         props.addLink !== undefined &&
                             <Link to={props.addLink}>
-                                <button className="btn btn-banana-primary col-10 col-md-12">Add new</button>
+                                <button className="btn btn-banana-primary col-12">Add new</button>
                             </Link>
                     }
                     <Link to={props.moreLink}>
-                        <button className="btn btn-banana-primary col-10 mt-2  col-md-12">See more 1</button>
+                        <button className="btn btn-banana-primary col-12 mt-2">See more 1</button>
                     </Link>
             </div>
         </div>
