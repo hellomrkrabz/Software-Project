@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Transaction from "./Transaction.jsx"
+import { v4 } from "uuid";
 
 function TransactionList(props) {
   //tymczasowe, trzeba bêdzie podjebaæ z bazy
@@ -8,8 +9,13 @@ function TransactionList(props) {
   const [books, setBooks] = useState([book, book, book, book, book, book, book, book, book, book, book, book, book, book, book, book, book, book, book, book, book])  
   return (
     <>
-          {books.map((b) =>
-              <Transaction user="debil" date="21.03.07" status="gites majonez" book={b}> </Transaction>
+          {books.map((b) => 
+              <div>
+                  <div>
+                      <br></br>
+                  </div>
+                  <Transaction key={v4()} user="debil" reservationDate="21.03.07" status="gites majonez" returnDate="nigdy" rentDate="jutro" bookCondition="veeeri goode" isbn="123456789" book={b}> </Transaction>
+              </div>
         )}
     </>
   );
