@@ -81,7 +81,7 @@ function Library(props) {
     }, []);
 
     useEffect(() => {
-        let noe=20;
+        let noe=24;
         let offset=pageNumber*noe;
         setBooksTodisplay(filteredBooks.slice(offset,offset+noe))
     }, [filteredBooks,pageNumber]);
@@ -201,7 +201,7 @@ function Library(props) {
                             }
                         }}>Prev</button>
                         <button className="btn btn-banana-primary-dark" onClick={()=>{
-                            if(pageNumber < (filteredBooks.length/20) -1)
+                            if(pageNumber < (filteredBooks.length/24) -1)
                             {
                                 setPageNumber(pageNumber+1)
                             }
@@ -281,7 +281,7 @@ function Library(props) {
                         }
                     }}>Prev</button>
                     <button onClick={()=>{
-                        if(pageNumber < (filteredBooks.length/20) -1)
+                        if(pageNumber < (filteredBooks.length/24) -1)
                         {
                             setPageNumber(pageNumber+1)
                         }
