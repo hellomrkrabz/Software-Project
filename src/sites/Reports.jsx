@@ -2,6 +2,8 @@ import React, { useState,useEffect } from "react";
 import axios from 'axios'
 import Navbar from "../components/Navbar";
 import ReportComponent from "../components/ReportComponent";
+import {v4} from 'uuid'
+import DetailedReportComponent from "../components/DetailedReportComponent";
 
 function Reports() {
 
@@ -30,16 +32,27 @@ function Reports() {
             <div>
                 <Navbar site={"/Reports"} isLoggedIn={true}/>
             </div>
-            <div className="container-fluid d-flex flex-column align-items-center">
-                <div className="row row col-11 bg-light border border-dark mt-3">
-                    <div className="col-3">Date of report</div>
-                    <div className="col-3">Reporter</div>
-                    <div className="col-3">Date of report</div>
-                    <div className="col-3">Status</div>
-                </div>
+            {!displayDetails ?
+            <>
+                <div className="container-fluid d-flex flex-column align-items-center">
+                    <div className="row row col-11 bg-light border border-dark mt-3">
+                        <div className="col-3">Date of report</div>
+                        <div className="col-3">Reporter</div>
+                        <div className="col-3">Date of report</div>
+                        <div className="col-3">Status</div>
+                    </div>
 
-                {reports.map((r)=><ReportComponent report={{...r}} setReport={setReport}/>)}
-            </div>
+                    {reports.map((r)=><ReportComponent report={{...r}} setDisplayDetails={setDisplayDetails} setReport={setReport} key={v4()}/>)}
+                </div>
+            </>
+            :
+            <>
+                <div className="container-fluid d-flex flex-column align-items-center bg-primary">
+                    <DetailedReportComponent setDisplayDetails={setDisplayDetails} {...report}/>
+                </div>
+            </>
+            }
+           
         </>
     );
 }

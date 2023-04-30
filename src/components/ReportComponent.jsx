@@ -7,18 +7,29 @@ function ReportComponent(props) {
                 <div className="col-3">{props.report.reportDate}</div>
                 <div className="col-3">{props.report.reporter}</div>
                 <div className="col-3">{props.report.reported}</div>
-                <div className="col-3">
+                <div className="col-3 d-flex justify-content-center">
                     {props.report.status==="resolved" &&
-                        <div className="bg-success">
+                    <>
+                        <span className="bg-success col-5 d-flex justify-content-center">
                             {props.report.status}
-                            <button onClick={()=>{props.setReport(props.report)}}>Details</button>
-                        </div>
+                        </span>
+                        <button className="col-5" onClick={()=>{
+                            props.setReport(props.report)
+                            props.setDisplayDetails(true)
+                            }}>Details</button>
+                    </>
                     }
                     {props.report.status==="pending" &&
-                        <div className="bg-warning">
+                    <>
+                        <span className="bg-warning col-5 d-flex justify-content-center">
                             {props.report.status}
-                            <button onClick={()=>{props.setReport(props.report)}}>Details</button>
-                        </div>
+                        </span>
+                        <button className="col-5" onClick={()=>{
+                            props.setReport(props.report)
+                            props.setDisplayDetails(true)
+                            }}>Details</button>
+                    </>
+                        
                     }
                     
                 </div>
