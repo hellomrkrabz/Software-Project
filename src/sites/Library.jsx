@@ -129,19 +129,19 @@ function Library(props) {
         <>
             <Navbar site={props.site} username={props.username}></Navbar>
             
-            <div className="container-fluid">
+            <div className="container-fluid d-flex flex-column flex-grow-1">
                 {props.type==="personal" && addPersonalBook &&//personal
                     <AddBookComponent type="personal" offered={isOffered}/>
                 }
                 {props.type==="personal" && !addPersonalBook &&
-                    <div className="row">
-                        <div className="col-9 bg-light">
+                    <div className="row flex-grow-1">
+                        <div className="col-xl-9 col-12 order-2 order-xl-1 bg-light">
                             <p>Personal Library</p>
                             <div className="row">                                
                                 <BookGrid books={booksToDisplay}></BookGrid>
                             </div>
                         </div>
-                        <div className="col-3 bg-banana-blue bg-opacity-25">
+                        <div className="col-12 col-xl-3 order-1 bg-banana-blue bg-opacity-25 d-flex flex-column">
                             <Search className="mt-4">
                                 <SearchIconWrapper>
                                     <img src={banana} height="30px"/>
@@ -193,19 +193,23 @@ function Library(props) {
                                 } }}/>
                             </Search>
                         
-                        <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
-                        <button className="btn btn-banana-primary-dark" onClick={()=>{
-                            if(pageNumber>0)
-                            {
-                                setPageNumber(pageNumber-1)
-                            }
-                        }}>Prev</button>
-                        <button className="btn btn-banana-primary-dark" onClick={()=>{
-                            if(pageNumber < (filteredBooks.length/24) -1)
-                            {
-                                setPageNumber(pageNumber+1)
-                            }
-                        }}>Next</button>
+                            <div className="p-2 justify-content-between d-flex flex-column flex-grow-1">
+                                <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
+                                <div className="align-self-stretch mt-4">
+                                    <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
+                                        if(pageNumber>0)
+                                        {
+                                            setPageNumber(pageNumber-1)
+                                        }
+                                    }}>Prev</button>
+                                    <button className="btn btn-banana-primary-dark col-5 offset-2" onClick={()=>{
+                                        if(pageNumber < (filteredBooks.length/24) -1)
+                                        {
+                                            setPageNumber(pageNumber+1)
+                                        }
+                                    }}>Next</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -214,14 +218,14 @@ function Library(props) {
                     <AddBookComponent type="wanted"/>
                 }
                 {props.type==="wanted" && !addWantedBook &&
-                    <div className="row">
-                    <div className="col-9 bg-light">
+                    <div className="row flex-grow-1">
+                    <div className="col-xl-9 col-12 order-2 order-xl-1 bg-light">
                         <p>Wanted Library</p>
                         <div className="row">                                
                             <BookGrid books={booksToDisplay}></BookGrid>
                         </div>
                     </div>
-                    <div className="col-3 bg-primary">
+                    <div className="col-12 col-xl-3 order-1 bg-banana-blue bg-opacity-25 d-flex flex-column">
                         <Search className="mt-4">
                             <SearchIconWrapper>
                                 <img src={banana} height="30px"/>
@@ -273,19 +277,23 @@ function Library(props) {
                             } }}/>
                         </Search>
                     
-                    <button className="col-12" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
-                    <button onClick={()=>{
-                        if(pageNumber>0)
-                        {
-                            setPageNumber(pageNumber-1)
-                        }
-                    }}>Prev</button>
-                    <button onClick={()=>{
-                        if(pageNumber < (filteredBooks.length/24) -1)
-                        {
-                            setPageNumber(pageNumber+1)
-                        }
-                    }}>Next</button>
+                        <div className="p-2 justify-content-between d-flex flex-column flex-grow-1">
+                                <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
+                                <div className="align-self-stretch mt-4">
+                                    <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
+                                        if(pageNumber>0)
+                                        {
+                                            setPageNumber(pageNumber-1)
+                                        }
+                                    }}>Prev</button>
+                                    <button className="btn btn-banana-primary-dark col-5 offset-2" onClick={()=>{
+                                        if(pageNumber < (filteredBooks.length/24) -1)
+                                        {
+                                            setPageNumber(pageNumber+1)
+                                        }
+                                    }}>Next</button>
+                                </div>
+                            </div>
                     </div>
                 </div>
                 }
