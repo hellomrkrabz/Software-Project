@@ -1,22 +1,55 @@
 import { Link } from "react-router-dom";
 import Book from "./Book";
+//import fetchBooks from "./BookViewer";
+import { useState, useEffect } from "react";
+import { v4 } from "uuid";
+import fetchBooksById from "../scripts/fetchBooksById";
+import loading from "../media/loading.gif"
 
-const book = {title:"Instytut", author:"Stephen King", link:"https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", src:"https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg"}
 
 function ProfileBookList(props) {
+    
 
-  return (
+    //const emptyBook = {title:"", authors:[""], link:"", imageLinks:{smallThumbnail:""}}
+
+    var emptyBook = {title:"xd1", authors:["xd2"], imageLinks:{smallThumbnail: loading}}
+
+    const [bookIds, setBookIds] = useState(["_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ",])
+    var booksXD=[];
+    const [books, setBooks] = useState([emptyBook,emptyBook,emptyBook,emptyBook,emptyBook,emptyBook])
+
+    useEffect(() => {
+        fetchBooksById(bookIds[0]).then((r)=>{
+            booksXD.push(r.volumeInfo)
+            fetchBooksById(bookIds[1]).then((r)=>{
+                booksXD.push(r.volumeInfo)
+                fetchBooksById(bookIds[2]).then((r)=>{
+                    booksXD.push(r.volumeInfo)
+                    fetchBooksById(bookIds[3]).then((r)=>{
+                        booksXD.push(r.volumeInfo)
+                        fetchBooksById(bookIds[4]).then((r)=>{
+                            booksXD.push(r.volumeInfo)
+                            fetchBooksById(bookIds[5]).then((r)=>{
+                                booksXD.push(r.volumeInfo)
+                                setBooks(booksXD);
+    })})})})})})},[]);
+
+    return (
     <>
         <div className="row">
             <p>{props.title}</p>
             <div className="d-flex justify-content-around col-9 col-xl-10">
                 <div className="row row-cols-sm-2 row-cols-xxl-6 row-cols-xl-3 gy-2 gx-2 row-cols-1 col-12">
-                    <Book variant="small" {...book}></Book>
-                    <Book variant="small" {...book}></Book>
-                    <Book variant="small" {...book}></Book>
-                    <Book variant="small" {...book}></Book>
-                    <Book variant="small" {...book}></Book>
-                    <Book variant="small" {...book}></Book>
+                    
+                    {/* <Book variant="small" {...books[0]}></Book> */}
+                    
+                    {/* <Book variant="small" {...books[1]}></Book>
+                    <Book variant="small" {...books[2]}></Book>
+                    <Book variant="small" {...books[3]}></Book>
+                    <Book variant="small" {...books[4]}></Book>
+                    <Book variant="small" {...books[5]}></Book> */}
+
+                    {books.map((b)=><Book variant="small" key={v4()} {...b}/>)}
                 </div>
             </div>
 
