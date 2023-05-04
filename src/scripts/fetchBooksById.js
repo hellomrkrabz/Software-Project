@@ -8,7 +8,7 @@ async function fetchBooksById(id) {
     try {
         book = await googleBooksApi.getVolume(id);
     } catch (error) {
-        book = {title:"xd1", authors:["xd2",""], imageLinks:{smallThumbnail: {loading}}}
+        book = {title:"error", authors:["Try again Later",""], imageLinks:{smallThumbnail: {loading}}}
     }
 
     return book
