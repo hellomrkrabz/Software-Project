@@ -80,9 +80,10 @@ function Library(props) {
         var fetchedB = [];
     
         for(let i = 0; i < idArr.length; i++){
-            const rawResponse = await googleBooksApi.getVolume(idArr[i]);
-            
-            fetchedB.push(rawResponse.volumeInfo);
+            ///const rawResponse = await googleBooksApi.getVolume(idArr[i]);
+            const rawResponse = await axios.get("https://www.googleapis.com/books/v1/volumes/"+idArr[i])
+            //console.log(rawResponse.data)
+            fetchedB.push(rawResponse.data.volumeInfo);
             filterBooks(fetchedB,filter);
         }
         
@@ -203,6 +204,7 @@ function Library(props) {
                             <div className="p-2 justify-content-between d-flex flex-column flex-grow-1">
                                 <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
                                 <div className="align-self-stretch mt-4">
+                                    <button className="col-12 btn btn-banana-primary-dark mb-3" onClick={()=>{ setAddPersonalBook(true) }}>Add Book</button>
                                     <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
                                         if(pageNumber>0)
                                         {
@@ -287,6 +289,7 @@ function Library(props) {
                         <div className="p-2 justify-content-between d-flex flex-column flex-grow-1">
                                 <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterBooks(books,filter)  }}>Search</button>
                                 <div className="align-self-stretch mt-4">
+                                    <button className="col-12 btn btn-banana-primary-dark mb-3" onClick={()=>{ setAddWantedBook(true) }}>Add Book</button>
                                     <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
                                         if(pageNumber>0)
                                         {
