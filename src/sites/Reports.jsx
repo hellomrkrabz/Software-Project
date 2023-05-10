@@ -5,7 +5,7 @@ import ReportComponent from "../components/ReportComponent";
 import {v4} from 'uuid'
 import DetailedReportComponent from "../components/DetailedReportComponent";
 
-function Reports() {
+function Reports(props) {
 
     const [reports, setReports] = useState([])
     const [displayDetails, setDisplayDetails] = useState(false)
@@ -30,7 +30,7 @@ function Reports() {
     return (
         <>
             <div>
-                <Navbar site={"/Reports"} isLoggedIn={true}/>
+                <Navbar site={"/Reports"} isLoggedIn={true} username={props.username}/>
             </div>
             {!displayDetails ?
             <>
