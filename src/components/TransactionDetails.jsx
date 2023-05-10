@@ -6,28 +6,27 @@ import TextField from "@mui/material/TextField"
 
 
 function TransactionDetails(props) {
-    //Matix weü to wyd≥uø i popraw ksiπøke øeby nie by≥o tego widma pls <3
+    //Matix weÔøΩ to wydÔøΩuÔøΩ i popraw ksiÔøΩÔøΩke ÔøΩeby nie byÔøΩo tego widma pls <3
     return (
         <>  
             <br></br>
             <div className="container-fluid d-flex flex-column align-items-center">
                 <div className="row col-10 border bg-banana-blue bg-opacity-25 border-dark justify-content-between card">
-                    <div className="card-body justify-content-between align-items-center row">
+                    <div className="card-body align-items-center row">
                         <div className="fw-normal fs-3 text-shadow-light mb-2">
                             Transaction Details:
                         </div>
                         <div className="fw-normal fs-5 text-shadow-light mb-2">
                             Username: PLACEHOLDER
                         </div>
-                        <br></br>
-                        <div className="col-2">
+                        <div className="col-12 col-sm-6 col-lg-4 col-xl-3 mb-2">
                             <Book variant="transactionDetails" {...props.book} key={v4()}> </Book>
                         </div>
-                        <div className="col-3 fw-normal fs-5 text-shadow-light">
+                        <div className="col-12 col-sm-6 col-lg-4 fw-normal fs-5 text-shadow-light">
                             <div className="mb-2">
                                 Title:
                             </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12">
                                 <TextField
                                     disabled
                                     id="title"
@@ -38,7 +37,7 @@ function TransactionDetails(props) {
                             <div className="mb-2">
                                 Author:                             
                             </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12">
                                 <TextField
                                     disabled
                                     id="author"
@@ -49,7 +48,7 @@ function TransactionDetails(props) {
                             <div className="mb-2">
                                 ISBN:                                 
                             </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12">
                                 <TextField
                                     disabled
                                     id="isbn"
@@ -60,9 +59,7 @@ function TransactionDetails(props) {
                             <div className="mb-2">
                                 Book Condition:                               
                             </div>
-                            <div>
-                            </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12">
                                 <TextField
                                     disabled
                                     id="bookCondition"
@@ -71,11 +68,11 @@ function TransactionDetails(props) {
                                 />
                             </div>
                         </div>
-                        <div className="col-3 fw-normal fs-5 text-shadow-light">
+                        <div className="col-12 col-lg-4 fw-normal fs-5 text-shadow-light">
                             <div className="mb-2">
                                 Reservation Date:
                             </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12 ">
                                 <TextField
                                     disabled
                                     id="reservationDate"
@@ -86,7 +83,7 @@ function TransactionDetails(props) {
                             <div className="mb-2">
                                 Rent Date:
                             </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12 ">
                                 <TextField
                                     disabled
                                     id="rentDate"
@@ -97,7 +94,7 @@ function TransactionDetails(props) {
                             <div className="mb-2">
                                 Return Date:
                             </div>
-                            <div className="mb-2 col-8">
+                            <div className="mb-2 col-12 ">
                                 <TextField
                                     disabled
                                     id="returnDate"
@@ -105,12 +102,19 @@ function TransactionDetails(props) {
                                     value="PLACEHOLDER"
                                 />
                             </div>
+                            <div className="col-12 mb-2">
+                                <div className="mb-2">
+                                        Status:
+                                    </div>
+                                <div className="d-flex align-items-center justify-content-center bg-secondary text-black p-3 rounded">
+
+                                    PLACEHOLDER
+                                </div>
                         </div>
-                        <div className="col-4 row h-25">
-                            <div className="col-6 d-flex align-items-center justify-content-center bg-secondary text-black">
-                                PLACEHOLDER
-                            </div>
-                            <button className="btn btn-banana-primary col-6" onClick={() => { props.updateShowDetailsFromChildren(false) }}>Hide Details</button>
+                        </div>
+
+                        <div className="d-flex justify-content-center">
+                            <button className="btn btn-banana-primary col-12 col-lg-6 col-xl-4 p-2" onClick={() => { props.updateShowDetailsFromChildren(false) }}>Hide Details</button>
                         </div>
                     </div>
                 </div>

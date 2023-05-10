@@ -57,16 +57,8 @@ function Book(props) {
                     <div key={props.id} className="d-flex flex-column align-items-center">
                         <Link to={props.link}>
                             <div >
-                                <div className="book-title">
-                                    <div className="d-flex flex-column justify-content-center h-100">
-                                        {props.title}<br />
-                                        {props.authors !== undefined &&
-                                            props.authors[0]
-                                        }
-                                    </div>
-                                </div>
                                 {props.imageLinks !== undefined && props.imageLinks.smallThumbnail !== undefined &&
-                                    <img src={props.imageLinks.smallThumbnail} alt="book" height="500" width="325" />
+                                    <img src={props.imageLinks.smallThumbnail} alt="book" style={{width: "100%",height:"100%", objectFit: "cover"}}/>
                                 }
 
                                 {props.imageLinks !== undefined && props.imageLinks.smallThumbnail === undefined &&

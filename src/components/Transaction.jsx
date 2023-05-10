@@ -43,11 +43,13 @@ function Transaction(props) {
                                             {username}
                                         </div>
                                     </div>
-                                    <div className="col-4 row h-25">
-                                    <div className="col-6 d-flex align-items-center justify-content-center bg-secondary text-black"> 
+                                    <div className="col-4 row h-25 gx-3">
+                                        <div className="col-6 d-flex align-items-center justify-content-center bg-secondary text-black rounded-1"> 
                                             {status}
                                         </div>    
-                            <button className="btn btn-banana-primary col-6" onClick={() => { props.updateShowDetailsFromChildren(true); props.updateDetailsKey(props.transactionID); }}>Details</button>
+                                        <div className="col-6">
+                                            <button className="col-12 btn btn-banana-primary " onClick={() => { props.updateShowDetailsFromChildren(true); props.updateDetailsKey(props.transactionID); }}>Details</button>
+                                        </div>
                                     </div>
                             </div>                                              
                         </div>
