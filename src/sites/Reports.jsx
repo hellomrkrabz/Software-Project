@@ -35,11 +35,11 @@ function Reports() {
             {!displayDetails ?
             <>
                 <div className="container-fluid d-flex flex-column align-items-center">
-                    <div className="row row col-11 bg-light border border-dark mt-3">
-                        <div className="col-3">Date of report</div>
-                        <div className="col-3">Reporter</div>
-                        <div className="col-3">Date of report</div>
-                        <div className="col-3">Status</div>
+                    <div className="row row col-11 py-3">
+                        <div className="col-3 fs-2">Date of report</div>
+                        <div className="col-3 fs-2">Reporter</div>
+                        <div className="col-3 fs-2">Date of report</div>
+                        <div className="col-3 fs-2">Status</div>
                     </div>
 
                     {reports.map((r)=><ReportComponent report={{...r}} setDisplayDetails={setDisplayDetails} setReport={setReport} key={v4()}/>)}
