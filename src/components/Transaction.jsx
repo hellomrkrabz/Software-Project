@@ -23,8 +23,8 @@ function Transaction(props) {
 
     return (
                 <>
-                    <div class="container-fluid d-flex flex-column align-items-center">
-                        <div class="row col-10 border bg-banana-blue bg-opacity-25 border-dark justify-content-between card">  
+                    <div className="container-fluid d-flex flex-column align-items-center">
+                        <div className="row col-10 border bg-banana-blue bg-opacity-25 border-dark justify-content-between card">  
                             <div className="card-body justify-content-between align-items-center row">
                                     <div className="col-2">
                                         <Book variant="small" {...props.book} key={v4()}> </Book>
@@ -47,7 +47,7 @@ function Transaction(props) {
                                     <div className="col-6 d-flex align-items-center justify-content-center bg-secondary text-black"> 
                                             {status}
                                         </div>    
-                            <button className="btn btn-banana-primary col-6" onClick={() => { props.updateShowDetailsFromChildren(true) }}>Details</button>
+                            <button className="btn btn-banana-primary col-6" onClick={() => { props.updateShowDetailsFromChildren(true); props.updateDetailsKey(props.transactionID); }}>Details</button>
                                     </div>
                             </div>                                              
                         </div>
