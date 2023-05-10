@@ -29,9 +29,7 @@ function ReportComponent(props) {
                             props.setDisplayDetails(true)
                             }}>Details</button>
                     </>
-                        
                     }
-                    
                 </div>
             </div>
         </>
