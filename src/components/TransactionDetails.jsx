@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField"
 
 
 function TransactionDetails(props) {
-    //const [showDetails, setShowDetails] = useState(props.updateShowDetailsFromChildren);
+    //Matix weü to wyd≥uø i popraw ksiπøke øeby nie by≥o tego widma pls <3
     return (
         <>  
             <br></br>
