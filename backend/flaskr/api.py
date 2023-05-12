@@ -115,9 +115,9 @@ def get_user_by_username(username):
 
 #---------------------info about rooms & shelves---------------------------
 
-@bp.route('/owned_rooms/<u_id>', methods=['GET'])
-def get_owned_rooms(u_id):
-    user = User.query.filter_by(id=u_id).first()
+@bp.route('/owned_rooms/<username>', methods=['GET'])
+def get_owned_rooms(username):
+    user = User.query.filter_by(username=username).first()
     if user is not None:
         list = user.get_room_info()
         room_list = []
@@ -148,9 +148,9 @@ def get_rooms():
     return jsonify({'rooms': rooms_json})
 
 
-@bp.route('/owned_shelves/<u_id>', methods=['GET'])
-def get_owned_shelves(u_id):
-    user = User.query.filter_by(id=u_id).first()
+@bp.route('/owned_shelves/<username>', methods=['GET'])
+def get_owned_shelves(username):
+    user = User.query.filter_by(username=username).first()
     if user is not None:
         input_list = user.get_shelf_info()
         shelf_list = []
