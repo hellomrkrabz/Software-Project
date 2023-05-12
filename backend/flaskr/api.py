@@ -152,17 +152,33 @@ def get_rooms():
 def get_owned_shelves(u_id):
     user = User.query.filter_by(id=u_id).first()
     if user is not None:
-        list = user.get_shelf_info()
-        if list is not None:
-            for shelf_id in list:
-                shelf = Shelf.query.filter_by(shelf_id=shelf_id).first()
-                if shelf is not None:
-                    return jsonify({
-                        'shelf_id': shelf.get_id(),
-                        'shelf_name': shelf.get_shelf_name(),
-                        'room_id': shelf.get_room_id()
-                    })
-    return jsonify({'msg': 'No rooms?:('})
+        input_list = user.get_shelf_info()
+        shelf_list = []
+        if input_list is not None:
+            print(input_list)
+            for shelf_id in input_list:
+                print('elf on a: '+str(shelf_id))
+                room = Room.query.filter_by(shelf_id=shelf_id).first()
+                shelf_list.append(room)
+            shelf_json = [{
+                'id': s.get_id(),
+                'name': s.get_shelf_name(),
+                'room': s.get_room_id()
+            } for s in shelf_list]
+            return jsonify({'shelves': shelf_json})
+    return jsonify({'msg': 'No shelves?:('})
+
+@bp.route('/get_shelves', methods=['GET'])
+def get_shelves():
+    shelves = Shelf.query.all()
+    print(shelves)
+    shelves_json = [{
+        'id': s.get_id(),
+        'name': s.get_shelf_name(),
+        'room': s.get_room_id()
+    }for s in shelves]
+
+    return jsonify({'shelves': shelves_json})
 
 #---------------------adding things---------------------------
 
@@ -218,9 +234,7 @@ def add_or_edit_entity(entity_type, action):
 
         elif entity_type == 'room':
             room_name = data['room_name']
-            print("hilfe")
             user = User.query.filter_by(key=data['user_key']).first()
-            print("hilfe2")
             owner_id = user.id
 
             if action == "add":

@@ -123,3 +123,15 @@ class User(db.Model):
                 testlist += row
                 print (row)
         return testlist
+
+    def get_shelf_info(self):
+        testlist = []
+        sql = text("""SELECT shelf_id FROM shelves S
+        JOIN rooms R ON S.room_id = R.room_id
+        JOIN users U ON R.owner_id = U.id WHERE U.id = """ + str(self.id))
+        with engine.connect() as con:
+            result = con.execute(sql)
+            for row in result:
+                testlist += row
+                print (row)
+        return testlist
