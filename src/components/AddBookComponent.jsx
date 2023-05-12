@@ -12,8 +12,16 @@ import Popup from 'reactjs-popup';
 import { v4 } from "uuid";
 import axios from "axios"
 import Book from "./Book";
+import SelectButBetter from 'react-select';
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
+var sessionUsername= sessionStorage.getItem("sessionUserUsername")
+
+const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -60,7 +68,6 @@ color: 'inherit',
 },
 }));
 
-
 const theme = createTheme({
     palette: {
       bananaBlueSwitch: {
@@ -70,23 +77,6 @@ const theme = createTheme({
   });
 
 
-function submit(book) {
-    axios.post("http://localhost:5000/XD", {
-        ISBN:book.ISBN,
-        key:sessionUserKey
-    }).then((response) => {
-        
-    });
-}
-
-function searchBooks(filter)//to zamienic na funkcje z api
-{
-    let book1={title:"test1",author:"author1",src:"src1",ISBN:1}
-    let book2={title:"test2",author:"author2",src:"src2",ISBN:2}
-    let book3={title:"test3",author:"author3",src:"src3",ISBN:3}
-    let tmpBooks = [book1,book2,book3]
-    return tmpBooks
-}
 
 function AddBookComponent(props)
 {
@@ -97,6 +87,7 @@ const [foundBooks, setFoundBooks] = useState([])
 const [book, setBook] = useState({title:"", author:"", src:"", description:"", googleId:""})
 const [hasSearched, setHasSearched] = useState(false)
 const [rooms, setRooms] = useState([])
+const [roomsOptions, setRoomsOptions] = useState([])
 const [shelfs, setShelfs] = useState([])
 const [selectedRoom, setSelectedRoom] = useState(0)
 const [selectedShelf, setSelectedShelf] = useState(0)
@@ -108,30 +99,56 @@ const [newshelfName, setNewShelfName] = useState("")
 const [selectedRoomForShelf, setSelectedRoomForShelf] = useState(0)
 
 useEffect(()=>{
-    axios.get("http://localhost:5000/api/user_info/" + sessionUserKey).then((response) => {
-            if(response.data.user.error!=="No such user")
-            {
-                setRooms(response.data.rooms)
-                setShelfs(response.data.shelfs)
-            }else
-            {
-                let roomsTmp=[{name:"rum1",id:1},{name:"room2",id:2}]
-                let shelfsTmp=[{name:"szelf1",id:1},{name:"pułkanabułka",id:2}]
-                setRooms(roomsTmp)
-                setShelfs(shelfsTmp)
-            }
-        })
+    axios.get("http://localhost:5000/api/owned_shelves/" + sessionUsername).then((response) => {
+        console.log(response.data.shelves)
+        if(response.data.msg!=="No shelves?:(")
+        {
+            setShelfs(response.data.shelves)
+        }else
+        {
+            let shelfsTmp=[{name:"szelf1",id:1},{name:"pułkanabułka",id:2}]
+            setShelfs(shelfsTmp)
+        }
+    })
+    axios.get("http://localhost:5000/api/owned_rooms/" + sessionUsername).then((response) => {
+        console.log(response.data.rooms)
+        if(response.data.msg!=="No rooms?:(")
+        {
+            let roomOptionsTmp = []
+            response.data.rooms.forEach(e => roomOptionsTmp.push({label: e.name, id: e.id}))
+            setRooms(response.data.rooms)
+            setRoomsOptions(roomOptionsTmp)
+        }else
+        {
+            let roomsTmp=[{name:"rum1",id:1},{name:"room2",id:2}]
+            let roomOptionsTmp=[{label:"rum1",id:1},{label:"room2",id:2}]
+            setRoomsOptions(roomOptionsTmp)
+            setRooms(roomsTmp)
+        }
+    })
 },[])
 
 useEffect(()=>{
-},[selectedRoom,selectedShelf])
+    console.log(shelfs)
+},[shelfs])
 
 var runFetch = async (filter) => {
 
     const rawResponse = await axios.get("https://www.googleapis.com/books/v1/volumes?q="+filter+"&maxResults=5")
-    setFoundBooks(rawResponse.data.items)
-    setHasSearched(true)
-
+    //console.log(rawResponse.data.items)
+    for(let i=0;i<rawResponse.data.items.length;i++)
+    {
+        console.log(rawResponse.data.items[i].volumeInfo.industryIdentifiers)
+    }
+    if(rawResponse.data.items.length!==0)
+    {
+        setFoundBooks(rawResponse.data.items)
+        setHasSearched(true)
+        alert("XDDD")
+    }else
+    {
+        console.log("we aint found shit")
+    }
 } 
 
     return(
@@ -217,6 +234,7 @@ var runFetch = async (filter) => {
                                     <Textfield 
                                         required
                                         label="Name"
+                                        value={newRoomName}
                                         onChange={(e)=>{
                                             setNewRoomName(e.target.value)
                                         }}
@@ -228,9 +246,12 @@ var runFetch = async (filter) => {
                                             room_name:newRoomName,
                                         }).then((response) => {
                                             console.log(response)
-                                            if(response.msg!=="error")
+                                            if(response.msg!=="success")
                                             {
                                                 roomsTmp.push({name:newRoomName, id:response.id})
+                                                let roomsOptionsTmp = roomsOptions
+                                                roomsOptionsTmp.push({id: response.id, label: newRoomName})
+                                                setRoomsOptions(roomsOptionsTmp)
                                                 setRooms(roomsTmp)
                                             }
                                             setDisplayAddRoom(false)
@@ -260,53 +281,41 @@ var runFetch = async (filter) => {
                                     }                                    
                                 </Select>
                             </FormControl>
-                            <Popup id="popupShelf" open={displayAddShelf} position="bottom" onClose={(e)=>{
-                                    console.log(e.taget)
-                                    if(e.target!==undefined)
-                                    {
-                                        setDisplayAddShelf(false)
-                                    }
+                            <Popup id="popupShelf" open={displayAddShelf} position="bottom" onClose={(e)=>{setDisplayAddShelf(false)
                                 }}>
                                 <h2>Room Name</h2>
-                                <FormControl className="col-8" size="small">
-                                    <Select
-                                        displayEmpty
-                                        required
-                                        id="roomSelectForShelf"
-                                        value={selectedRoomForShelf}
-                                        size="small"
-                                        onChange={(e)=>{
-                                            console.log(e.target.value)
-                                            setSelectedRoomForShelf(e.target.value)
-                                            setDisplayAddShelf(displayAddShelf)
-                                        }} >
-                                        {
-                                            Array.from(rooms).map((r)=><MenuItem key={v4()} value={r.id}>{r.name}</MenuItem>)
-                                        }                                    
-                                    </Select>
-                                </FormControl>
+                                <SelectButBetter
+                                    value={selectedRoomForShelf}
+                                    options={roomsOptions}
+                                    // onChange={(e)=>{
+                                    //     console.log(e.id)
+                                    //     setSelectedRoomForShelf(e.id)
+                                    // }} 
+                                    onChange={setSelectedRoomForShelf}
+                                />
                                 <h2>Shelf Name</h2>
                                     <Textfield 
                                         required
-                                        label="Name"
                                         onChange={(e)=>{
-                                            setNewRoomName(e.target.value)
+                                            setNewShelfName(e.target.value)
                                         }}
                                     />
                                 <button onClick={()=>{
                                         let shelfsTmp = shelfs
                                         axios.post("http://localhost:5000/api/shelf/add", {
                                             user_key:sessionUserKey,
-                                            name:newshelfName,
+                                            shelf_name:newshelfName,
+                                            room_id:selectedRoomForShelf.id
                                         }).then((response) => {
                                             console.log(response)
-                                            if(response.data.msg.error!=="error")
+                                            if(response.data.msg==="success")
                                             {
                                                 shelfsTmp.push({name:newshelfName, id:response.id})
-                                                setRooms(shelfsTmp)
+                                                setShelfs(shelfsTmp)
+                                                console.log(shelfsTmp)
                                             }
                                             setDisplayAddShelf(false)
-                                            newshelfName("")
+                                            setNewShelfName("")
                                         })
                                     }
                                     }>Add shelf</button>
@@ -364,7 +373,7 @@ var runFetch = async (filter) => {
                             if(props.type==="personal")
                             {
                                 axios.post("http://localhost:5000/api/owned_book/add", {
-                                    key:sessionUserKey,
+                                    user_key:sessionUserKey,
                                     book:book,
                                     shelf_id:selectedShelf,
                                     room:selectedRoom,
@@ -375,7 +384,7 @@ var runFetch = async (filter) => {
                             }else if(props.type==="wanted")
                             {
                                 axios.post("http://localhost:5000/api/wanted_book/add", {
-                                    key:sessionUserKey,
+                                    user_key:sessionUserKey,
                                     book:book,
                                     shelf_id:selectedShelf,
                                     room:selectedRoom,

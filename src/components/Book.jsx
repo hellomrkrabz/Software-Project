@@ -5,7 +5,7 @@ import './../style/bootstrap/css/main_style.css'
 import Textfield from "@mui/material/TextField"
 
 function Book(props) {
-
+    
     return(
         <>
         {props.variant==="small" &&
@@ -84,11 +84,6 @@ function Book(props) {
                 <div className="col-4 bg-danger" value={props.industryIdentifiers[0].identifier}>
                     <div value={props.industryIdentifiers[0].identifier}>
                         {props.authors[0]}
-                    </div>
-                </div>
-                <div className="col-4 bg-success" value={props.industryIdentifiers[0].identifier}>
-                    <div value={props.industryIdentifiers[0].identifier}>
-                        {props.industryIdentifiers[0].identifier}
                     </div>
                 </div>
             </div>
