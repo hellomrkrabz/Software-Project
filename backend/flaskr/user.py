@@ -118,3 +118,14 @@ class User(db.Model):
                 testlist += row
                 print (row)
         return testlist
+
+    def get_room_info(self):
+        testlist = []
+        sql = text("""SELECT room_id FROM rooms R
+        JOIN users U ON R.owner_id = U.id WHERE U.id = """ + str(self.id))
+        with engine.connect() as con:
+            result = con.execute(sql)
+            for row in result:
+                testlist += row
+                print (row)
+        return testlist

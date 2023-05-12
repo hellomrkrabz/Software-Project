@@ -113,6 +113,24 @@ def get_user_by_username(username):
         }
     return jsonify({'user': user_json})
 
+#---------------------info about rooms---------------------------
+
+@bp.route('/owned_rooms/<u_id>', methods=['GET'])
+def get_owned_rooms(u_id):
+    user = User.query.filter_by(id=u_id).first()
+    if user is not None:
+        list = user.get_room_info()
+        if list is not None:
+            for room_id in list:
+                room = Room.query.filter_by(room_id=room_id).first()
+                if room is not None:
+                    return jsonify({
+                        'room_id': room.get_id(),
+                        'room_name': room.get_room_name(),
+                        'owner': room.get_owner_id()
+                    })
+    return jsonify({'msg': 'No rooms?:('})
+
 #---------------------adding things---------------------------
 
 @bp.route('/<entity_type>/<action>', methods=['POST'])
