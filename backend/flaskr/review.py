@@ -9,7 +9,7 @@ class Review(db.Model):
     visible = db.Column(db.Boolean)
     content = db.Column(db.String(500))
     borrower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    renter_id = db.Column(db.Integer, db.ForeignKey('rooms.owner_id'))
+    renter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     reported = db.Column(db.Boolean)
 
     def get_review_id(self):
