@@ -158,8 +158,8 @@ def get_owned_shelves(u_id):
             print(input_list)
             for shelf_id in input_list:
                 print('elf on a: '+str(shelf_id))
-                room = Room.query.filter_by(shelf_id=shelf_id).first()
-                shelf_list.append(room)
+                shelf = Shelf.query.filter_by(shelf_id=shelf_id).first()
+                shelf_list.append(shelf)
             shelf_json = [{
                 'id': s.get_id(),
                 'name': s.get_shelf_name(),
