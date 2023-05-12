@@ -11,6 +11,8 @@ from . import db
 
 bp = Blueprint("api", __name__, url_prefix='/api')
 
+#---------------------info about books---------------------------
+
 @bp.route('/owned_book_info', methods=['GET'])
 def get_books():
     books = Owned_Book.query.all()
@@ -48,7 +50,9 @@ def get_book_info_test(u_id):
                         'author': book.get_author(),
                         'title': book.get_title()
                     })
-    return jsonify({'msg': 'Specified book does not exist:('})
+    return jsonify({'msg': 'No books?:('})
+
+#---------------------info about users---------------------------
 
 @bp.route('/user_info', methods=['GET'])
 def get_users():
@@ -108,6 +112,8 @@ def get_user_by_username(username):
             'error': 'No such user'
         }
     return jsonify({'user': user_json})
+
+#---------------------adding things---------------------------
 
 @bp.route('/<entity_type>/<action>', methods=['POST'])
 def add_or_edit_entity(entity_type, action):

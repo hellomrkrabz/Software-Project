@@ -3,10 +3,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_utils import EmailType
 import enum
 import base64
+from datetime import datetime
 from .room import Room
 from .transaction import Transaction
 from .review import Review
 from .book import Owned_Book
+from .book import Wanted_Book
 from sqlalchemy import text, create_engine
 from sqlalchemy.engine.base import Connection
 
@@ -32,6 +34,7 @@ class User(db.Model):
     permissions = db.Column(db.Enum(Permissions))
     verificationHash = db.Column(db.String(128))
     key = db.Column(db.String(128))
+    key_expiration_date = db.Column(db.DateTime)
     #user_rating = db.Column(Review.get_average_rating(id))
     rooms = db.relationship('Room',
                                backref='owner',
@@ -45,6 +48,14 @@ class User(db.Model):
                                backref='borrower',
                                lazy='dynamic',
                                cascade="all, delete")
+    owned_book = db.relationship('Owned_Book',
+                            backref='owner',
+                            lazy='dynamic',
+                            cascade="all, delete")
+    wanted_book = db.relationship('Wanted_Book',
+                            backref='user',
+                            lazy='dynamic',
+                            cascade="all, delete")
 
     def verify_password(self, password) -> bool:
         return check_password_hash(self.password, password)
@@ -87,6 +98,9 @@ class User(db.Model):
 
     def get_details(self):
         return self.details
+
+    def get_key_expiration_date(self):
+        return self.key_expiration_date
 
     def encode_avatar(self):
         with open(self.avatar, "rb") as image_file:

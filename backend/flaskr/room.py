@@ -18,7 +18,7 @@ class Room(db.Model):
                                lazy='dynamic',
                                cascade="all, delete")
 
-    def get_room_id(self):
+    def get_id(self):
         return self.room_id
 
     def get_room_name(self):

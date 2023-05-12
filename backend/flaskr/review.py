@@ -10,6 +10,7 @@ class Review(db.Model):
     content = db.Column(db.String(500))
     borrower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     renter_id = db.Column(db.Integer, db.ForeignKey('rooms.owner_id'))
+    reported = db.Column(db.Boolean)
 
     def get_review_id(self):
         return self.review_id
@@ -22,6 +23,9 @@ class Review(db.Model):
 
     def get_content(self):
         return self.content
+
+    def get_reported(self):
+        return self.reported
 
 #    def get_average_rating(user_id):
    #     number_of_reviews = 0
