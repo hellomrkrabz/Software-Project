@@ -9,7 +9,7 @@ from .transaction import Transaction
 from .review import Review
 from .book import Owned_Book
 from .book import Wanted_Book
-from sqlalchemy import text, create_engine
+from sqlalchemy import text, create_engine, ForeignKey
 from sqlalchemy.engine.base import Connection
 
 engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
@@ -35,16 +35,12 @@ class User(db.Model):
     verificationHash = db.Column(db.String(128))
     key = db.Column(db.String(128))
     key_expiration_date = db.Column(db.DateTime)
-    #user_rating = db.Column(Review.get_average_rating(id))
+    user_rating = db.Column(db.Float)
     rooms = db.relationship('Room',
                                backref='owner',
                                lazy='dynamic',
                                cascade="all, delete")
     transactions = db.relationship('Transaction',
-                               backref='borrower',
-                               lazy='dynamic',
-                               cascade="all, delete")
-    reviews = db.relationship('Review',
                                backref='borrower',
                                lazy='dynamic',
                                cascade="all, delete")
@@ -56,6 +52,7 @@ class User(db.Model):
                             backref='user',
                             lazy='dynamic',
                             cascade="all, delete")
+
 
     def verify_password(self, password) -> bool:
         return check_password_hash(self.password, password)

@@ -11,6 +11,10 @@ class Review(db.Model):
     borrower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     renter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     reported = db.Column(db.Boolean)
+    borrower = db.relationship('User',
+                              foreign_keys=[borrower_id])
+    renter = db.relationship('User',
+                              foreign_keys=[renter_id])
 
     def get_review_id(self):
         return self.review_id
