@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Response
 from .book import Owned_Book
 from .book import Wanted_Book
 from .user import User
@@ -7,7 +7,7 @@ from .room import Room
 from .review import Review
 from .transaction import Transaction
 from . import db
-
+import json
 
 bp = Blueprint("api", __name__, url_prefix='/api')
 
@@ -120,16 +120,33 @@ def get_owned_rooms(u_id):
     user = User.query.filter_by(id=u_id).first()
     if user is not None:
         list = user.get_room_info()
+        room_list = []
         if list is not None:
+            print(list)
             for room_id in list:
+                print('rum: '+str(room_id))
                 room = Room.query.filter_by(room_id=room_id).first()
-                if room is not None:
-                    return jsonify({
-                        'room_id': room.get_id(),
-                        'room_name': room.get_room_name(),
-                        'owner': room.get_owner_id()
-                    })
+                room_list.append(room)
+            room_json = [{
+                'id': r.get_id(),
+                'name': r.get_room_name(),
+                'owner': r.get_owner_id()
+            } for r in room_list]
+            return jsonify({'rooms': room_json})
     return jsonify({'msg': 'No rooms?:('})
+
+@bp.route('/get_rooms', methods=['GET'])
+def get_rooms():
+    rooms = Room.query.all()
+    print(rooms)
+    rooms_json = [{
+        'id': r.get_id(),
+        'name': r.get_room_name(),
+        'owner': r.get_owner_id()
+    }for r in rooms]
+
+    return jsonify({'rooms': rooms_json})
+
 
 @bp.route('/owned_shelves/<u_id>', methods=['GET'])
 def get_owned_shelves(u_id):
@@ -201,6 +218,9 @@ def add_or_edit_entity(entity_type, action):
 
         elif entity_type == 'room':
             room_name = data['room_name']
+            print("hilfe")
+            user = User.query.filter_by(key=data['user_key']).first()
+            print("hilfe2")
             owner_id = user.id
 
             if action == "add":

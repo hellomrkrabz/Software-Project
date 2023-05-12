@@ -2,7 +2,6 @@ from flask import Flask, request
 import psycopg2
 from . import db
 from .shelf import Shelf
-from .review import Review
 
 class Room(db.Model):
     __tablename__ = 'rooms'
@@ -13,6 +12,8 @@ class Room(db.Model):
                                backref='room',
                                lazy='dynamic',
                                cascade="all, delete")
+    users = db.relationship('User',
+                               foreign_keys=[owner_id])
 
     def get_id(self):
         return self.room_id

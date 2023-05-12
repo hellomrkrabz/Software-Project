@@ -36,10 +36,6 @@ class User(db.Model):
     key = db.Column(db.String(128))
     key_expiration_date = db.Column(db.DateTime)
     user_rating = db.Column(db.Float)
-    rooms = db.relationship('Room',
-                               backref='owner',
-                               lazy='dynamic',
-                               cascade="all, delete")
     transactions = db.relationship('Transaction',
                                backref='borrower',
                                lazy='dynamic',
@@ -119,7 +115,8 @@ class User(db.Model):
     def get_room_info(self):
         testlist = []
         sql = text("""SELECT room_id FROM rooms R
-        JOIN users U ON R.owner_id = U.id WHERE U.id = """ + str(self.id))
+        JOIN users U ON R.owner_id = U.id 
+        WHERE U.id = """ + str(self.id))
         with engine.connect() as con:
             result = con.execute(sql)
             for row in result:
