@@ -113,7 +113,7 @@ def get_user_by_username(username):
         }
     return jsonify({'user': user_json})
 
-#---------------------info about rooms---------------------------
+#---------------------info about rooms & shelves---------------------------
 
 @bp.route('/owned_rooms/<u_id>', methods=['GET'])
 def get_owned_rooms(u_id):
@@ -131,6 +131,22 @@ def get_owned_rooms(u_id):
                     })
     return jsonify({'msg': 'No rooms?:('})
 
+@bp.route('/owned_shelves/<u_id>', methods=['GET'])
+def get_owned_shelves(u_id):
+    user = User.query.filter_by(id=u_id).first()
+    if user is not None:
+        list = user.get_shelf_info()
+        if list is not None:
+            for shelf_id in list:
+                shelf = Shelf.query.filter_by(shelf_id=shelf_id).first()
+                if shelf is not None:
+                    return jsonify({
+                        'shelf_id': shelf.get_id(),
+                        'shelf_name': shelf.get_shelf_name(),
+                        'room_id': shelf.get_room_id()
+                    })
+    return jsonify({'msg': 'No rooms?:('})
+
 #---------------------adding things---------------------------
 
 @bp.route('/<entity_type>/<action>', methods=['POST'])
@@ -138,6 +154,7 @@ def add_or_edit_entity(entity_type, action):
     data = request.get_json()
     entity_type = str(entity_type)
     entity = None
+    user = User.query.filter_by(key=data['user_key']).first()
 
     try:
         if entity_type == 'owned_book':
@@ -184,7 +201,7 @@ def add_or_edit_entity(entity_type, action):
 
         elif entity_type == 'room':
             room_name = data['room_name']
-            owner_id = data['owner_id']
+            owner_id = user.id
 
             if action == "add":
                 entity = Room(
