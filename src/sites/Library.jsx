@@ -139,7 +139,7 @@ function Library(props) {
             
             <div className="container-fluid d-flex flex-column flex-grow-1">
                 {props.type==="personal" && addPersonalBook &&//personal
-                    <AddBookComponent type="personal" offered={isOffered}/>
+                    <AddBookComponent type="personal" offered={isOffered} setAddPersonalBook={setAddPersonalBook}/>
                 }
                 {props.type==="personal" && !addPersonalBook &&
                     <div className="row flex-grow-1">
@@ -224,7 +224,7 @@ function Library(props) {
                 }
 
                 {props.type==="wanted" && addWantedBook &&//wanted
-                    <AddBookComponent type="wanted"/>
+                    <AddBookComponent type="wanted" setAddWantedBook={setAddWantedBook}/>
                 }
                 {props.type==="wanted" && !addWantedBook &&
                     <div className="row flex-grow-1">

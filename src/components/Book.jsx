@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import banana from "./../media/banana.png"
 import './../style/bootstrap/css/main_style.css'
+import Textfield from "@mui/material/TextField"
 
 function Book(props) {
 
@@ -70,6 +71,28 @@ function Book(props) {
                     </div>
                 </div>
             </>
+        }
+
+        {props.variant==="list" &&
+        <>
+            <div className="row col-11" value={props.industryIdentifiers[0].identifier}>
+                <div className="col-4 bg-light" value={props.industryIdentifiers[0].identifier}>
+                    <div value={props.industryIdentifiers[0].identifier}>
+                        {props.title}
+                    </div>
+                </div>
+                <div className="col-4 bg-danger" value={props.industryIdentifiers[0].identifier}>
+                    <div value={props.industryIdentifiers[0].identifier}>
+                        {props.authors[0]}
+                    </div>
+                </div>
+                <div className="col-4 bg-success" value={props.industryIdentifiers[0].identifier}>
+                    <div value={props.industryIdentifiers[0].identifier}>
+                        {props.industryIdentifiers[0].identifier}
+                    </div>
+                </div>
+            </div>
+        </>
         }
         </>
     );

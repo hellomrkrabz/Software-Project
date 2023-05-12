@@ -6,12 +6,12 @@ import Textfield from '@mui/material/TextField';
 import Switch from '@mui/material/Switch'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import InputLabel from '@mui/material/InputLabel';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MenuItem from '@mui/material/MenuItem'
 import Popup from 'reactjs-popup';
 import { v4 } from "uuid";
 import axios from "axios"
+import Book from "./Book";
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 
@@ -81,7 +81,6 @@ function submit(book) {
 
 function searchBooks(filter)//to zamienic na funkcje z api
 {
-    console.log(filter)
     let book1={title:"test1",author:"author1",src:"src1",ISBN:1}
     let book2={title:"test2",author:"author2",src:"src2",ISBN:2}
     let book3={title:"test3",author:"author3",src:"src3",ISBN:3}
@@ -89,20 +88,51 @@ function searchBooks(filter)//to zamienic na funkcje z api
     return tmpBooks
 }
 
-
 function AddBookComponent(props)
 {
 const [filter, setFilter] = useState("")
 const [condition, setCondition] = useState("good")
 const [isOffered, setIsOffered] = useState(props.offered)
 const [foundBooks, setFoundBooks] = useState([])
-const [book, setBook] = useState({title:"", author:"", src:"", description:""})
+const [book, setBook] = useState({title:"", author:"", src:"", description:"", googleId:""})
 const [hasSearched, setHasSearched] = useState(false)
+const [rooms, setRooms] = useState([])
+const [shelfs, setShelfs] = useState([])
+const [selectedRoom, setSelectedRoom] = useState(0)
+const [selectedShelf, setSelectedShelf] = useState(0)
+const [bookSrc, setBookSrc] = useState(banana)
+const [displayAddShelf, setDisplayAddShelf] = useState(false)
+const [displayAddRoom, setDisplayAddRoom] = useState(false)
+const [newRoomName, setNewRoomName] = useState("")
+const [newshelfName, setNewShelfName] = useState("")
+const [selectedRoomForShelf, setSelectedRoomForShelf] = useState(0)
 
+useEffect(()=>{
+    axios.get("http://localhost:5000/api/user_info/" + sessionUserKey).then((response) => {
+            if(response.data.user.error!=="No such user")
+            {
+                setRooms(response.data.rooms)
+                setShelfs(response.data.shelfs)
+            }else
+            {
+                let roomsTmp=[{name:"rum1",id:1},{name:"room2",id:2}]
+                let shelfsTmp=[{name:"szelf1",id:1},{name:"pułkanabułka",id:2}]
+                setRooms(roomsTmp)
+                setShelfs(shelfsTmp)
+            }
+        })
+},[])
 
-useEffect(() => {
-    console.log(isOffered)
-}, [isOffered]);
+useEffect(()=>{
+},[selectedRoom,selectedShelf])
+
+var runFetch = async (filter) => {
+
+    const rawResponse = await axios.get("https://www.googleapis.com/books/v1/volumes?q="+filter+"&maxResults=5")
+    setFoundBooks(rawResponse.data.items)
+    setHasSearched(true)
+
+} 
 
     return(
         <>
@@ -128,25 +158,27 @@ useEffect(() => {
                         </Search>
                         
                         <button className="btn btn-banana-primary" onClick={()=>{
-                            var tmp = searchBooks(filter)
-                            setFoundBooks(tmp)
-                            setHasSearched(true)
+                                runFetch(filter)
                             }}>Search</button>
                             
                         <Popup id="popup" open={hasSearched} position="bottom" onClose={()=>setHasSearched(false)}>
                             <div onClick={(e)=>{
                                 let value = e.target.getAttribute('value')
-                                setBook({title: value, author: value, src: value, description: value})
+                                let bookTmp = foundBooks.find(element => element.volumeInfo.industryIdentifiers[0].identifier === value);
+                                setBookSrc(bookTmp.volumeInfo.imageLinks? bookTmp.volumeInfo.imageLinks.smallThumbnail : "notfound.png")
+                                setBook({title: bookTmp.volumeInfo.title, author: bookTmp.volumeInfo.authors[0], src: bookTmp.volumeInfo.imageLinks? bookTmp.volumeInfo.imageLinks.smallThumbnail : "notfound.png", description: bookTmp.volumeInfo.description, googleId:bookTmp.id})
                                 setHasSearched(false)
                                 }}>
-                                {foundBooks.map((b)=><p value={b.ISBN} key={v4()}>{b.title}</p>)}
+                                {foundBooks.map((b)=>
+                                    <Book variant="list" key={v4()} {...b.volumeInfo}></Book>
+                                )}
                             </div>
                         </Popup>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5">
-                            <img src={banana} style={{width: "100%",height:"100%", objectFit: "cover"}} />
+                            <img src={bookSrc} style={{width: "100%",height:"100%", objectFit: "cover"}} />
                         </div>
 
                         <div className="col-7 ms-2 mt-5 row">
@@ -165,26 +197,122 @@ useEffect(() => {
 
                             <label className="d-block mt-2">Room</label>
                             <FormControl className="col-8" size="small">
-                                <Select displayEmpty>
-                                    <MenuItem value={10}>room1</MenuItem>
-                                    <MenuItem value={20}>room2</MenuItem>
-                                    <MenuItem value={30}>room3</MenuItem>
+                                <Select
+                                    displayEmpty
+                                    required
+                                    id="roomSelect"
+                                    value={selectedRoom}
+                                    size="small"
+                                    onChange={(e)=>{
+                                        setSelectedRoom(e.target.value)
+                                    }} >
+                                    {
+                                        Array.from(rooms).map((r)=><MenuItem key={v4()} value={r.id}>{r.name}</MenuItem>)
+                                    }                                    
                                 </Select>
                             </FormControl>
+                            <Popup id="popupRoom" open={displayAddRoom} position="bottom" onClose={()=>setDisplayAddRoom(false)}>
+                                <div>
+                                    <h2>Room Name</h2>
+                                    <Textfield 
+                                        required
+                                        label="Name"
+                                        onChange={(e)=>{
+                                            setNewRoomName(e.target.value)
+                                        }}
+                                    />
+                                    <button onClick={()=>{
+                                        let roomsTmp = rooms
+                                        axios.post("http://localhost:5000/api/room/add", {
+                                            user_key:sessionUserKey,
+                                            room_name:newRoomName,
+                                        }).then((response) => {
+                                            console.log(response)
+                                            if(response.msg!=="error")
+                                            {
+                                                roomsTmp.push({name:newRoomName, id:response.id})
+                                                setRooms(roomsTmp)
+                                            }
+                                            setDisplayAddRoom(false)
+                                            setNewRoomName("")
+                                        })
+                                    }
+                                    }>Add Room</button>
+                                </div>
+                            </Popup>
                             <div className="col-4 pe-0">
-                                <button className="col-12 btn btn-banana-primary h-100">Add New</button>
+                                <button className="col-12 btn btn-banana-primary h-100" onClick={()=>setDisplayAddRoom(true)}>Add New</button>
                             </div>
 
                             <label className="d-block mt-2">Shelf</label>                    
                             <FormControl className="col-8" size="small">
-                                <Select displayEmpty>
-                                    <MenuItem value={10}>shelf1</MenuItem>
-                                    <MenuItem value={20}>shelf2</MenuItem>
-                                    <MenuItem value={30}>shelf3</MenuItem>
+                            <Select
+                                    displayEmpty
+                                    required
+                                    id="shelfSelect"
+                                    value={selectedShelf}
+                                    size="small"
+                                    onChange={(e)=>{
+                                        setSelectedShelf(e.target.value)
+                                    }} >
+                                    {
+                                        Array.from(shelfs).map((s)=><MenuItem key={v4()} value={s.id}>{s.name}</MenuItem>)
+                                    }                                    
                                 </Select>
                             </FormControl>
+                            <Popup id="popupShelf" open={displayAddShelf} position="bottom" onClose={(e)=>{
+                                    console.log(e.taget)
+                                    if(e.target!==undefined)
+                                    {
+                                        setDisplayAddShelf(false)
+                                    }
+                                }}>
+                                <h2>Room Name</h2>
+                                <FormControl className="col-8" size="small">
+                                    <Select
+                                        displayEmpty
+                                        required
+                                        id="roomSelectForShelf"
+                                        value={selectedRoomForShelf}
+                                        size="small"
+                                        onChange={(e)=>{
+                                            console.log(e.target.value)
+                                            setSelectedRoomForShelf(e.target.value)
+                                            setDisplayAddShelf(displayAddShelf)
+                                        }} >
+                                        {
+                                            Array.from(rooms).map((r)=><MenuItem key={v4()} value={r.id}>{r.name}</MenuItem>)
+                                        }                                    
+                                    </Select>
+                                </FormControl>
+                                <h2>Shelf Name</h2>
+                                    <Textfield 
+                                        required
+                                        label="Name"
+                                        onChange={(e)=>{
+                                            setNewRoomName(e.target.value)
+                                        }}
+                                    />
+                                <button onClick={()=>{
+                                        let shelfsTmp = shelfs
+                                        axios.post("http://localhost:5000/api/shelf/add", {
+                                            user_key:sessionUserKey,
+                                            name:newshelfName,
+                                        }).then((response) => {
+                                            console.log(response)
+                                            if(response.data.msg.error!=="error")
+                                            {
+                                                shelfsTmp.push({name:newshelfName, id:response.id})
+                                                setRooms(shelfsTmp)
+                                            }
+                                            setDisplayAddShelf(false)
+                                            newshelfName("")
+                                        })
+                                    }
+                                    }>Add shelf</button>
+                            </Popup>
                             <div className="col-4 pe-0">
-                                    <button className="col-12 btn btn-banana-primary h-100">Add New</button>
+                                    <button className="col-12 btn btn-banana-primary h-100" onClick={()=>setDisplayAddShelf(true)}>Add New</button>
                             </div>
                         </div>
                     </div>
@@ -207,7 +335,7 @@ useEffect(() => {
                                         id="demo-simple-select"
                                         value={condition}
                                         size="small"
-                                        onChange={(e)=>{console.log(e.target.value)
+                                        onChange={(e)=>{
                                         setCondition(e.target.value)
                                         }}
                                     >
@@ -218,7 +346,7 @@ useEffect(() => {
                             </div>
                             <div className="col d-flex">
                                 <ThemeProvider theme={theme}>
-                                    <Switch  color="bananaBlueSwitch" checked={isOffered? "checked":""} value={isOffered} onChange={()=>setIsOffered(!isOffered)}/>
+                                    <Switch  color="bananaBlueSwitch" checked={isOffered? true:false} value={isOffered} onChange={()=>setIsOffered(!isOffered)}/>
                                 </ThemeProvider>
                                 <label className="fs-5">Available for renting</label>
                             </div>
@@ -232,7 +360,32 @@ useEffect(() => {
                         {props.type==="wanted" &&
                             <button className="col-3 btn btn-banana-primary" onClick={()=>window.location.href="/WantedLibrary"}>Cancel</button>
                         }
-                        <button className="col-3 ms-2 btn btn-banana-primary" onClick={()=>submit(book)}>Add Book</button>
+                        <button className="col-3 ms-2 btn btn-banana-primary" onClick={()=>{
+                            if(props.type==="personal")
+                            {
+                                axios.post("http://localhost:5000/api/owned_book/add", {
+                                    key:sessionUserKey,
+                                    book:book,
+                                    shelf_id:selectedShelf,
+                                    room:selectedRoom,
+                                    rentable:isOffered,
+                                    book_state:condition
+                                })
+                                props.setAddPersonalBook(false)
+                            }else if(props.type==="wanted")
+                            {
+                                axios.post("http://localhost:5000/api/wanted_book/add", {
+                                    key:sessionUserKey,
+                                    book:book,
+                                    shelf_id:selectedShelf,
+                                    room:selectedRoom,
+                                    rentable:isOffered,
+                                    book_state:condition
+                                })
+                                console.log(props)
+                                props.setAddWantedBook(false)
+                            }
+                        }}>Add Book</button>
                     </div>
                 </div>
             </div>
