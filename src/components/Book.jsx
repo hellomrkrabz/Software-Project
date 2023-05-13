@@ -5,7 +5,6 @@ import './../style/bootstrap/css/main_style.css'
 import Textfield from "@mui/material/TextField"
 
 function Book(props) {
-    
     return(
         <>
         {props.variant==="small" &&
@@ -73,17 +72,22 @@ function Book(props) {
             </>
         }
 
-        {props.variant==="list" &&
+        {props.variant==="list" && props.industryIdentifiers!==undefined &&
         <>
-            <div className="row col-11" value={props.industryIdentifiers[0].identifier}>
-                <div className="col-4 bg-light" value={props.industryIdentifiers[0].identifier}>
-                    <div value={props.industryIdentifiers[0].identifier}>
+            <div className="row col-11 justify-content-around mb-2 mt-2" value={props.industryIdentifiers[0].identifier}>
+                <div className="col-4" value={props.industryIdentifiers[0].identifier}>
+                    <div className="text-truncate bg-light rounded-2" value={props.industryIdentifiers[0].identifier} title={props.title}>
                         {props.title}
                     </div>
                 </div>
-                <div className="col-4 bg-danger" value={props.industryIdentifiers[0].identifier}>
-                    <div value={props.industryIdentifiers[0].identifier}>
-                        {props.authors[0]}
+                <div className="col-4" value={props.industryIdentifiers[0].identifier}>
+                    <div className="text-truncate bg-light rounded-2" value={props.industryIdentifiers[0].identifier} title={props.authors? props.authors[0] : "No Authors"}>
+                        {props.authors? props.authors[0] : "No Authors"}
+                    </div>
+                </div>
+                <div className="col-4" value={props.industryIdentifiers[0].identifier}>
+                    <div className="text-truncate bg-light rounded-2" value={props.industryIdentifiers[0].identifier} title={props.industryIdentifiers[0].identifier}>
+                        {props.industryIdentifiers[0].identifier}
                     </div>
                 </div>
             </div>

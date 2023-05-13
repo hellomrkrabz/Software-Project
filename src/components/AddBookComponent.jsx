@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import banana from "../media/banana.png";
+import notFound from "../media/notFound.png"
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Textfield from '@mui/material/TextField';
@@ -89,6 +90,7 @@ const [hasSearched, setHasSearched] = useState(false)
 const [rooms, setRooms] = useState([])
 const [roomsOptions, setRoomsOptions] = useState([])
 const [shelfs, setShelfs] = useState([])
+const [shelfsToList, setShelfsToList] = useState([])
 const [selectedRoom, setSelectedRoom] = useState(0)
 const [selectedShelf, setSelectedShelf] = useState(0)
 const [bookSrc, setBookSrc] = useState(banana)
@@ -100,54 +102,71 @@ const [selectedRoomForShelf, setSelectedRoomForShelf] = useState(0)
 
 useEffect(()=>{
     axios.get("http://localhost:5000/api/owned_shelves/" + sessionUsername).then((response) => {
-        console.log(response.data.shelves)
         if(response.data.msg!=="No shelves?:(")
         {
             setShelfs(response.data.shelves)
-        }else
-        {
-            let shelfsTmp=[{name:"szelf1",id:1},{name:"pułkanabułka",id:2}]
-            setShelfs(shelfsTmp)
-        }
+            setSelectedShelf(response.data.shelves[0].id)
+        }//else
+        // {
+        //     let shelfsTmp=[{name:"szelf1",id:1},{name:"pułkanabułka",id:2}]
+        //     setShelfs(shelfsTmp)
+        //     setSelectedShelf(shelfsTmp[0].id)
+        // }
     })
     axios.get("http://localhost:5000/api/owned_rooms/" + sessionUsername).then((response) => {
-        console.log(response.data.rooms)
         if(response.data.msg!=="No rooms?:(")
         {
             let roomOptionsTmp = []
             response.data.rooms.forEach(e => roomOptionsTmp.push({label: e.name, id: e.id}))
             setRooms(response.data.rooms)
             setRoomsOptions(roomOptionsTmp)
-        }else
-        {
-            let roomsTmp=[{name:"rum1",id:1},{name:"room2",id:2}]
-            let roomOptionsTmp=[{label:"rum1",id:1},{label:"room2",id:2}]
-            setRoomsOptions(roomOptionsTmp)
-            setRooms(roomsTmp)
-        }
+            setSelectedRoomForShelf(roomOptionsTmp[0])
+            setSelectedRoom(response.data.rooms[0].id)
+        }//else
+        // {
+        //     let roomsTmp=[{name:"rum1",id:1},{name:"room2",id:2}]
+        //     let roomOptionsTmp=[{label:"rum1",id:1},{label:"room2",id:2}]
+        //     setRoomsOptions(roomOptionsTmp)
+        //     setRooms(roomsTmp)
+        //     setSelectedRoomForShelf(roomOptionsTmp[0])
+        //     setSelectedRoom(roomsTmp[0].id)
+        // }
     })
 },[])
 
 useEffect(()=>{
-    console.log(shelfs)
-},[shelfs])
+
+    if(rooms.length!==0)
+    {
+        let shelfsToListTmp =[]
+        for(let i=0; i<shelfs.length; i++)
+        {
+            if(shelfs[i].room===selectedRoom)
+            {
+                shelfsToListTmp.push(shelfs[i])
+            }
+        }
+
+        if(shelfsToListTmp.length > 0)
+        {
+            setSelectedShelf(shelfsToListTmp[0].id)
+        }
+
+        setShelfsToList(shelfsToListTmp)
+        }
+},[selectedRoom, shelfs])
 
 var runFetch = async (filter) => {
 
     const rawResponse = await axios.get("https://www.googleapis.com/books/v1/volumes?q="+filter+"&maxResults=5")
-    //console.log(rawResponse.data.items)
-    for(let i=0;i<rawResponse.data.items.length;i++)
-    {
-        console.log(rawResponse.data.items[i].volumeInfo.industryIdentifiers)
-    }
+
     if(rawResponse.data.items.length!==0)
     {
         setFoundBooks(rawResponse.data.items)
         setHasSearched(true)
-        alert("XDDD")
     }else
     {
-        console.log("we aint found shit")
+        console.log("we didn't find enyfin")
     }
 } 
 
@@ -179,13 +198,35 @@ var runFetch = async (filter) => {
                             }}>Search</button>
                             
                         <Popup id="popup" open={hasSearched} position="bottom" onClose={()=>setHasSearched(false)}>
-                            <div onClick={(e)=>{
+                            <div className="d-flex flex-column align-items-center" onClick={(e)=>{
                                 let value = e.target.getAttribute('value')
                                 let bookTmp = foundBooks.find(element => element.volumeInfo.industryIdentifiers[0].identifier === value);
-                                setBookSrc(bookTmp.volumeInfo.imageLinks? bookTmp.volumeInfo.imageLinks.smallThumbnail : "notfound.png")
-                                setBook({title: bookTmp.volumeInfo.title, author: bookTmp.volumeInfo.authors[0], src: bookTmp.volumeInfo.imageLinks? bookTmp.volumeInfo.imageLinks.smallThumbnail : "notfound.png", description: bookTmp.volumeInfo.description, googleId:bookTmp.id})
+                                setBookSrc(bookTmp.volumeInfo.imageLinks? bookTmp.volumeInfo.imageLinks.smallThumbnail : notFound)
+                                setBook({
+                                    title: bookTmp.volumeInfo.title,
+                                    author: bookTmp.volumeInfo.authors!==undefined ? bookTmp.volumeInfo.authors[0]: "No Authors",
+                                    src: bookTmp.volumeInfo.imageLinks!==undefined ? bookTmp.volumeInfo.imageLinks.smallThumbnail : "notFound",
+                                    description: bookTmp.volumeInfo.description!==undefined ? bookTmp.volumeInfo.description : "No Description",
+                                    googleId: bookTmp.id})
                                 setHasSearched(false)
                                 }}>
+                                <div className="row col-11">
+                                    <div className="col-4">
+                                        <div className="d-flex align-items-start">
+                                            <h2>Title</h2>
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="d-flex align-items-start">
+                                            <h2>Authors</h2>
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="d-flex align-items-start">
+                                            <h2>ISBN</h2>
+                                        </div>
+                                    </div>
+                                </div>
                                 {foundBooks.map((b)=>
                                     <Book variant="list" key={v4()} {...b.volumeInfo}></Book>
                                 )}
@@ -245,7 +286,6 @@ var runFetch = async (filter) => {
                                             user_key:sessionUserKey,
                                             room_name:newRoomName,
                                         }).then((response) => {
-                                            console.log(response)
                                             if(response.msg!=="success")
                                             {
                                                 roomsTmp.push({name:newRoomName, id:response.id})
@@ -277,7 +317,7 @@ var runFetch = async (filter) => {
                                         setSelectedShelf(e.target.value)
                                     }} >
                                     {
-                                        Array.from(shelfs).map((s)=><MenuItem key={v4()} value={s.id}>{s.name}</MenuItem>)
+                                        Array.from(shelfsToList).map((s)=><MenuItem key={v4()} value={s.id}>{s.name}</MenuItem>)
                                     }                                    
                                 </Select>
                             </FormControl>
@@ -287,10 +327,6 @@ var runFetch = async (filter) => {
                                 <SelectButBetter
                                     value={selectedRoomForShelf}
                                     options={roomsOptions}
-                                    // onChange={(e)=>{
-                                    //     console.log(e.id)
-                                    //     setSelectedRoomForShelf(e.id)
-                                    // }} 
                                     onChange={setSelectedRoomForShelf}
                                 />
                                 <h2>Shelf Name</h2>
@@ -301,18 +337,18 @@ var runFetch = async (filter) => {
                                         }}
                                     />
                                 <button onClick={()=>{
-                                        let shelfsTmp = shelfs
                                         axios.post("http://localhost:5000/api/shelf/add", {
                                             user_key:sessionUserKey,
                                             shelf_name:newshelfName,
                                             room_id:selectedRoomForShelf.id
                                         }).then((response) => {
-                                            console.log(response)
                                             if(response.data.msg==="success")
                                             {
-                                                shelfsTmp.push({name:newshelfName, id:response.id})
+                                                let shelfsTmp = shelfs
+                                                shelfsTmp.push({id:response.data.id, name:newshelfName, room: selectedRoomForShelf.id})
                                                 setShelfs(shelfsTmp)
-                                                console.log(shelfsTmp)
+                                                setSelectedRoomForShelf(rooms[0].id)
+                                                setSelectedRoom(rooms[0].id)
                                             }
                                             setDisplayAddShelf(false)
                                             setNewShelfName("")
@@ -391,7 +427,6 @@ var runFetch = async (filter) => {
                                     rentable:isOffered,
                                     book_state:condition
                                 })
-                                console.log(props)
                                 props.setAddWantedBook(false)
                             }
                         }}>Add Book</button>
