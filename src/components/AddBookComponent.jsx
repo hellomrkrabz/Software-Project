@@ -200,7 +200,7 @@ var runFetch = async (filter) => {
                         <Popup id="popup" open={hasSearched} position="bottom" onClose={()=>setHasSearched(false)}>
                             <div className="d-flex flex-column align-items-center" onClick={(e)=>{
                                 let value = e.target.getAttribute('value')
-                                let bookTmp = foundBooks.find(element => element.volumeInfo.industryIdentifiers[0].identifier === value);
+                                let bookTmp = foundBooks.find(element => element.volumeInfo.industryIdentifiers!==undefined ? element.volumeInfo.industryIdentifiers[0].identifier === value:"");//i have no idea if this can stay like this
                                 setBookSrc(bookTmp.volumeInfo.imageLinks? bookTmp.volumeInfo.imageLinks.smallThumbnail : notFound)
                                 setBook({
                                     title: bookTmp.volumeInfo.title,
