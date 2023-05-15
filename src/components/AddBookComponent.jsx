@@ -207,6 +207,7 @@ var runFetch = async (filter) => {
                                     author: bookTmp.volumeInfo.authors!==undefined ? bookTmp.volumeInfo.authors[0]: "No Authors",
                                     src: bookTmp.volumeInfo.imageLinks!==undefined ? bookTmp.volumeInfo.imageLinks.smallThumbnail : "notFound",
                                     description: bookTmp.volumeInfo.description!==undefined ? bookTmp.volumeInfo.description : "No Description",
+                                    ISBN: bookTmp.volumeInfo.industryIdentifiers!==undefined ? bookTmp.volumeInfo.industryIdentifiers[0].identifier : "No ISBN",
                                     googleId: bookTmp.id})
                                 setHasSearched(false)
                                 }}>
