@@ -121,7 +121,6 @@ class User(db.Model):
             result = con.execute(sql)
             for row in result:
                 testlist += row
-                print (row)
         return testlist
 
     def get_shelf_info(self):
@@ -133,5 +132,4 @@ class User(db.Model):
             result = con.execute(sql)
             for row in result:
                 testlist += row
-                print (row)
         return testlist

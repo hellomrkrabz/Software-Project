@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, Response
 from .book import Owned_Book
 from .book import Wanted_Book
+from .book import Book
 from .user import User
 from .shelf import Shelf
 from .room import Room
@@ -14,25 +15,40 @@ bp = Blueprint("api", __name__, url_prefix='/api')
 #---------------------info about books---------------------------
 
 @bp.route('/owned_book_info', methods=['GET'])
-def get_books():
+def get_owned_books():
     books = Owned_Book.query.all()
-    print(books)
     books_json = [{
-        'book_id': b.get_book_id(),
-        'author': b.get_author(),
-        'title': b.get_title()
+        'owned_book_id': b.get_id(),
+        'book_state': b.get_book_state(),
+        'rentable': b.get_rentable(),
+        'owner_id': b.get_owner_id(),
+        'shelf_id': b.get_shelf_id(),
+        'book_id': b.get_book_id()
     }for b in books]
 
     return jsonify({'books': books_json})
 
-@bp.route('/owned_book_info/<b_id>', methods=['GET'])
+@bp.route('/wanted_book_info', methods=['GET'])
+def get_wanted_books():
+    books = Wanted_Book.query.all()
+    books_json = [{
+        'wanted_book_id': b.get_id(),
+        'owner_id': b.get_user_id(),
+        'foreign_book_id': b.get_foreign_book_id()
+    }for b in books]
+
+    return jsonify({'books': books_json})
+
+@bp.route('/book_info/<b_id>', methods=['GET'])
 def get_book_info(b_id):
-    book = Owned_Book.query.filter_by(book_id=b_id).first()
+    book = Book.query.filter_by(book_id=b_id).first()
     if book is not None:
         return jsonify({
-            'book_id': book.get_book_id(),
-            'author': book.get_author(),
-            'title': book.get_title()
+            'book_id': book.get_id(),
+            'google_book_id': book.get_google_book_id(),
+            'isbn': book.get_isbn(),
+            'title': book.get_title(),
+            'cover_photo': book.get_cover_photo()
         })
     return jsonify({'msg': 'Specified book does not exist:('})
 
@@ -122,9 +138,7 @@ def get_owned_rooms(username):
         list = user.get_room_info()
         room_list = []
         if list is not None:
-            print(list)
             for room_id in list:
-                print('rum: '+str(room_id))
                 room = Room.query.filter_by(room_id=room_id).first()
                 room_list.append(room)
             room_json = [{
@@ -138,7 +152,6 @@ def get_owned_rooms(username):
 @bp.route('/get_rooms', methods=['GET'])
 def get_rooms():
     rooms = Room.query.all()
-    print(rooms)
     rooms_json = [{
         'id': r.get_id(),
         'name': r.get_room_name(),
@@ -155,9 +168,7 @@ def get_owned_shelves(username):
         input_list = user.get_shelf_info()
         shelf_list = []
         if input_list is not None:
-            print(input_list)
             for shelf_id in input_list:
-                print('elf on a: '+str(shelf_id))
                 shelf = Shelf.query.filter_by(shelf_id=shelf_id).first()
                 shelf_list.append(shelf)
             shelf_json = [{
@@ -171,7 +182,6 @@ def get_owned_shelves(username):
 @bp.route('/get_shelves', methods=['GET'])
 def get_shelves():
     shelves = Shelf.query.all()
-    print(shelves)
     shelves_json = [{
         'id': s.get_id(),
         'name': s.get_shelf_name(),
@@ -187,36 +197,96 @@ def add_or_edit_entity(entity_type, action):
     data = request.get_json()
     entity_type = str(entity_type)
     entity = None
+    entity2 = None
     user = User.query.filter_by(key=data['user_key']).first()
 
     try:
         if entity_type == 'owned_book':
-            google_book_id = data['google_book_id']
+            book = data['book']
+            book_id = book['googleId']
+            title = book['title']
+            isbn = book['ISBN']
+            cover_photo = book['src']
             book_state = data['book_state']
             rentable = data['rentable']
             shelf_id = data['shelf_id']
 
-            if action == "add":
+            book_in_db = Book.query.filter_by(google_book_id=book_id).first()
+            user = User.query.filter_by(key=data['user_key']).first()
+            owner_id = user.id
+
+            if action == "add" and book_in_db is not None:
                 entity = Owned_Book(
-                    google_book_id=google_book_id,
+                    book_id=book_in_db.book_id,
                     book_state=book_state,
                     rentable=rentable,
-                    shelf_id=shelf_id
+                    shelf_id=shelf_id,
+                    owner_id=owner_id
                 )
+            elif action == "add" and book_in_db is None:
+                    entity2 = Book(
+                        google_book_id = book_id,
+                        isbn = isbn,
+                        title = title,
+                        cover_photo = cover_photo
+                    )
+                    db.session.add(entity2)
+                    db.session.commit()
+                    book_in_db = Book.query.filter_by(google_book_id=book_id).first()
+                    entity = Owned_Book(
+                        book_id=book_in_db.book_id,
+                        book_state=book_state,
+                        rentable=rentable,
+                        shelf_id=shelf_id,
+                        owner_id=owner_id
+                    )
+
             elif action == "edit":
                 entity = Owned_Book.query.filter_by(id=data['id']).first()
-                entity.google_book_id = google_book_id
+                entity.book_id = book_id
                 entity.book_state = book_state
                 entity.rentable = rentable
                 entity.shelf_id = shelf_id
+                entity.owner_id = owner_id
 
         elif entity_type == 'wanted_book':
-            google_book_id = data['google_book_id']
+            book = data['book']
+            book_id = book['googleId']
+            title = book['title']
+            isbn = book['ISBN']
+            cover_photo = book['src']
 
-            if action == "add":
+            book_in_db = Book.query.filter_by(google_book_id=book_id).first()
+            user = User.query.filter_by(key=data['user_key']).first()
+            owner_id = user.id
+
+            if action == "add" and book_in_db is not None:
                 entity = Wanted_Book(
-                    google_book_id=google_book_id
+                    user_id=owner_id,
+                    foreign_book_id = book_in_db.book_id
                 )
+            elif action == "add" and book_in_db is None:
+                    entity2 = Book(
+                        google_book_id = book_id,
+                        isbn = isbn,
+                        title = title,
+                        cover_photo = cover_photo
+                    )
+                    db.session.add(entity2)
+                    db.session.commit()
+                    book_in_db = Book.query.filter_by(google_book_id=book_id).first()
+                    entity = Wanted_Book(
+                        user_id=owner_id,
+                        foreign_book_id=book_in_db.book_id
+                    )
+
+            elif action == "edit":
+                entity = Owned_Book.query.filter_by(id=data['id']).first()
+                entity.book_id = book_id
+                entity.book_state = book_state
+                entity.rentable = rentable
+                entity.shelf_id = shelf_id
+                entity.owner_id = owner_id
 
         elif entity_type == 'shelf':
             shelf_name = data['shelf_name']
@@ -296,6 +366,8 @@ def add_or_edit_entity(entity_type, action):
 
         if action == "add":
             db.session.add(entity)
+            #if entity2 is not None:
+             #   db.session.add(entity2)
         db.session.commit()
         print(f"[INFO] Action '{action}' on {entity} performed successfully")
         return jsonify({"msg": "success", "id": entity.get_id()})
