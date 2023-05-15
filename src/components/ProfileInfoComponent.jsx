@@ -24,7 +24,7 @@ function ProfileInfoComponent(props) {
                 disabled
                 id="bio"
                 label="Bio"
-                value={props.details}
+                value={props.details ?? ""}
                 multiline
                 rows={6}
                 fullWidth

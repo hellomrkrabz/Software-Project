@@ -295,7 +295,8 @@ var runFetch = async (filter) => {
                                                     let roomsOptionsTmp = roomsOptions
                                                     roomsOptionsTmp.push({id: response.id, label: newRoomName})
                                                     setRoomsOptions(roomsOptionsTmp)
-                                                    setRooms(roomsTmp)
+                                                    setRooms(roomsTmp[0])
+                                                    setSelectedRoom(rooms)
                                                 }
                                                 setDisplayAddRoom(false)
                                                 setNewRoomName("")
