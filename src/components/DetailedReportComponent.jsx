@@ -10,19 +10,21 @@ function DetailedReportComponent(props) {
 
     return (
         <>
-            <div className="row col-8 bg-light border border-dark mt-3 container-fluid d-flex flex-column align-items-center">
-                <div className="col-10">
-                    <h1>Report Details</h1>
+            <div className="row col-8 bg-banana-blue bg-opacity-25 border border-dark mt-3 container-fluid d-flex flex-column align-items-center rounded p-5 pb-4">
+                <div className="col-10 fw-semibold">
+                    <h1 className="fw-semibold">Report Details:</h1>
                     <div className="row">
                         <div className="col-6">
                             <div>Reporting User</div>
                             <Textfield 
                                 disabled
+                                fullWidth
                                 value={props.reporter}
                                 />
                             <div>Report Date</div>
                             <Textfield 
                                 disabled
+                                fullWidth
                                 value={props.reportDate}
                                 />
                         </div>
@@ -30,22 +32,24 @@ function DetailedReportComponent(props) {
                         <div>Reported User</div>
                             <Textfield 
                                 disabled
+                                fullWidth
                                 value={props.reported}
                                 />
                             <div>Report Date</div>
                             <Textfield 
                                 disabled
+                                fullWidth
                                 value={props.opinionDate}
                                 />
                         </div>
                     </div>
                     <div className="row container-fluid d-flex flex-column align-items-center">
-                        <h4 className="col-6">Report status</h4>
+                        <h4 className="col-6 fw-semibold">Report status</h4>
                         {props.status==="pending" &&
-                            <div className="col-6 bg-warning">{props.status}</div>
+                            <div className="col-6 bg-warning rounded p-2 text-center fs-3">{props.status}</div>
                         }
                         {props.status==="resolved" &&
-                            <div className="col-6 bg-success">{props.status}</div>
+                            <div className="col-6 bg-success rounded p-2 text-center fs-3">{props.status}</div>
                         }
                     </div>
                     <div className="row container-fluid d-flex flex-column align-items-center">
@@ -66,26 +70,26 @@ function DetailedReportComponent(props) {
                             value={props.reportContent}
                             />
                     </div>
-                    <div className="row container-fluid d-flex justify-content-center">
-                        <button className="col-3"
+                    <div className="row container-fluid d-flex justify-content-center mt-3">
+                        <button className="col-3 btn btn-banana-primary"
                             onClick={()=>{
                                 setPopupType("warn")
                                 setOpenPopup(true)
                             }}
                             >Warn User</button>
-                        <button className="col-3 m-auto"
+                        <button className="col-3 m-auto btn btn-banana-primary"
                             onClick={()=>{
                                 setPopupType("ban")
                                 setOpenPopup(true)
                             }}
                             >Ban User</button>{/*kek*/}
-                        <button className="col-3"
+                        <button className="col-3 btn btn-banana-primary"
                             onClick={()=>{
                                 setPopupType("ignore")
                                 setOpenPopup(true)
                             }}
                             >Ignore User</button>
-                        <button className="col-5 btn btn-banana-primary ms-3 align-self-center" onClick={()=>{
+                        <button className="col-5 btn btn-banana-primary ms-3 align-self-center mt-3" onClick={()=>{
                             props.setDisplayDetails(false)
                             }}>Back</button>
                     </div>

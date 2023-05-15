@@ -144,14 +144,14 @@ function Opinions(props) {
             <div>
                 <Navbar site={"/Opinions"} username={props.username}/>
             </div>
-            <div className="container-fluid bg-primary">
+            <div className="container-fluid">
                 <div className="row">
-                        <div className="col-9 bg-warning">
+                        <div className="col-9">
                             <OpinionGrid opinions={opinionsToDisplay} setDetails={setDetails} setDisplayDetails={setDisplayDetails}/>
                         </div>
-                        <div className="col-3 bg-success">
+                        <div className="col-3 bg-banana-blue bg-opacity-25 d-flex flex-column">
                             <h3>{username}'s opinions</h3>
-                            <div>
+                            <div className="d-flex flex-column flex-grow-1">
                                 <Search>
                                     <SearchIconWrapper>
                                         <img src={banana} height="30px"/>
@@ -162,7 +162,7 @@ function Opinions(props) {
                                         setFilter({...filter,"user":e.target.value})
                                     } }}/>
                                 </Search>
-                                <FormControl className="col-11">
+                                <FormControl className="col-11 mt-3">
                                     <Select
                                         value={filter.sort}
                                         onChange={(e)=>{
@@ -175,20 +175,25 @@ function Opinions(props) {
                                         <MenuItem value={"lowest"}>Lowest</MenuItem>
                                     </Select>
                                 </FormControl>
-                                
-                                <button className="col-12 btn btn-banana-primary-dark" onClick={()=>{ filterOpinions(opinions,filter)  }}>Search</button>
-                                <button className="btn btn-banana-primary-dark" onClick={()=>{
-                                    if(pageNumber>0)
-                                    {
-                                        setPageNumber(pageNumber-1)
-                                    }
-                                }}>Prev</button>
-                                <button className="btn btn-banana-primary-dark" onClick={()=>{
-                                    if(pageNumber < (filteredOpinions.length/24) -1)
-                                    {
-                                        setPageNumber(pageNumber+1)
-                                    }
-                                }}>Next</button>
+
+                                <div className="d-flex flex-column justify-content-between flex-grow-1 mb-4">
+                                    <button className="col-12 btn btn-banana-primary-dark mt-3" onClick={()=>{ filterOpinions(opinions,filter)  }}>Search</button>
+                                    <div className="d-flex justify-content-between">
+                                        <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
+                                            if(pageNumber>0)
+                                            {
+                                                setPageNumber(pageNumber-1)
+                                            }
+                                        }}>Prev</button>
+                                        <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
+                                            if(pageNumber < (filteredOpinions.length/24) -1)
+                                            {
+                                                setPageNumber(pageNumber+1)
+                                            }
+                                        }}>Next</button>
+                                    </div>
+                                </div>
+
                                 <Popup id="popup" open={displayDetails} position="bottom" onClose={()=>setDisplayDetails(false)}>
                                     <div className="d-flex justify-content-center row">
                                         <div className="d-flex flex-column col-10">
