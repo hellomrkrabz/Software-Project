@@ -8,8 +8,8 @@ class Review(db.Model):
     rating = db.Column(db.Integer)
     visible = db.Column(db.Boolean)
     content = db.Column(db.String(500))
-    borrower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    renter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    borrower_id = db.Column(db.Integer, db.ForeignKey('users.id')) #opinion is about this user
+    renter_id = db.Column(db.Integer, db.ForeignKey('users.id')) #opinion author
     reported = db.Column(db.Boolean)
     borrower = db.relationship('User',
                               foreign_keys=[borrower_id])
@@ -31,17 +31,6 @@ class Review(db.Model):
     def get_reported(self):
         return self.reported
 
-#    def get_average_rating(user_id):
-   #     number_of_reviews = 0
-    #    rating = 0
-     #   average_rating = 0
-
-      #  for r in Review.review_id:
-       #     if user_id == r.borrower_id or user_id == r.renter_id:
-        #        number_of_reviews += 1
-         #       rating += r.rating
-       # average_rating = rating/number_of_reviews
-       # return average_rating
 
 
 

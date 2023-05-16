@@ -19,6 +19,7 @@ class Book(db.Model):
     google_book_id = db.Column(db.String(30))
     isbn = db.Column(db.String(15))
     title = db.Column(db.String(120))
+    author = db.Column(db.String(120))
     cover_photo = db.Column(db.String(300))
     wanted_books = db.relationship('Wanted_Book',
                             backref='foreign_book',
@@ -40,6 +41,9 @@ class Book(db.Model):
 
     def get_title(self):
         return self.title
+
+    def get_author(self):
+        return self.author
 
     def get_cover_photo(self):
         return self.cover_photo

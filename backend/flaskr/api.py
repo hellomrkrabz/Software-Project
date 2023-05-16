@@ -48,6 +48,7 @@ def get_book_info(b_id):
             'google_book_id': book.get_google_book_id(),
             'isbn': book.get_isbn(),
             'title': book.get_title(),
+            'author': book.get_author(),
             'cover_photo': book.get_cover_photo()
         })
     return jsonify({'msg': 'Specified book does not exist:('})
@@ -111,6 +112,7 @@ def get_user_by_id(id):
 @bp.route('/user_info/<username>', methods=['GET'])
 def get_user_by_username(username):
     user = User.query.filter_by(username=username).first()
+    rating = str(user.get_user_rating())
     if user is not None:
         user_json = {
             'id': user.get_id(),
@@ -121,7 +123,8 @@ def get_user_by_username(username):
             'key': user.get_key(),
             'phone_number': user.get_phone_number(),
             'city': user.get_city(),
-            'details': user.get_details()
+            'details': user.get_details(),
+            'average_rating': rating
         }
     else:
         user_json = {
@@ -205,6 +208,7 @@ def add_or_edit_entity(entity_type, action):
             book = data['book']
             book_id = book['googleId']
             title = book['title']
+            author = book['author']
             isbn = book['ISBN']
             cover_photo = book['src']
             book_state = data['book_state']
@@ -228,6 +232,7 @@ def add_or_edit_entity(entity_type, action):
                         google_book_id = book_id,
                         isbn = isbn,
                         title = title,
+                        author = author,
                         cover_photo = cover_photo
                     )
                     db.session.add(entity2)
@@ -253,6 +258,7 @@ def add_or_edit_entity(entity_type, action):
             book = data['book']
             book_id = book['googleId']
             title = book['title']
+            author = book['author']
             isbn = book['ISBN']
             cover_photo = book['src']
 
@@ -270,6 +276,7 @@ def add_or_edit_entity(entity_type, action):
                         google_book_id = book_id,
                         isbn = isbn,
                         title = title,
+                        author = author,
                         cover_photo = cover_photo
                     )
                     db.session.add(entity2)
@@ -279,14 +286,6 @@ def add_or_edit_entity(entity_type, action):
                         user_id=owner_id,
                         foreign_book_id=book_in_db.book_id
                     )
-
-            elif action == "edit":
-                entity = Owned_Book.query.filter_by(id=data['id']).first()
-                entity.book_id = book_id
-                entity.book_state = book_state
-                entity.rentable = rentable
-                entity.shelf_id = shelf_id
-                entity.owner_id = owner_id
 
         elif entity_type == 'shelf':
             shelf_name = data['shelf_name']
