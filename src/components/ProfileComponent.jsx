@@ -19,8 +19,19 @@ function ProfileComponent(props) {
 
     useEffect(()=>{
         axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
-            console.log(response.data.books)
+            //console.log(response.data.books)
             setPersonalBookIds(response.data.books)
+            let booksIdTMP = []
+            for(let i=0;i<response.data.books.length;i++)
+            {
+                booksIdTMP.push(response.data.books[i].book_id)
+            }
+            //setBookIds(booksIdTMP)
+        })
+
+        axios.get("http://localhost:5000/api/wanted_book_info").then((response) => {
+            //console.log(response.data.books)
+            setWantedBookIds(response.data.books)
             let booksIdTMP = []
             for(let i=0;i<response.data.books.length;i++)
             {
@@ -32,18 +43,40 @@ function ProfileComponent(props) {
 
     useEffect(()=>
     {
-        let fetched = []
-        console.log(personalBookIds.length)
-        for (let i = 0; i < personalBookIds.length; i++) {
-            setTimeout(() => {
+        if(personalBookIds.length>0)
+        {
+            let fetched = []
+            let offeredTMP = []
+            for (let i = 0; i < personalBookIds.length && i < 6; i++) {
                 axios.get("http://localhost:5000/api/book_info/" + personalBookIds[i].book_id).then((response) => {
-                    console.log(response.data)
-                    //fetched.push(r.volumeInfo)
+                    fetched.push(response.data)
+                    if(personalBookIds[i].rentable===true)
+                    {
+                        offeredTMP.push(response.data)
+                    }
                 })
-            }, 300 * i);
+            }
+            setTimeout(() => {
+                setPersonalBooks(fetched)
+                setOfferedBooks(offeredTMP)
+            }, 2000);
         }
-        setTimeout(() => {setPersonalBooks(fetched)}, 400 * personalBookIds.length+2);
     },[personalBookIds])
+
+    useEffect(()=>
+    {
+        if(wantedBookIds.length>0)
+        {
+            let fetched = []
+            for (let i = 0; i < wantedBookIds.length && i < 6; i++) {
+                axios.get("http://localhost:5000/api/book_info/" + wantedBookIds[i].foreign_book_id).then((response) => {
+                    fetched.push(response.data)
+                })
+            }
+            setTimeout(() => {setWantedBooks(fetched)}, 2000);
+        }
+    },[wantedBookIds])
+
 
   return (
     <>
@@ -55,10 +88,10 @@ function ProfileComponent(props) {
                 
                 <div className="col-9 mt-5">
 
-                    <ProfileBookList books={props.books} title={"Wanted Books"} moreLink={"/WantedLibrary"} addLink={"/WantedLibrary/Add"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
-                    <ProfileBookList books={props.books} title={"Offered Books"} moreLink={"/PersonalLibrary/Offered"} addLink={"/PersonalLibrary/AddOffered"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                    <ProfileBookList books={wantedBooks} title={"Wanted Books"} moreLink={"/WantedLibrary"} addLink={"/WantedLibrary/Add"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                    <ProfileBookList books={offeredBooks} title={"Offered Books"} moreLink={"/PersonalLibrary/Offered"} addLink={"/PersonalLibrary/AddOffered"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
                     {props.isLoggedIn &&
-                        <ProfileBookList books={props.books} title={"Personal Library"} moreLink={"/PersonalLibrary"} addLink={"/PersonalLibrary/Add"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
+                        <ProfileBookList books={personalBooks} title={"Personal Library"} moreLink={"/PersonalLibrary"} addLink={"/PersonalLibrary/Add"} isLoggedIn={props.isLoggedIn}></ProfileBookList>
                     }
                     
 

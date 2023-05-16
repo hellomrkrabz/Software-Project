@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import banana from "./../media/banana.png"
 import './../style/bootstrap/css/main_style.css'
-import Textfield from "@mui/material/TextField"
 
 function Book(props) {
     return(
@@ -10,27 +9,25 @@ function Book(props) {
         {props.variant==="small" &&
         <>
             <div className="col">
-                <div key={props.id} className="d-flex flex-column align-items-center">
-                    <Link to={props.link}>
-                        <div >
-                            <div className="book-title">
-                                <div className="d-flex flex-column justify-content-center h-100">
-                                    {props.title}<br/>
-                                    {props.authors!==undefined &&
-                                        props.authors[0]
-                                    }
-                                </div>
+                <div key={props.book_id} className="d-flex flex-column align-items-center">
+                    <div >
+                        <div className="book-title">
+                            <div className="d-flex flex-column justify-content-center h-100">
+                                {props.title}<br/>
+                                {props.author?? "No author :("}
                             </div>
-                            {props.imageLinks!==undefined && props.imageLinks.smallThumbnail !== undefined &&
-                                <img src={props.imageLinks.smallThumbnail} alt="book" height="200" width="130"/>
-                            }
+                        </div>
+                        {props.cover_photo!=="notFound" ?
+                            <img src={props.cover_photo} alt="book" height="200" width="130"/>
+                            :
+                            <img src={banana} alt="book" height="200" width="130"/>
+                        }
 
-                            {props.imageLinks!==undefined && props.imageLinks.smallThumbnail === undefined &&
-                                <img src={banana} alt="book" height="200" width="130"/>
-                            }
-                            
-                        </div> 
-                    </Link>
+                        {/* {props.imageLinks==="notFound" &&
+                            <img src={banana} alt="book" height="200" width="130"/>
+                        } */}
+                        
+                    </div> 
                 </div>
             </div>
         </>

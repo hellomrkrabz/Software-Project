@@ -9,7 +9,7 @@ function ProfileBookList(props) {
 
     var emptyBook = {title:"title", authors:["author"], imageLinks:{smallThumbnail: loading}}
     
-    const [books, setBooks] = useState([emptyBook,emptyBook,emptyBook,emptyBook,emptyBook,emptyBook])
+    const [books, setBooks] = useState([emptyBook])
 
     useEffect(() => {
         if(props.books!==undefined)
