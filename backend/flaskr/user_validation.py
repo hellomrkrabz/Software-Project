@@ -65,6 +65,8 @@ def Register():
             error = "E-mail is already taken"
         elif 'Daily user sending quota exceeded' in error:
             error = "Internal error"
+        elif '"users_username_key" DETAIL: Key (username)=' in error:
+            error = "Username taken"
         else:
             print('[ERROR] ::', error)
         return jsonify({"msg": error})
