@@ -393,28 +393,28 @@ def add_or_edit_entity(entity_type, action):
                 entity.visible = visible
                 entity.content = content
 
-            elif entity_type == 'transaction':
-                reservation_date = data['reservation_date']
-                rent_date = data['rent_date']
-                return_date = data['return_date']
-                state = data['state']
-                book_id = data['book_id']
-                borrower_id = data['borrower_id']
+        elif entity_type == 'transaction':
+            reservation_date = data['reservation_date']
+            rent_date = data['rent_date']
+            return_date = data['return_date']
+            state = data['state']
+            book_id = data['book_id']
+            borrower_id = data['borrower_id']
 
-                if action == "add":
-                    entity = Transaction(
-                        reservation_date=reservation_date,
-                        rent_date='null',
-                        return_date='null',
-                        state='reservation',
-                        book_id=book_id,
-                        borrower_id=borrower_id
-                    )
-                elif action == "edit":
-                    entity = Transaction.query.filter_by(id=data['id']).first()
-                    entity.rent_date = rent_date
-                    entity.return_date = return_date
-                    entity.state = state
+            if action == "add":
+                entity = Transaction(
+                    reservation_date=reservation_date,
+                    rent_date='null',
+                    return_date='null',
+                    state='reservation',
+                    book_id=book_id,
+                    borrower_id=borrower_id
+                )
+            elif action == "edit":
+                entity = Transaction.query.filter_by(id=data['id']).first()
+                entity.rent_date = rent_date
+                entity.return_date = return_date
+                entity.state = state
 
         else:
             print(f"[ERROR] :: Unknown entity type: {entity_type}")
@@ -422,8 +422,6 @@ def add_or_edit_entity(entity_type, action):
 
         if action == "add":
             db.session.add(entity)
-            #if entity2 is not None:
-             #   db.session.add(entity2)
         db.session.commit()
         print(f"[INFO] Action '{action}' on {entity} performed successfully")
         return jsonify({"msg": "success", "id": entity.get_id()})
