@@ -406,7 +406,7 @@ def add_or_edit_entity(entity_type, action):
                     reservation_date=reservation_date,
                     rent_date=rent_date,
                     return_date=return_date,
-                    state='reservation',
+                    state=state,
                     book_id=book_id,
                     borrower_id=borrower_id
                 )
