@@ -15,11 +15,9 @@ function TransactionList(props) {
 
     //All this gets updated from db whenever detailsKey changes
     var sessionUsername = sessionStorage.getItem("sessionUserUsername");
-    var users = [];
 
 
     const [transactions, setTransactions] = useState([]);
-    const [usernames, setUsernames] = useState([]);
 
     const [detailsUsername, setDetailsUsername] = useState("");
     const [detailsBook, setDetailsBook] = useState({ title: "Instytut", author: "Stephen King", link: "https://ih1.redbubble.net/image.450886651.0130/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u8.jpg", imageLinks: { smallThumbnail: "https://www.gloskultury.pl/wp-content/uploads/2019/07/Instytut.jpg" } });
@@ -39,23 +37,9 @@ function TransactionList(props) {
         axios.get("http://localhost:5000/api/transactions/" + sessionUsername).then((response) => {
             var trans = response.data.transactions;
             setTransactions(trans);
-            users = [];
-            //console.log(trans)
+            console.log(trans)
             return trans;
-        }).then((r) => {
-            for (let i = 0; i < r.length; i++) {
-                
-                axios.get("http://localhost:5000/api/user/" + r[i].borrower_id).then((resp) => {
-                    //console.log(resp);
-                    var username_json = resp.data.user;
-                    console.log(users);
-                    users.push(username_json.username);
-                })
-            }    
-            setUsernames(users);            
         })
-        console.log(usernames);
-
     }, [])
 
   
@@ -64,7 +48,7 @@ function TransactionList(props) {
     useEffect(() => {
         //placeholder until backend is ready
         // Take all details for a transaction from db and assign them to appropriate hooks (axios)
-        /*
+        
         axios.get("http://localhost:5000/api/transaction/" + sessionUsername + "/" + detailsKey).then((response) => {
             //zamiast console log ustawianie hookow
             var jason = response.data; 
@@ -79,7 +63,7 @@ function TransactionList(props) {
                 //po zmianie api jeszcze ksi¹¿kowe badziewie
             }
         })
-        */
+        
     }, [detailsKey])
 
 
@@ -99,7 +83,7 @@ function TransactionList(props) {
                                 <div>
                                     <br></br>
                                 </div>
-                                <Transaction user={t.borrower_id} detailsKey={detailsKey} reservationDate={t.reservation_date} updateShowDetailsFromChildren={setShowDetails} updateDetailsKey={setDetailsKey} status={t.state} transactionID={transactions.id}  book={t.book_id}> </Transaction>
+                                <Transaction user={t.borrower_username} detailsKey={detailsKey} reservationDate={t.reservation_date} updateShowDetailsFromChildren={setShowDetails} updateDetailsKey={setDetailsKey} status={t.state} transactionID={transactions.id}  book={t.book_id}> </Transaction>
                             </div>
                         )}
                     </>

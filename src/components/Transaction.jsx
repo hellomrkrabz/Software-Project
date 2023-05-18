@@ -25,6 +25,7 @@ function Transaction(props) {
             setCoverPhoto(book_json.cover_photo);
         })
 
+        setReservationDate(reservationDate.slice(0, -12));
     }, [])
 
     return (
