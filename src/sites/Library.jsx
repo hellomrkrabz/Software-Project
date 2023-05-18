@@ -112,13 +112,13 @@ function Library(props) {
         }
     },[bookIds])
 
-    useEffect(()=>{
-        console.log(books)
-    },[books])
+    // useEffect(()=>{
+    //     console.log(books)
+    // },[books])
 
-    useEffect(()=>{
-        console.log(booksToDisplay)
-    },[booksToDisplay])
+    // useEffect(()=>{
+    //     console.log(booksToDisplay)
+    // },[booksToDisplay])
 
     var runFetch = async (idArr,filter) => {
         const googleBooksApi = new GoogleBooksAPI();
@@ -149,8 +149,6 @@ function Library(props) {
         const publisherFilter = new RegExp(f.publisher, 'i');
         const ISBNFilter = new RegExp(f.ISBN, 'i');
         const offeredFilter = new RegExp(offered, 'i');
-
-        console.log(boo)
 
         if(offered)
         {

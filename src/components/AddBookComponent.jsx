@@ -136,9 +136,16 @@ useEffect(()=>{
 
 useEffect(()=>{
 
+    //if(shelfs!==undefined)
+        console.log(shelfs)
+
+},[shelfs])
+
+useEffect(()=>{
+
     if(rooms.length!==0)
     {
-        let shelfsToListTmp =[]
+        var shelfsToListTmp =[]
         for(let i=0; i<shelfs.length; i++)
         {
             if(shelfs[i].room===selectedRoom)
@@ -289,14 +296,17 @@ var runFetch = async (filter) => {
                                                 user_key:sessionUserKey,
                                                 room_name:newRoomName,
                                             }).then((response) => {
-                                                if(response.msg!=="success")
+                                                if(response.data.msg==="success")
                                                 {
-                                                    roomsTmp.push({name:newRoomName, id:response.id})
+                                                    roomsTmp.push({id:response.data.id, name:newRoomName})
                                                     let roomsOptionsTmp = roomsOptions
-                                                    roomsOptionsTmp.push({id: response.id, label: newRoomName})
+                                                    roomsOptionsTmp.push({label: newRoomName, id: response.data.id})
                                                     setRoomsOptions(roomsOptionsTmp)
-                                                    setRooms(roomsTmp[0])
-                                                    setSelectedRoom(rooms)
+                                                    setRooms(roomsTmp)
+                                                    setSelectedRoom(response.data.id)
+                                                    setSelectedRoomForShelf(roomsOptionsTmp[roomsOptionsTmp.length-1].id)
+                                                    console.log(roomsOptionsTmp.length-1)
+                                                    console.log(roomsOptionsTmp[roomsOptionsTmp.length-1])
                                                 }
                                                 setDisplayAddRoom(false)
                                                 setNewRoomName("")
@@ -352,7 +362,26 @@ var runFetch = async (filter) => {
                                                     shelfsTmp.push({id:response.data.id, name:newshelfName, room: selectedRoomForShelf.id})
                                                     setShelfs(shelfsTmp)
                                                     setSelectedRoomForShelf(rooms[0].id)
-                                                    setSelectedRoom(rooms[0].id)
+                                                    setSelectedRoom(selectedRoomForShelf.id)//rooms[0].id)
+                                                    
+                                                    if(rooms.length!==0)
+                                                    {
+                                                        var shelfsToListTmp =[]
+                                                        for(let i=0; i<shelfs.length; i++)
+                                                        {
+                                                            if(shelfs[i].room===selectedRoom)
+                                                            {
+                                                                shelfsToListTmp.push(shelfs[i])
+                                                            }
+                                                        }
+
+                                                        if(shelfsToListTmp.length > 0)
+                                                        {
+                                                            setSelectedShelf(shelfsToListTmp[0].id)
+                                                        }
+
+                                                        setShelfsToList(shelfsToListTmp)
+                                                        }
                                                 }
                                                 setDisplayAddShelf(false)
                                                 setNewShelfName("")
