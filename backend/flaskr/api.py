@@ -230,7 +230,7 @@ def get_user_transactions(username):
         if transactions is not None:
             transactions_json = [{
                 'id': t.get_id(),
-                'reservation date': t.get_reservation_date(),
+                'reservation_date': t.get_reservation_date(),
                 'rent_date': t.get_rent_date(),
                 'return_date': t.get_return_date(),
                 'state': t.get_state().value,
@@ -249,9 +249,9 @@ def get_transaction(username, t_id):
        if transaction is not None:
         transaction_json = {
             'id': transaction.get_id(),
-            'reservation date': transaction.get_reservation_date(),
-            'rent date': transaction.get_rent_date(),
-            'return date': transaction.get_return_date(),
+            'reservation_date': transaction.get_reservation_date(),
+            'rent_date': transaction.get_rent_date(),
+            'return_date': transaction.get_return_date(),
             'state': transaction.get_state().value,
             'book_id': transaction.get_book_id(),
             'borrower_id': transaction.get_borrower_id()
