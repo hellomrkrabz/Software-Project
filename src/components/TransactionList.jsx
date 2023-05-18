@@ -99,7 +99,7 @@ function TransactionList(props) {
                                 <div>
                                     <br></br>
                                 </div>
-                                <Transaction user={} detailsKey={detailsKey} reservationDate={t.reservation_date} updateShowDetailsFromChildren={setShowDetails} updateDetailsKey={setDetailsKey} status={t.state} transactionID={transactions.id}  book={t.book_id}> </Transaction>
+                                <Transaction user={t.borrower_id} detailsKey={detailsKey} reservationDate={t.reservation_date} updateShowDetailsFromChildren={setShowDetails} updateDetailsKey={setDetailsKey} status={t.state} transactionID={transactions.id}  book={t.book_id}> </Transaction>
                             </div>
                         )}
                     </>
