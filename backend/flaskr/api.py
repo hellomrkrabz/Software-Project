@@ -193,6 +193,63 @@ def get_shelves():
 
     return jsonify({'shelves': shelves_json})
 
+
+
+#---------------------transaction stuff---------------------------
+
+@bp.route('/transactions/<username>', methods=['GET'])
+def get_user_transactions(username):
+    user = User.query.filter_by(username=username).first();
+    if user is not None:
+        transactions = Transaction.query.filter_by(borrower_id=user.id);
+        if transactions is not None:
+            transactions_json = [{
+                'id': t.get_transaction_id(),
+                'reservation date': t.get_reservation_date(),
+                'rent date': t.get_rent_date(),
+                'return date': t.get_return_date(),
+                'state': t.get_state(),
+                'book id': t.get_book_id(),
+                'borrower id': t.get_borrower_id()
+            } for t in transactions]
+            return jsonify({'transactions': transactions_json})
+    return jsonify({'msg': 'it no good'})
+
+@bp.route('/transaction/<username>/<t_id>', methods=['GET'])
+def get_transaction(username, t_id):
+   user = User.query.filter_by(username=username).first();
+   if user is not None:
+       transaction = Transaction.query.filter_by(borrower_id=user.id).filter_by(transaction_id=t_id).first();
+       if transaction is not None:
+       transaction_json = {
+            'id': transaction.get_transaction_id(),
+            'reservation date': transaction.get_reservation_date(),
+            'rent date': transaction.get_rent_date(),
+            'return date': transaction.get_return_date(),
+            'state': transaction.get_state(),
+            'book id': transaction.get_book_id(),
+            'borrower id': transaction.get_borrower_id()
+       }
+       return jsonify({'transaction': transaction_json})
+    return jsonify({'msg': 'it no good'})
+
+@bp.route('/transactions', methods=['GET'])
+def get_transactions():
+    transactions = Transaction.query.all();
+    if transactions is not None:
+        transaction_json = [{
+            'id': t.get_transaction_id(),
+            'reservation date': t.get_reservation_date(),
+            'rent date': t.get_rent_date(),
+            'return date': t.get_return_date(),
+            'state': t.get_state(),
+            'book id': t.get_book_id(),
+            'borrower id': t.get_borrower_id()
+        } for t in transactions]
+        return jsonify({'transactions': transaction_json})
+    return jsonify({'msg': 'it no good'})
+
+
 #---------------------adding things---------------------------
 
 @bp.route('/<entity_type>/<action>', methods=['POST'])
