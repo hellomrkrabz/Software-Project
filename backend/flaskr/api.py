@@ -404,8 +404,8 @@ def add_or_edit_entity(entity_type, action):
             if action == "add":
                 entity = Transaction(
                     reservation_date=reservation_date,
-                    rent_date='null',
-                    return_date='null',
+                    rent_date=rent_date,
+                    return_date=return_date,
                     state='reservation',
                     book_id=book_id,
                     borrower_id=borrower_id
