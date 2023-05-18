@@ -60,7 +60,7 @@ def Register():
         inputter_list.append(html_attr_inputter_by_id(attr_inputter_args))
         inputter_list.append(html_inner_inputter_by_id(inner_html_inputter_args))
 
-        send_mail_from_html_file(email, "Banana books account verification", "email_confirmation.html",inputter_list) 
+        send_mail_from_html_file(email, "Banana books account verification", "email_confirmation.html", inputter_list) 
         
         return jsonify({"msg": "Successfully registered. Check your email and activate your account! :)"})
     except Exception as e:

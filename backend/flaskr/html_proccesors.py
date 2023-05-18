@@ -80,8 +80,6 @@ class html_inner_inputter_by_id(html_proccesor):
         print("html_inner_inputter_by_id")
         soup = BeautifulSoup(html_string, 'html.parser')
         items = soup.find(id=self.args.search_id)
-        print(items)
-        print(items.string)
         items.replace_with(str(self.args.target_value))
 
         return(str(soup))
