@@ -73,6 +73,7 @@ def create_app(test_config=None):
     app.config['MAIL_PASSWORD'] = 'wfvqdpjysvtdfqvt'
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
+    app.config['MAIL_DEBUG'] = False
 
     mail = Mail(app)
 
