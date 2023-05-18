@@ -34,7 +34,7 @@ def get_wanted_books():
     books_json = [{
         'wanted_book_id': b.get_id(),
         'owner_id': b.get_user_id(),
-        'foreign_book_id': b.get_foreign_book_id()
+        'book_id': b.get_foreign_book_id()
     }for b in books]
 
     return jsonify({'books': books_json})
