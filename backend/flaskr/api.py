@@ -8,6 +8,7 @@ from .room import Room
 from .review import Review
 from .transaction import Transaction
 from . import db
+from .transaction import States
 import json
 
 bp = Blueprint("api", __name__, url_prefix='/api')
@@ -397,10 +398,10 @@ def add_or_edit_entity(entity_type, action):
             reservation_date = data['reservation_date']
             rent_date = data['rent_date']
             return_date = data['return_date']
-            state = data['state']
+            state = States.reservation
             book_id = data['book_id']
             borrower_id = data['borrower_id']
-
+            print(state)
             if action == "add":
                 entity = Transaction(
                     reservation_date=reservation_date,

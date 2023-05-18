@@ -3,8 +3,29 @@ import axios from 'axios'
 import Navbar from './../components/Navbar'
 import TransactionList from "../components/TransactionList";
 
-function Transactions(props) {
+var sessionUserKey = sessionStorage.getItem("sessionUserKey")
 
+function Transactions(props) {
+    const [reservation, setReservation] = useState('unsuccessfully_finished');
+
+    //do wywalenia, na testy
+    useEffect(() => {
+        axios.post("http://localhost:5000/api/transaction/add", {
+            user_key: sessionUserKey,
+            reservation_date: "09.09.0909",
+            rent_date: "10.10.1010",
+            return_date: "11.11.1111",
+            state: 'unsuccessfully_finished',
+            book_id: "1111",
+            borrower_id: "test"        
+        }).then((response) => {
+            if (response.msg !== "success") {
+                console.log("dodane");
+            }
+        })
+
+
+    }, [])
 
   return (
     <>
