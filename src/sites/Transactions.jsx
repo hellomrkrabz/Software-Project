@@ -10,20 +10,21 @@ function Transactions(props) {
 
     //do wywalenia, na testy
     useEffect(() => {
+        /*
         axios.post("http://localhost:5000/api/transaction/add", {
             user_key: sessionUserKey,
             reservation_date: "09.09.0909",
             rent_date: "10.10.1010",
             return_date: "11.11.1111",
             state: reservation,
-            book_id: "1",
+            book_id: "2",
             borrower_id: 1        
         }).then((response) => {
             if (response.msg !== "success") {
-                console.log("dodane");
+                //console.log("dodane");
             }
         })
-
+        */
 
     }, [])
 
