@@ -47,14 +47,14 @@ function TransactionList(props) {
 
     //Updating data from db whenever detailsKey changes
     useEffect(() => {
-        console.log("GOT HERE!!!!!!")
+        //console.log("GOT HERE!!!!!!")
         // Take all details for a transaction from db and assign them to appropriate hooks (axios)
 
         //po klikniêciu show details detailskey == transaction.key
         axios.get("http://localhost:5000/api/transaction/" + sessionUsername + "/" + detailsKey).then((response) => {
             
             var transactionJson = response.data; 
-            console.log(transactionJson);
+            //console.log(transactionJson);
             if (transactionJson.msg === undefined) {
 
                 setDetailsUsername(transactionJson.transaction.borrower_username);
