@@ -88,7 +88,7 @@ def get_book_info_test(u_id):
                 book = Owned_Book.query.filter_by(book_id=book_id).first()
                 if book is not None:
                     return jsonify({
-                        'book_id': book.get_book_id(),
+                        'book_id': book.get_id(),
                         'author': book.get_author(),
                         'title': book.get_title()
                     })
@@ -230,12 +230,13 @@ def get_user_transactions(username):
         if transactions is not None:
             transactions_json = [{
                 'id': t.get_id(),
-                'reservation_date': t.get_reservation_date(),
+                'reservation date': t.get_reservation_date(),
                 'rent_date': t.get_rent_date(),
                 'return_date': t.get_return_date(),
                 'state': t.get_state().value,
                 'book_id': t.get_book_id(),
-                'borrower_id': t.get_borrower_id()
+                'borrower_id': t.get_borrower_id(),
+                'borrower_username': t.get_borrower_username()
             } for t in transactions]
             return jsonify({'transactions': transactions_json})
     return jsonify({'msg': 'it no good'})
@@ -248,9 +249,9 @@ def get_transaction(username, t_id):
        if transaction is not None:
         transaction_json = {
             'id': transaction.get_id(),
-            'reservation_date': transaction.get_reservation_date(),
-            'rent_date': transaction.get_rent_date(),
-            'return_date': transaction.get_return_date(),
+            'reservation date': transaction.get_reservation_date(),
+            'rent date': transaction.get_rent_date(),
+            'return date': transaction.get_return_date(),
             'state': transaction.get_state().value,
             'book_id': transaction.get_book_id(),
             'borrower_id': transaction.get_borrower_id()
@@ -368,6 +369,7 @@ def add_or_edit_entity(entity_type, action):
                         user_id=owner_id,
                         foreign_book_id=book_in_db.book_id
                     )
+
 
         elif entity_type == 'shelf':
             shelf_name = data['shelf_name']

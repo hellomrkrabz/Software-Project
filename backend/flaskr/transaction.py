@@ -3,6 +3,7 @@ import psycopg2
 from . import db
 from datetime import datetime
 import enum
+from sqlalchemy import text, create_engine, ForeignKey
 
 # class States(enum.Enum):
 #     reservation = 1
@@ -13,6 +14,8 @@ import enum
 #     cancelled = 6
 #     successfully_finished = 7
 #     unsuccessfully_finished = 8
+
+engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 class StatesForTransactions(enum.Enum):
     reservation = 1
@@ -54,3 +57,10 @@ class Transaction(db.Model):
 
     def get_borrower_id(self):
         return self.borrower_id
+
+    def get_borrower_username(self):
+        sql = text("""SELECT username FROM users u
+        WHERE u.id = """ + str(self.borrower_id))
+        with engine.connect() as con:
+            result = con.execute(sql).scalar()
+        return result
