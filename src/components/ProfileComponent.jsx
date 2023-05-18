@@ -8,14 +8,14 @@ import axios from "axios"
 
 function ProfileComponent(props) {
 
-    var emptyBook = {title:"title", authors:["author"], imageLinks:{smallThumbnail: loading}}
+    var emptyBook = {author: "Loading", book_id: -1, cover_photo: loading, google_book_id: "", isbn: "8375545252", title: "Zgorzkniala pizda"}
 
     const [personalBookIds, setPersonalBookIds] = useState([])
     const [wantedBookIds, setWantedBookIds] = useState([])
     const [offeredBookIds, setOfferedBookIds] = useState([])
-    const [personalBooks, setPersonalBooks] = useState([])
-    const [wantedBooks, setWantedBooks] = useState([])
-    const [offeredBooks, setOfferedBooks] = useState([])
+    const [personalBooks, setPersonalBooks] = useState([emptyBook, emptyBook])
+    const [wantedBooks, setWantedBooks] = useState([emptyBook, emptyBook])
+    const [offeredBooks, setOfferedBooks] = useState([emptyBook, emptyBook])
 
     useEffect(()=>{
         axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
