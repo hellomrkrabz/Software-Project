@@ -51,7 +51,7 @@ function ProfileBookList(props) {
                             </Link>
                     }
                     <Link to={props.moreLink}>
-                        <button className="btn btn-banana-primary col-12 mt-2">See more 1</button>
+                        <button className="btn btn-banana-primary col-12 mt-2">See more</button>
                     </Link>
             </div>
         </div>
