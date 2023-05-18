@@ -254,7 +254,8 @@ def get_transaction(username, t_id):
             'return_date': transaction.get_return_date(),
             'state': transaction.get_state().name,
             'book_id': transaction.get_book_id(),
-            'borrower_id': transaction.get_borrower_id()
+            'borrower_id': transaction.get_borrower_id(),
+            'borrower_username': transaction.get_borrower_username()               
         }
         return jsonify({'transaction': transaction_json})
    return jsonify({'msg': 'it no good'})

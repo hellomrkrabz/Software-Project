@@ -12,6 +12,7 @@ function Transaction(props) {
     const [status, setStatus] = useState(props.status);
     const [book, setBook] = useState(props.book);
     const [coverPhoto, setCoverPhoto] = useState("");
+    
 
 
     //const [showDetails, setShowDetails] = useState(props.updateShowDetailsFromChildren);

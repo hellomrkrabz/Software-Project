@@ -56,9 +56,11 @@ function Book(props) {
                             <div >
                                 {props.imageLinks !== undefined && props.imageLinks.smallThumbnail !== undefined &&
                                     <img src={props.imageLinks.smallThumbnail} alt="book" style={{width: "100%",height:"100%", objectFit: "cover"}}/>
-                                }
+                                }                               
 
-                                {props.imageLinks !== undefined && props.imageLinks.smallThumbnail === undefined &&
+                                {props.cover_photo !== "notFound" ?
+                                    <img src={props.cover_photo} alt="book" height="200" width="130" />
+                                    :
                                     <img src={banana} alt="book" height="500" width="325" />
                                 }
 
