@@ -4,6 +4,7 @@ import banana from "./../media/banana.png"
 import './../style/bootstrap/css/main_style.css'
 
 function Book(props) {
+    console.log(props)
     return(
         <>
         {props.variant==="small" &&

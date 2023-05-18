@@ -8,7 +8,6 @@ from .room import Room
 from .review import Review
 from .transaction import Transaction
 from . import db
-from .transaction import States
 import json
 
 bp = Blueprint("api", __name__, url_prefix='/api')
@@ -205,11 +204,11 @@ def get_user_transactions(username):
         transactions = Transaction.query.filter_by(borrower_id=user.id);
         if transactions is not None:
             transactions_json = [{
-                'id': t.get_transaction_id(),
+                'id': t.get_id(),
                 'reservation date': t.get_reservation_date(),
                 'rent date': t.get_rent_date(),
                 'return date': t.get_return_date(),
-                'state': t.get_state(),
+                'state': t.get_state().value,
                 'book id': t.get_book_id(),
                 'borrower id': t.get_borrower_id()
             } for t in transactions]
@@ -223,11 +222,11 @@ def get_transaction(username, t_id):
        transaction = Transaction.query.filter_by(borrower_id=user.id).filter_by(transaction_id=t_id).first();
        if transaction is not None:
         transaction_json = {
-            'id': transaction.get_transaction_id(),
+            'id': transaction.get_id(),
             'reservation date': transaction.get_reservation_date(),
             'rent date': transaction.get_rent_date(),
             'return date': transaction.get_return_date(),
-            'state': transaction.get_state(),
+            'state': transaction.get_state().value,
             'book id': transaction.get_book_id(),
             'borrower id': transaction.get_borrower_id()
         }
@@ -239,11 +238,11 @@ def get_transactions():
     transactions = Transaction.query.all();
     if transactions is not None:
         transaction_json = [{
-            'id': t.get_transaction_id(),
+            'id': t.get_id(),
             'reservation date': t.get_reservation_date(),
             'rent date': t.get_rent_date(),
             'return date': t.get_return_date(),
-            'state': t.get_state(),
+            'state': t.get_state().value,
             'book id': t.get_book_id(),
             'borrower id': t.get_borrower_id()
         } for t in transactions]
@@ -398,7 +397,7 @@ def add_or_edit_entity(entity_type, action):
             reservation_date = data['reservation_date']
             rent_date = data['rent_date']
             return_date = data['return_date']
-            state = States.reservation
+            state = data['state']
             book_id = data['book_id']
             borrower_id = data['borrower_id']
             print(state)

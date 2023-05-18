@@ -6,7 +6,7 @@ import TransactionList from "../components/TransactionList";
 var sessionUserKey = sessionStorage.getItem("sessionUserKey")
 
 function Transactions(props) {
-    const [reservation, setReservation] = useState('unsuccessfully_finished');
+    const [reservation, setReservation] = useState("lent");
 
     //do wywalenia, na testy
     useEffect(() => {
@@ -15,9 +15,9 @@ function Transactions(props) {
             reservation_date: "09.09.0909",
             rent_date: "10.10.1010",
             return_date: "11.11.1111",
-            state: 'unsuccessfully_finished',
-            book_id: "1111",
-            borrower_id: "test"        
+            state: reservation,
+            book_id: "1",
+            borrower_id: 1        
         }).then((response) => {
             if (response.msg !== "success") {
                 console.log("dodane");

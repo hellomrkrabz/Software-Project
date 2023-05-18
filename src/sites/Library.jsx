@@ -58,22 +58,67 @@ function Library(props) {
     const [isOffered, setIsOffered] = useState(props.mode==="addoffered" && props.type==="personal" ? true : false)
     const [filter, setFilter] = useState({title:"", author:"", language:"", publisher:"", ISBN:""})
 
-    const [bookIds, setBookIds] = useState(["_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ","_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ","_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ","_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ","_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ","_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ","_ojXNuzgHRcC","SDepCQAAQBAJ","xOFLAAAAcAAJ","c3tZAAAAMAAJ","Z7GfEAAAQBAJ","zYx2PQAACAAJ",])
+    const [bookIds, setBookIds] = useState([])
     var emptyBook = {title:"title", authors:["author"], imageLinks:{smallThumbnail: loading}}
-    const [books, setBooks] = useState([emptyBook,emptyBook,emptyBook,emptyBook,emptyBook,emptyBook])
+    const [books, setBooks] = useState([])
     
     const [filteredBooks, setFilteredBooks] = useState([])
     const [booksToDisplay, setBooksTodisplay] = useState([])
     const [pageNumber, setPageNumber] = useState(0)
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/user_info/test").then((response) => {
+        if(props.type==="personal")
+        {
+            axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
+                
+                setBookIds(response.data.books)
 
-            //set bookIds here
-        }).then(()=>{
-            runFetch(bookIds,filter)
-        })
+            }).then(()=>{
+                runFetch(bookIds,filter)
+            })
+        }else if(props.type==="wanted")
+        {
+            axios.get("http://localhost:5000/api/wanted_book_info").then((response) => {
+
+                setBookIds(response.data.books)
+
+            }).then(()=>{
+                runFetch(bookIds,filter)
+            })
+        }
     }, []);
+
+    useEffect(()=>{
+        if(bookIds!==undefined && bookIds.length > 0)
+        {
+            let fetchedBooks = []
+            for(let i = 0; i < bookIds.length; i++){
+                ///const rawResponse = await googleBooksApi.getVolume(idArr[i]);
+                axios.get("http://localhost:5000/api/book_info/" + bookIds[i].book_id).then((response)=>{
+                    fetchedBooks.push(response.data)
+                }).then(()=>{
+                    if(i === bookIds.length - 1)
+                    {
+                        setBooks(fetchedBooks)
+                        filterBooks(fetchedBooks, filter);
+                    }
+                        //setBooks(fetchedBooks)
+                })
+                //filterBooks(fetchedBooks, filter);
+                //console.log(rawResponse.data)
+                //fetchedB.push(rawResponse.data.volumeInfo);
+                //filterBooks(fetchedB,filter);
+            }
+        }
+    },[bookIds])
+
+    useEffect(()=>{
+        console.log(books)
+    },[books])
+
+    useEffect(()=>{
+        console.log(booksToDisplay)
+    },[booksToDisplay])
 
     var runFetch = async (idArr,filter) => {
         const googleBooksApi = new GoogleBooksAPI();
@@ -105,33 +150,28 @@ function Library(props) {
         const ISBNFilter = new RegExp(f.ISBN, 'i');
         const offeredFilter = new RegExp(offered, 'i');
 
+        console.log(boo)
+
         if(offered)
         {
             var result = boo
             .filter(b => titleFilter.exec(b.title ?? ""))
-            .filter(b => authorFilter.exec(b.authors[0] ?? ""))
-            .filter(b => languageFilter.exec(b.language ?? ""))
-            .filter(b => publisherFilter.exec(b.publisher ?? ""))
-            .filter(b => ISBNFilter.exec(b.ISBN ?? ""))
+            .filter(b => authorFilter.exec(b.author ?? ""))
+            //.filter(b => languageFilter.exec(b.language ?? ""))
+            //.filter(b => publisherFilter.exec(b.publisher ?? ""))
+            .filter(b => ISBNFilter.exec(b.isbn ?? ""))
             .filter(b => offeredFilter.exec(b.isOffered ?? ""))
         }else{
             var result = boo
             .filter(b => titleFilter.exec(b.title ?? ""))
-            .filter(b => authorFilter.exec(b.authors[0] ?? ""))
-            .filter(b => languageFilter.exec(b.language ?? ""))
-            .filter(b => publisherFilter.exec(b.publisher ?? ""))
+            .filter(b => authorFilter.exec(b.author ?? ""))
+            //.filter(b => languageFilter.exec(b.language ?? ""))
+            //.filter(b => publisherFilter.exec(b.publisher ?? ""))
             .filter(b => ISBNFilter.exec(b.ISBN ?? ""))
         }
         setFilteredBooks(result)
         setPageNumber(0)
     }
-
-    // useEffect(() => {
-    //     console.log("o")
-    //     console.log(offered)
-    //     console.log("io")
-    //     console.log(isOffered)
-    // }, [offered,isOffered]);
 
     return (
         <>
