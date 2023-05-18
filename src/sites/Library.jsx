@@ -72,18 +72,12 @@ function Library(props) {
             axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
                 
                 setBookIds(response.data.books)
-
-            }).then(()=>{
-                runFetch(bookIds,filter)
             })
         }else if(props.type==="wanted")
         {
             axios.get("http://localhost:5000/api/wanted_book_info").then((response) => {
 
                 setBookIds(response.data.books)
-
-            }).then(()=>{
-                runFetch(bookIds,filter)
             })
         }
     }, []);
@@ -91,49 +85,39 @@ function Library(props) {
     useEffect(()=>{
         if(bookIds!==undefined && bookIds.length > 0)
         {
-            let fetchedBooks = []
+            var fetchedBooks = []
             for(let i = 0; i < bookIds.length; i++){
-                ///const rawResponse = await googleBooksApi.getVolume(idArr[i]);
+
                 axios.get("http://localhost:5000/api/book_info/" + bookIds[i].book_id).then((response)=>{
                     fetchedBooks.push(response.data)
-                }).then(()=>{
-                    if(i === bookIds.length - 1)
-                    {
-                        setBooks(fetchedBooks)
-                        filterBooks(fetchedBooks, filter);
-                    }
-                        //setBooks(fetchedBooks)
                 })
-                //filterBooks(fetchedBooks, filter);
-                //console.log(rawResponse.data)
-                //fetchedB.push(rawResponse.data.volumeInfo);
-                //filterBooks(fetchedB,filter);
+
+                if(i === bookIds.length - 1)
+                {
+                    setTimeout(function() {
+                        let fbTMP = []
+
+                        for(let i = 0; i < bookIds.length; i++)
+                        {
+                            let tmp= {
+                                author: fetchedBooks[i].author,
+                                book_id: fetchedBooks[i].book_id,
+                                cover_photo: fetchedBooks[i].cover_photo,
+                                google_book_id: fetchedBooks[i].google_book_id,
+                                isbn: fetchedBooks[i].isbn,
+                                title: fetchedBooks[i].title,
+                                rentable: bookIds[i].rentable
+                            }
+                            fbTMP.push(tmp)
+                        }
+                        setBooks(fbTMP)
+                        filterBooks(fbTMP, filter)
+                    }, 1000);
+                }
             }
+
         }
     },[bookIds])
-
-    // useEffect(()=>{
-    //     console.log(books)
-    // },[books])
-
-    // useEffect(()=>{
-    //     console.log(booksToDisplay)
-    // },[booksToDisplay])
-
-    var runFetch = async (idArr,filter) => {
-        const googleBooksApi = new GoogleBooksAPI();
-        var fetchedB = [];
-    
-        for(let i = 0; i < idArr.length; i++){
-            ///const rawResponse = await googleBooksApi.getVolume(idArr[i]);
-            const rawResponse = await axios.get("https://www.googleapis.com/books/v1/volumes/"+idArr[i])
-            //console.log(rawResponse.data)
-            fetchedB.push(rawResponse.data.volumeInfo);
-            filterBooks(fetchedB,filter);
-        }
-        
-        setBooks(fetchedB)
-    } 
 
     useEffect(() => {
         let noe=24;
@@ -152,13 +136,14 @@ function Library(props) {
 
         if(offered)
         {
+            console.log(boo)
             var result = boo
             .filter(b => titleFilter.exec(b.title ?? ""))
             .filter(b => authorFilter.exec(b.author ?? ""))
             //.filter(b => languageFilter.exec(b.language ?? ""))
             //.filter(b => publisherFilter.exec(b.publisher ?? ""))
             .filter(b => ISBNFilter.exec(b.isbn ?? ""))
-            .filter(b => offeredFilter.exec(b.isOffered ?? ""))
+            .filter(b => offeredFilter.exec(b.rentable ?? ""))
         }else{
             var result = boo
             .filter(b => titleFilter.exec(b.title ?? ""))
