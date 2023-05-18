@@ -217,11 +217,11 @@ def get_user_transactions(username):
 
 @bp.route('/transaction/<username>/<t_id>', methods=['GET'])
 def get_transaction(username, t_id):
-   user = User.query.filter_by(username=username).first();
+   user = User.query.filter_by(username=username).first()
    if user is not None:
        transaction = Transaction.query.filter_by(borrower_id=user.id).filter_by(transaction_id=t_id).first();
        if transaction is not None:
-       transaction_json = {
+        transaction_json = {
             'id': transaction.get_transaction_id(),
             'reservation date': transaction.get_reservation_date(),
             'rent date': transaction.get_rent_date(),
@@ -229,9 +229,9 @@ def get_transaction(username, t_id):
             'state': transaction.get_state(),
             'book id': transaction.get_book_id(),
             'borrower id': transaction.get_borrower_id()
-       }
-       return jsonify({'transaction': transaction_json})
-    return jsonify({'msg': 'it no good'})
+        }
+        return jsonify({'transaction': transaction_json})
+   return jsonify({'msg': 'it no good'})
 
 @bp.route('/transactions', methods=['GET'])
 def get_transactions():
