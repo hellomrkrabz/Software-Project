@@ -65,11 +65,12 @@ function ProfileComponent(props) {
 
     useEffect(()=>
     {
+        
         if(wantedBookIds.length>0)
         {
             let fetched = []
             for (let i = 0; i < wantedBookIds.length && i < 6; i++) {
-                axios.get("http://localhost:5000/api/book_info/" + wantedBookIds[i].foreign_book_id).then((response) => {
+                axios.get("http://localhost:5000/api/book_info/" + wantedBookIds[i].book_id).then((response) => {
                     fetched.push(response.data)
                 })
             }
