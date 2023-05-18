@@ -53,6 +53,31 @@ def get_book_info(b_id):
         })
     return jsonify({'msg': 'Specified book does not exist:('})
 
+@bp.route('/owned_book_info/<b_id>', methods=['GET'])
+def get_owned_book_info(b_id):
+    book = Owned_Book.query.filter_by(owned_book_id=b_id).first()
+    if book is not None:
+        return jsonify({
+            'owned_book_id': book.get_id(),
+            'book_state': book.get_book_state(),
+            'rentable': book.get_rentable(),
+            'owner_id': book.get_owner_id(),
+            'shelf_id': book.get_shelf_id(),
+            'book_id': book.get_book_id()
+        })
+    return jsonify({'msg': 'Specified book does not exist:('})
+
+@bp.route('/wanted_book_info/<b_id>', methods=['GET'])
+def get_wanted_book_info(b_id):
+    book = Wanted_Book.query.filter_by(wanted_book_id=b_id).first()
+    if book is not None:
+        return jsonify({
+            'wanted_book_id': book.get_id(),
+            'owner': book.get_user_id(),
+            'book_id': book.get_foreign_book_id()
+        })
+    return jsonify({'msg': 'Specified book does not exist:('})
+
 @bp.route('/owned_book_test/<u_id>', methods=['GET'])
 def get_book_info_test(u_id):
     user = User.query.filter_by(id=u_id).first()
