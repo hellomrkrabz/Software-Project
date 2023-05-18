@@ -206,11 +206,11 @@ def get_user_transactions(username):
             transactions_json = [{
                 'id': t.get_id(),
                 'reservation date': t.get_reservation_date(),
-                'rent date': t.get_rent_date(),
-                'return date': t.get_return_date(),
+                'rent_date': t.get_rent_date(),
+                'return_date': t.get_return_date(),
                 'state': t.get_state().value,
-                'book id': t.get_book_id(),
-                'borrower id': t.get_borrower_id()
+                'book_id': t.get_book_id(),
+                'borrower_id': t.get_borrower_id()
             } for t in transactions]
             return jsonify({'transactions': transactions_json})
     return jsonify({'msg': 'it no good'})
@@ -227,8 +227,8 @@ def get_transaction(username, t_id):
             'rent date': transaction.get_rent_date(),
             'return date': transaction.get_return_date(),
             'state': transaction.get_state().value,
-            'book id': transaction.get_book_id(),
-            'borrower id': transaction.get_borrower_id()
+            'book_id': transaction.get_book_id(),
+            'borrower_id': transaction.get_borrower_id()
         }
         return jsonify({'transaction': transaction_json})
    return jsonify({'msg': 'it no good'})
@@ -239,12 +239,12 @@ def get_transactions():
     if transactions is not None:
         transaction_json = [{
             'id': t.get_id(),
-            'reservation date': t.get_reservation_date(),
-            'rent date': t.get_rent_date(),
-            'return date': t.get_return_date(),
+            'reservation_date': t.get_reservation_date(),
+            'rent_date': t.get_rent_date(),
+            'return_date': t.get_return_date(),
             'state': t.get_state().value,
-            'book id': t.get_book_id(),
-            'borrower id': t.get_borrower_id()
+            'book_id': t.get_book_id(),
+            'borrower_id': t.get_borrower_id()
         } for t in transactions]
         return jsonify({'transactions': transaction_json})
     return jsonify({'msg': 'it no good'})
