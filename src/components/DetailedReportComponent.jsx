@@ -70,29 +70,34 @@ function DetailedReportComponent(props) {
                             value={props.reportContent}
                             />
                     </div>
-                    <div className="row container-fluid d-flex justify-content-center mt-3">
-                        <button className="col-3 btn btn-banana-primary"
-                            onClick={()=>{
-                                setPopupType("warn")
-                                setOpenPopup(true)
-                            }}
-                            >Warn User</button>
-                        <button className="col-3 m-auto btn btn-banana-primary"
-                            onClick={()=>{
-                                setPopupType("ban")
-                                setOpenPopup(true)
-                            }}
-                            >Ban User</button>{/*kek*/}
-                        <button className="col-3 btn btn-banana-primary"
-                            onClick={()=>{
-                                setPopupType("ignore")
-                                setOpenPopup(true)
-                            }}
-                            >Ignore User</button>
-                        <button className="col-5 btn btn-banana-primary ms-3 align-self-center mt-3" onClick={()=>{
-                            props.setDisplayDetails(false)
-                            }}>Back</button>
-                    </div>
+                    
+                        <div className="row container-fluid d-flex justify-content-center mt-3">
+                        {props.status==="pending" &&
+                            <>
+                            <button className="col-3 btn btn-banana-primary"
+                                onClick={()=>{
+                                    setPopupType("warn")
+                                    setOpenPopup(true)
+                                }}
+                                >Warn User</button>
+                            <button className="col-3 m-auto btn btn-banana-primary"
+                                onClick={()=>{
+                                    setPopupType("ban")
+                                    setOpenPopup(true)
+                                }}
+                                >Ban User</button>{/*kek*/}
+                            <button className="col-3 btn btn-banana-primary"
+                                onClick={()=>{
+                                    setPopupType("ignore")
+                                    setOpenPopup(true)
+                                }}
+                                >Ignore User</button>
+                            </>
+                        }
+                            <button className="col-5 btn btn-banana-primary ms-3 align-self-center mt-3" onClick={()=>{
+                                props.setDisplayDetails(false)
+                                }}>Back</button>
+                        </div>
                     <Popup open={openPopup} onClose={() => { setOpenPopup(false) }}>
                         <div>
                             {popupType==="warn" &&
