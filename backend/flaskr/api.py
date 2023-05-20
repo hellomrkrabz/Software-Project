@@ -225,7 +225,7 @@ def get_shelves():
 
 @bp.route('/transactions/<username>', methods=['GET'])
 def get_user_transactions(username):
-    user = User.query.filter_by(username=username).first();
+    user = User.query.filter_by(username=username).first()
     if user is not None:
         transactions = Transaction.query.filter_by(borrower_id=user.id);
         if transactions is not None:
@@ -263,7 +263,7 @@ def get_transaction(username, t_id):
 
 @bp.route('/transactions', methods=['GET'])
 def get_transactions():
-    transactions = Transaction.query.all();
+    transactions = Transaction.query.all()
     if transactions is not None:
         transaction_json = [{
             'id': t.get_id(),
@@ -275,6 +275,38 @@ def get_transactions():
             'borrower_id': t.get_borrower_id()
         } for t in transactions]
         return jsonify({'transactions': transaction_json})
+    return jsonify({'msg': 'it no good'})
+
+
+#---------------------opinions stuff---------------------------
+@bp.route('/opinions/<username>', methods=['GET'])
+def get_user_opinions(username):
+    user = User.query.filter_by(username=username).first()
+    if user is not None:
+        opinions = Review.query.filter_by(borrower_id=user.id);
+        if opinions is not None:
+            opinion_json = [{
+                'user': o.get_renter_id(),
+                'date': o.get_date(),
+                'score': o.get_rating(),
+                'content': o.get_content(),
+                'opinion_id': o.get_id()
+            } for o in opinions]
+            return jsonify({'transactions': opinion_json})
+    return jsonify({'msg': 'it no good'})
+
+@bp.route('/opinions', methods=['GET'])
+def get_opinions():
+    opinions = Review.query.all();
+    if opinions is not None:
+        opinion_json = [{
+            'user': o.get_renter_id(),
+            'date': o.get_date(),
+            'score': o.get_rating(),
+            'content': o.get_content(),
+            'opinion_id': o.get_id()
+        } for o in opinions]
+        return jsonify({'opinions': opinion_json})
     return jsonify({'msg': 'it no good'})
 
 

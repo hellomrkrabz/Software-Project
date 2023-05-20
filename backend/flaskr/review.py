@@ -1,6 +1,7 @@
 from flask import Flask, request
 import psycopg2
 from . import db
+from datetime import datetime
 from .report import Report
 
 class Review(db.Model):
@@ -9,6 +10,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer)
     visible = db.Column(db.Boolean)
     content = db.Column(db.String(500))
+    date = db.Column(db.DateTime, default=datetime.date)
     borrower_id = db.Column(db.Integer, db.ForeignKey('users.id')) #opinion is about this user
     renter_id = db.Column(db.Integer, db.ForeignKey('users.id')) #opinion author
     reported = db.Column(db.Boolean)
@@ -17,7 +19,7 @@ class Review(db.Model):
     renter = db.relationship('User',
                               foreign_keys=[renter_id])
 
-    def get_review_id(self):
+    def get_id(self):
         return self.review_id
 
     def get_rating(self):
@@ -32,6 +34,11 @@ class Review(db.Model):
     def get_reported(self):
         return self.reported
 
+    def get_renter_id(self):
+        return self.renter_id
+
+    def get_date(self):
+        return self.date
 
 
 
