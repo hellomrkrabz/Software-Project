@@ -7,6 +7,7 @@ from .shelf import Shelf
 from .room import Room
 from .review import Review
 from .transaction import Transaction
+from .report import Report
 from . import db
 import json
 
@@ -400,7 +401,7 @@ def add_or_edit_entity(entity_type, action):
                 entity = Room.query.filter_by(id=data['id']).first()
                 entity.room_name = room_name
 
-        elif entity_type == 'review':
+        elif entity_type == 'opinion':
             rating = data['rating']
             visible = data['visible']
             content = data['content']
@@ -443,6 +444,28 @@ def add_or_edit_entity(entity_type, action):
                 entity.rent_date = rent_date
                 entity.return_date = return_date
                 entity.state = state
+
+        elif entity_type == 'report':
+            content = data['content']
+            report_date = data['date']
+            opinion_id = data['opinion_id']
+            status = data['state']
+            reported_user = User.query.filter_by(username=data['reported']).first()
+            reporter_user = User.query.filter_by(username=data['reporter']).first()
+            reported_id = reported_user.id
+            reporter_id = reporter_user.id
+            if action == "add":
+                entity = Report(
+                    content=content,
+                    report_date=report_date,
+                    opinion_id=opinion_id,
+                    status=status,
+                    reporter_id=reporter_id,
+                    reported_id=reported_id
+                )
+            elif action == "edit":
+                entity = Report.query.filter_by(id=data['id']).first()
+                entity.status = status
 
         else:
             print(f"[ERROR] :: Unknown entity type: {entity_type}")

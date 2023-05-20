@@ -1,6 +1,7 @@
 from flask import Flask, request
 import psycopg2
 from . import db
+from .report import Report
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -30,7 +31,6 @@ class Review(db.Model):
 
     def get_reported(self):
         return self.reported
-
 
 
 
