@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Textfield from '@mui/material/TextField'
-import popupStyle from "../style/popup_style.css"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
@@ -35,7 +34,7 @@ function DetailedReportComponent(props) {
                                 fullWidth
                                 value={props.reported}
                                 />
-                            <div>Report Date</div>
+                            <div>Opinion Date</div>
                             <Textfield 
                                 disabled
                                 fullWidth

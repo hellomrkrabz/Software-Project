@@ -283,7 +283,7 @@ def get_transactions():
 def get_user_opinions(username):
     user = User.query.filter_by(username=username).first()
     if user is not None:
-        opinions = Review.query.filter_by(borrower_id=user.id);
+        opinions = Review.query.filter_by(borrower_id=user.id)
         if opinions is not None:
             opinion_json = [{
                 'user': o.get_renter_id(),
@@ -292,7 +292,7 @@ def get_user_opinions(username):
                 'content': o.get_content(),
                 'opinion_id': o.get_id()
             } for o in opinions]
-            return jsonify({'transactions': opinion_json})
+            return jsonify({'opinions': opinion_json})
     return jsonify({'msg': 'it no good'})
 
 @bp.route('/opinions', methods=['GET'])
@@ -458,10 +458,9 @@ def add_or_edit_entity(entity_type, action):
             reservation_date = data['reservation_date']
             rent_date = data['rent_date']
             return_date = data['return_date']
-            state = data['state']
             book_id = data['book_id']
+            state = data['state']
             borrower_id = data['borrower_id']
-            print(state)
             if action == "add":
                 entity = Transaction(
                     reservation_date=reservation_date,
@@ -481,7 +480,6 @@ def add_or_edit_entity(entity_type, action):
             content = data['content']
             report_date = data['date']
             opinion_id = data['opinion_id']
-            status = data['state']
             reported_user = User.query.filter_by(username=data['reported']).first()
             reporter_user = User.query.filter_by(username=data['reporter']).first()
             reported_id = reported_user.id
@@ -491,12 +489,13 @@ def add_or_edit_entity(entity_type, action):
                     content=content,
                     report_date=report_date,
                     opinion_id=opinion_id,
-                    status=status,
+                    status=False,
                     reporter_id=reporter_id,
                     reported_id=reported_id
                 )
             elif action == "edit":
                 entity = Report.query.filter_by(id=data['id']).first()
+                status = data['state']
                 entity.status = status
 
         else:

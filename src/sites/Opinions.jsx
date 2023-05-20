@@ -26,9 +26,9 @@ const Search = styled('div')(({ theme }) => ({
       //marginLeft: theme.spacing(3),
       //width: 'auto',
     },
-  }));
-  
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -36,54 +36,63 @@ const Search = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }));
-  
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
         width: '20ch',
-      },
-    },
-  }));
+        },
+},
+}));
+
+const username = window.location.pathname.split('/').pop()
+var sessionUsername= sessionStorage.getItem("sessionUserUsername")
+var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 
 function Opinions(props) {
-    
-    const username = window.location.pathname.split('/').pop()
-    var sessionUsername= sessionStorage.getItem("sessionUserUsername")
 
-    const opinion1={user:"zenek",date:"30.02.2023",score:2,content:"not gut not bad"}
-    const opinion2={user:"Filip",date:"31.02.2023",score:2,content:"no ni ma tego Novi sadu :("}
-    const opinion3={user:"Minion",date:"35.02.2023",score:5,content:"banana"}
-    const opinion4={user:"Katze",date:"36.02.2023",score:3,content:">:("}
-    const opinion5={user:"Pflanze",date:"399.02.2023",score:4,content:"Chryzantemy złociste"}
+    const opinion1={user:"ziemniok",date:"30.02.2023",score:2,content:"not gut not bad", opinion_id:1}
+    const opinion2={user:"Filip",date:"31.02.2023",score:2,content:"no ni ma tego Novi sadu :(", opinion_id:2}
+    const opinion3={user:"Minion",date:"35.02.2023",score:5,content:"banana", opinion_id:3}
+    const opinion4={user:"Katze",date:"36.02.2023",score:3,content:">:(", opinion_id:4}
+    const opinion5={user:"Pflanze",date:"399.02.2023",score:4,content:"Chryzantemy złociste", opinion_id:5}
 
-    const [opinions, setOpinions] = useState([opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5,opinion1,opinion2,opinion3,opinion4,opinion5])
+    const [opinions, setOpinions] = useState([])
     const [filteredOpinions, setFilteredOpinions] = useState([])
     const [opinionsToDisplay, setOpinionsToDisplay] = useState(opinions)
     const [filter, setFilter] = useState({user:"", sort:"newest"})
     const [pageNumber, setPageNumber] = useState(0)
     const [reportContent, setReportContent] = useState("")
-    const [details ,setDetails] = useState({user:"", date:"", score:0, content:""})
+    const [details ,setDetails] = useState({user:"", date:"", score:0, content:"", opinion_id:-1})
     const [displayDetails, setDisplayDetails] = useState(false)
 
-    useEffect(() => {
-        // axios.post("http://localhost:5000/user_validation/logout", {
-        //     key: sessionUserKey,
-        // })
+    async function fetchOpinion()
+    {
+        const response = await axios.get("http://localhost:5000/api/opinions/" + sessionUsername)
+        let fetchedOpinions = response.data.opinions
 
-        filterOpinions(opinions,filter)
+        setOpinions(fetchedOpinions)
+        filterOpinions(fetchedOpinions, filter)
+    }
+
+    useEffect(() => {
+        fetchOpinion()
     }, []);
 
     useEffect(() => {
-        let noe=24;
-        let offset=pageNumber*noe;
-        setOpinionsToDisplay(filteredOpinions.slice(offset,offset+noe))
+        if(filteredOpinions!==undefined && filteredOpinions.length > 0)
+        {
+            let noe=24;
+            let offset=pageNumber*noe;
+            setOpinionsToDisplay(filteredOpinions.slice(offset,offset+noe))
+        }
     }, [filteredOpinions,pageNumber]);
 
     function compareDates( a, b ) {
@@ -108,33 +117,36 @@ function Opinions(props) {
 
     function filterOpinions(op, f)
     {
-        const userFilter = new RegExp(f.user, 'i');
-
-        var result = op
-            .filter(b => userFilter.exec(b.user))
-
-        if(f.sort==="newest")
+        if(op.length>0)
         {
-            result.sort(compareDates)
-        }
+            const userFilter = new RegExp(f.user, 'i');
 
-        if(f.sort==="oldest")
-        {
-            result.sort(compareDates)
-            result = result.reverse()
-        }
+            var result = op
+                .filter(b => userFilter.exec(b.user))
 
-        if(f.sort==="highest")
-        {
-            result.sort(compareScore)
-            result = result.reverse()
-        }
+            if(f.sort==="newest")
+            {
+                result.sort(compareDates)
+            }
 
-        if(f.sort==="lowest")
-        {
-            result.sort(compareScore)
-        }
+            if(f.sort==="oldest")
+            {
+                result.sort(compareDates)
+                result = result.reverse()
+            }
 
+            if(f.sort==="highest")
+            {
+                result.sort(compareScore)
+                result = result.reverse()
+            }
+
+            if(f.sort==="lowest")
+            {
+                result.sort(compareScore)
+            }
+
+        }
         setFilteredOpinions(result)
         setPageNumber(0)
     }
@@ -186,7 +198,7 @@ function Opinions(props) {
                                             }
                                         }}>Prev</button>
                                         <button className="btn btn-banana-primary-dark col-5" onClick={()=>{
-                                            if(pageNumber < (filteredOpinions.length/24) -1)
+                                            if(filteredOpinions!==undefined && pageNumber < (filteredOpinions.length/24) -1)
                                             {
                                                 setPageNumber(pageNumber+1)
                                             }
@@ -206,13 +218,17 @@ function Opinions(props) {
                                             />
                                         </div>
                                         <button className="btn btn-banana-primary col-3 mt-3" onClick={()=>{
-                                            axios.post("http://localhost:5000/api/jeszczeTegoNieMaDajCokolwiek", {
+                                            const date = new Date();
+                                            axios.post("http://localhost:5000/api/report/add", {
                                                 content:reportContent,
                                                 reporter:sessionUsername,
-                                                reported:details.user
+                                                reported:details.user,
+                                                date: String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
+                                                opinion_id:details.opinion_id,
+                                                user_key:sessionUserKey,
                                             });
                                             setDisplayDetails(false)
-                                            setDetails({user:"", date:"", score:0, content:""})
+                                            setDetails({user:"", date:"", score:0, content:"",opinion_id:-1})
                                             setReportContent("")
                                         }}>Report User</button>
                                     </div>
