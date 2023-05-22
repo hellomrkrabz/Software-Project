@@ -511,3 +511,15 @@ def add_or_edit_entity(entity_type, action):
         error = str(e)
         print('[ERROR] :: Failed to add/edit post. Cause:', error)
         return jsonify({'msg': error})
+
+
+
+@bp.route('/return_books/', methods=['GET'])
+def get_all_books():
+    books = Book.query.all()
+    if books is not None:
+        books_json = [{
+            'book': b.get_title()
+        } for b in books]
+        return jsonify({'books': books_json})
+    return jsonify({'msg': 'no books?'})
