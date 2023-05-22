@@ -11,6 +11,7 @@ import Library from "./sites/Library.jsx";
 import Transactions from './sites/Transactions.jsx';
 import Reports from './sites/Reports.jsx'
 import Opinions from "./sites/Opinions.jsx";
+import Help from "./sites/Help.jsx";
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 var sessionUsername= sessionStorage.getItem("sessionUserUsername")
@@ -67,6 +68,10 @@ function App() {
       {
         path: '/Opinions/:username',
         element: <Opinions username={sessionUsername}/>,
+      },
+      {
+        path: '/Help',
+        element: <Help isLoggedIn={true} username={sessionUsername}/>,
       },
       {
         path: '*',
