@@ -8,7 +8,7 @@ import axios from "axios"
 
 function ProfileComponent(props) {
 
-    var emptyBook = {author: "Loading", book_id: -1, cover_photo: loading, google_book_id: "", isbn: "8375545252", title: "Zgorzkniala pizda"}
+    var emptyBook = {author: "Loading", book_id: -1, cover_photo: loading, google_book_id: "", isbn: "", title: "Loading"}
 
     const [personalBookIds, setPersonalBookIds] = useState([])
     const [wantedBookIds, setWantedBookIds] = useState([])
@@ -97,7 +97,7 @@ function ProfileComponent(props) {
                     
 
                     <ProfileOpinionsList
-                        sender1={"JustAnormalUser"} text1={"not gut"} moreLink={"/Opinions"}
+                        sender1={"JustAnormalUser"} text1={"not gut"} moreLink={"/Opinions/" + window.location.pathname.split('/').pop() }
                         sender2={"AdiffrentUser"} text2={"it was great 2/10"} addLink={"/AddOpinion"}>
                     </ProfileOpinionsList>
                  </div>
