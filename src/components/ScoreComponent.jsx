@@ -34,7 +34,7 @@ function ScoreComponnent(props) {
         break;
 
         default:
-            score_src = starts_1
+            score_src = starts_5
         break;
     }   
 
