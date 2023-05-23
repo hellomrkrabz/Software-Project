@@ -12,6 +12,7 @@ import Transactions from './sites/Transactions.jsx';
 import Reports from './sites/Reports.jsx'
 import Opinions from "./sites/Opinions.jsx";
 import Help from "./sites/Help.jsx";
+import Offers from "./sites/Offers.jsx";
 
 var sessionUserKey= sessionStorage.getItem("sessionUserKey")
 var sessionUsername= sessionStorage.getItem("sessionUserUsername")
@@ -56,6 +57,10 @@ function App() {
       {
         path: '/WantedLibrary/Add',
         element: <Library type="wanted" mode="add" site="/Library" username={sessionUsername}/>,
+      },
+      {
+        path: '/Offers',
+        element: <Offers type="personal" site="/Library" username={sessionUsername}/>,
       },
       {
         path: '/Transactions',
