@@ -74,9 +74,8 @@ function FrontPage(props) {
             </>
             :
             <>
-                <BookViewer></BookViewer>
-                <div>xd</div>
-                <div>not logged</div>   
+                <div className="">Banana Books</div>
+                <div className="">"Rent more, read more, expand your mind with every Book"</div>   
             </>
             }
         </>
