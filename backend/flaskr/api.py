@@ -320,7 +320,7 @@ def get_user_opinions(username):
 
 @bp.route('/opinions', methods=['GET'])
 def get_opinions():
-    opinions = Review.query.all();
+    opinions = Review.query.all()
     if opinions is not None:
         opinion_json = [{
             'user': o.get_renter_id(),
@@ -332,7 +332,22 @@ def get_opinions():
         return jsonify({'opinions': opinion_json})
     return jsonify({'msg': 'it no good'})
 
-
+#---------------------report stuff---------------------------
+@bp.route('/reports', methods=['GET'])
+def get_reports():
+    reports = Report.query.all()
+    if reports is not None:
+        report_json = [{
+            'reportDate': r.get_report_date(),
+            'reporter': r.get_reporter_id(),
+            'reported': r.get_reported_id(),
+            'status': r.get_status(),
+            'opinionDate': r.get_opinion_date(),
+            'opinionContent': r.get_opinion_info(),
+            'reportContent': r.get_content()
+        } for r in reports]
+        return jsonify({'reports': report_json})
+    return jsonify({'msg': 'it no good'})
 #---------------------adding things---------------------------
 
 @bp.route('/<entity_type>/<action>', methods=['POST'])
