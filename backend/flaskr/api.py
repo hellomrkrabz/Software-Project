@@ -498,7 +498,8 @@ def add_or_edit_entity(entity_type, action):
             return_date = data['return_date']
             book_id = data['book_id']
             state = data['state']
-            borrower_id = data['borrower_id']
+            user = User.query.filter_by(key=data['borrower_key']).first()
+            borrower_id = user.id
             if action == "add":
                 entity = Transaction(
                     reservation_date=reservation_date,
