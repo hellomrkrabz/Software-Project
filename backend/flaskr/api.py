@@ -79,21 +79,44 @@ def get_wanted_book_info(b_id):
         })
     return jsonify({'msg': 'Specified book does not exist:('})
 
-@bp.route('/owned_book_test/<u_id>', methods=['GET'])
-def get_book_info_test(u_id):
-    user = User.query.filter_by(id=u_id).first()
+@bp.route('/owned_book_user/<u_username>', methods=['GET'])
+def get_owned_book_info_username(u_username):
+    user = User.query.filter_by(username=u_username).first()
     if user is not None:
         list = user.get_book_info()
+        book_list = []
         if list is not None:
             for book_id in list:
                 book = Owned_Book.query.filter_by(book_id=book_id).first()
-                if book is not None:
-                    return jsonify({
-                        'book_id': book.get_id(),
-                        'author': book.get_author(),
-                        'title': book.get_title()
-                    })
-    return jsonify({'msg': 'No books?:('})
+                book_list.append(book)
+            book_json = [{
+                'owned_book_id': book.get_id(),
+                'book_state': book.get_book_state(),
+                'rentable': book.get_rentable(),
+                'owner_id': book.get_owner_id(),
+                'shelf_id': book.get_shelf_id(),
+                'book_id': book.get_book_id()
+            } for b in book_list]
+            return jsonify({'books': book_json})
+        return jsonify({'msg': 'No books?:('})
+
+@bp.route('/wanted_book_user/<u_username>', methods=['GET'])
+def get_wanted_book_info_username(u_username):
+    user = User.query.filter_by(username=u_username).first()
+    if user is not None:
+        list = user.get_wanted_book_info()
+        book_list = []
+        if list is not None:
+            for book_id in list:
+                book = Wanted_Book.query.filter_by(foreign_book_id=book_id).first()
+                book_list.append(book)
+            book_json = [{
+                'wanted_book_id': book.get_id(),
+                'owner': book.get_user_id(),
+                'book_id': book.get_foreign_book_id()
+            } for b in book_list]
+            return jsonify({'books': book_json})
+        return jsonify({'msg': 'No books?:('})
 
 #---------------------info about users---------------------------
 
