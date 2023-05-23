@@ -174,7 +174,7 @@ function Offers(props) {
                 {props.type==="personal" && !addPersonalBook &&
                     <div className="row flex-grow-1">
                         <div className="col-xl-9 col-12 order-2 order-xl-1 bg-light">
-                            <p>Offered books</p>
+                            <p className="fs-5 fw-semibold">Offered books</p>
                             <div className="row">                                
                                 <BookGrid books={booksToDisplay}></BookGrid>
                             </div>

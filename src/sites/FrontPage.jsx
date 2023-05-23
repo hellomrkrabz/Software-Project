@@ -18,6 +18,8 @@ function FrontPage(props) {
     var book3={title:"Feature Selection for Data and Pattern Recognition", description:"This book presents recent developments and research trends in the field' of feature selection for data and pattern recognition, highlighting a number of latest advances", src:pattern}
     var book4={title:"JOJO’s Bizzare Adventure", description:"A multigenerational tale of the heroic Joestar family and their never-ending battle against evil!", src:jojo}
 
+    const [filter,setFilter] = useState("")
+
     return (
         <>
             <div>
@@ -33,26 +35,21 @@ function FrontPage(props) {
 
                     <div className="row bg-banana-blue p-2">
                         <div className="col-xl-3 col-md-6 row gx-3">
-                            <div className="col d-flex justify-content-center align-items-center">
-                                <Link to="/PersonalLibrary" className="col-12">
+                            <div className="col d-flex justify-content-start align-items-center">
+                                <Link to="/PersonalLibrary" className="col-6">
                                     <button className="btn btn-banana-primary-dark col-12">My Library</button>
                                 </Link>
-                            </div>
-                            <div className="col d-flex justify-content-center align-items-center">
-                                <button className="btn btn-banana-primary-dark col-12">Genre</button>
-                            </div>
-                            <div className="col d-flex justify-content-center align-items-center">
-                                <button className="btn btn-banana-primary-dark col-12">Location</button>
                             </div>
                         </div>
 
                         
                         <div className="col-xl-9 col-md-6 d-flex justify-content-end col-12">
                             <div className="col-3 align-self-center">
-                                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)"></input>
+                                <input type="text" className="form-control" placeholder="Find Books" value={filter} onChange={(e) => {setFilter(e.target.value)}}></input>
                             </div>
- 
-                            <button className="btn btn-banana-white-outline">Search</button>
+                            <Link to={"/Offers#"+filter}>
+                                <button className="btn btn-banana-white-outline">Search</button>
+                            </Link>
                         </div>
                     </div>
 
