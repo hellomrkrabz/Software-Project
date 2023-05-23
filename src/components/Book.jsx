@@ -134,7 +134,7 @@ function Book(props) {
             <div className="col">
                 <div key={props.book_id} className="d-flex flex-column align-items-center">
                     <div >
-                        <div className="book-title">
+                        <div className={props.overlay===false ? "" : "book-title"}>
                             <div className="d-flex flex-column justify-content-center h-100">
                                 {props.title}<br/>
                                 {props.author?? "No author :("}
