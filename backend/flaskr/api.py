@@ -356,7 +356,7 @@ def add_or_edit_entity(entity_type, action):
     entity_type = str(entity_type)
     entity = None
     entity2 = None
-    user = User.query.filter_by(key=data['user_key']).first()
+    #user = User.query.filter_by(key=data['user_key']).first()
 
     try:
         if entity_type == 'owned_book':

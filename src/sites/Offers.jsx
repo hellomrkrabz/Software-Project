@@ -138,7 +138,10 @@ function Offers(props) {
                     if(bookIds[j].book_id===boo[i].book_id)
                     {
                         if(bookIds[j].owner_id!==userId)
-                            othersBooks.push(boo[i])
+                        {
+                            let tmp = {...boo[i],...bookIds[j]}
+                            othersBooks.push(tmp)
+                        }
                     }
                 }
             }
