@@ -348,6 +348,22 @@ def get_reports():
         } for r in reports]
         return jsonify({'reports': report_json})
     return jsonify({'msg': 'it no good'})
+
+@bp.route('/filtered_reports', methods=['GET'])
+def get_filtered_reports():
+    reports = Report.query.filter_by(status='0')
+    if reports is not None:
+        report_json = [{
+            'reportDate': r.get_report_date(),
+            'reporter': r.get_reporter_id(),
+            'reported': r.get_reported_id(),
+            'status': r.get_status(),
+            'opinionDate': r.get_opinion_date(),
+            'opinionContent': r.get_opinion_info(),
+            'reportContent': r.get_content()
+        } for r in reports]
+        return jsonify({'reports': report_json})
+    return jsonify({'msg': 'it no good'})
 #---------------------adding things---------------------------
 
 @bp.route('/<entity_type>/<action>', methods=['POST'])
