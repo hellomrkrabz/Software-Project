@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField"
 import loading from "../media/loading.gif"
 
 function ProfileInfoComponent(props) {
-    console.log(props.average_rating)
   return (
     <>
         <div style={{aspectRatio: "1/1"}}>

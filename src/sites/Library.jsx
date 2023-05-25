@@ -66,16 +66,18 @@ function Library(props) {
     const [booksToDisplay, setBooksTodisplay] = useState([])
     const [pageNumber, setPageNumber] = useState(0)
 
+    var sessionUsername= sessionStorage.getItem("sessionUserUsername")
+
     useEffect(() => {
         if(props.type==="personal")
         {
-            axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
+            axios.get("http://localhost:5000/api/owned_book_user/"+sessionUsername).then((response) => {
                 
                 setBookIds(response.data.books)
             })
         }else if(props.type==="wanted")
         {
-            axios.get("http://localhost:5000/api/wanted_book_info").then((response) => {
+            axios.get("http://localhost:5000/api/wanted_book_user/"+sessionUsername).then((response) => {
 
                 setBookIds(response.data.books)
             })
@@ -90,9 +92,8 @@ function Library(props) {
 
                 axios.get("http://localhost:5000/api/book_info/" + bookIds[i].book_id).then((response)=>{
                     fetchedBooks.push(response.data)
-                })
-
-                if(i === bookIds.length - 1)
+                }).then(()=>{
+                    if(i === bookIds.length - 1)
                 {
                     setTimeout(function() {
                         let fbTMP = []
@@ -113,7 +114,8 @@ function Library(props) {
                         setBooks(fbTMP)
                         filterBooks(fbTMP, filter)
                     }, 1000);
-                }
+                    }
+                })
             }
 
         }
@@ -162,7 +164,7 @@ function Library(props) {
             
             <div className="container-fluid d-flex flex-column flex-grow-1">
                 {props.type==="personal" && addPersonalBook &&//personal
-                    <AddBookComponent type="personal" offered={isOffered} setAddPersonalBook={setAddPersonalBook}/>
+                    <AddBookComponent type="personal" offered={isOffered} setAddPersonalBook={setAddPersonalBook} books={books} setBooks={setBooks} filterBooks={filterBooks} filter={filter}/>
                 }
                 {props.type==="personal" && !addPersonalBook &&
                     <div className="row flex-grow-1">
@@ -247,7 +249,7 @@ function Library(props) {
                 }
 
                 {props.type==="wanted" && addWantedBook &&//wanted
-                    <AddBookComponent type="wanted" setAddWantedBook={setAddWantedBook}/>
+                    <AddBookComponent type="wanted" offered={isOffered} setAddWantedBook={setAddWantedBook} books={books} setBooks={setBooks} filterBooks={filterBooks} filter={filter}/>
                 }
                 {props.type==="wanted" && !addWantedBook &&
                     <div className="row flex-grow-1">

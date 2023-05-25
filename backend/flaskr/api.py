@@ -90,12 +90,12 @@ def get_owned_book_info_username(u_username):
                 book = Owned_Book.query.filter_by(book_id=book_id).first()
                 book_list.append(book)
             book_json = [{
-                'owned_book_id': book.get_id(),
-                'book_state': book.get_book_state(),
-                'rentable': book.get_rentable(),
-                'owner_id': book.get_owner_id(),
-                'shelf_id': book.get_shelf_id(),
-                'book_id': book.get_book_id()
+                'owned_book_id': b.get_id(),
+                'book_state': b.get_book_state(),
+                'rentable': b.get_rentable(),
+                'owner_id': b.get_owner_id(),
+                'shelf_id': b.get_shelf_id(),
+                'book_id': b.get_book_id()
             } for b in book_list]
             return jsonify({'books': book_json})
         return jsonify({'msg': 'No books?:('})
@@ -111,9 +111,9 @@ def get_wanted_book_info_username(u_username):
                 book = Wanted_Book.query.filter_by(foreign_book_id=book_id).first()
                 book_list.append(book)
             book_json = [{
-                'wanted_book_id': book.get_id(),
-                'owner': book.get_user_id(),
-                'book_id': book.get_foreign_book_id()
+                'wanted_book_id': b.get_id(),
+                'owner': b.get_user_id(),
+                'book_id': b.get_foreign_book_id()
             } for b in book_list]
             return jsonify({'books': book_json})
         return jsonify({'msg': 'No books?:('})

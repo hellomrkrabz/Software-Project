@@ -15,9 +15,9 @@ function Book(props) {
     const [displayReserve, setDisplayReserve] = useState(true)
     const [ownerInfo, setOwnerInfo] = useState({ avatar: "",  email: "", id: -666,  key: "",  password: "", username: "" })
 
-    useEffect(()=>{
-        console.log(displayDetails)
-    },[displayDetails])
+    // useEffect(()=>{
+    //     console.log(displayDetails)
+    // },[displayDetails])
 
     useEffect(()=>{
         if(props.owner_id!==undefined)
