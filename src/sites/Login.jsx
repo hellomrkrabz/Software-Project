@@ -27,8 +27,7 @@ function Login() {
                 sessionStorage.setItem("sessionUserUsername", response.data.username);
                 sessionStorage.setItem("sessionUserKey", response.data.key);
                 sessionStorage.setItem("sessionPermissions", response.data.permissions);
-                console.log(response.data.permissions)
-                //window.location.replace("/Profile/"+response.data.username)
+                window.location.replace("/Profile/"+response.data.username)
             }
         });
     }
