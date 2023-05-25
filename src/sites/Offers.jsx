@@ -182,7 +182,7 @@ function Offers(props) {
                         <div className="col-xl-9 col-12 order-2 order-xl-1 bg-light">
                             <p className="fs-5 fw-semibold">Offered books</p>
                             <div className="row">                                
-                                <BookGrid books={booksToDisplay}></BookGrid>
+                                <BookGrid books={booksToDisplay} offers={true}></BookGrid>
                             </div>
                         </div>
                         <div className="col-12 col-xl-3 order-1 bg-banana-blue bg-opacity-25 d-flex flex-column">
