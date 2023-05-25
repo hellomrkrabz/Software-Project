@@ -102,21 +102,21 @@ function FrontPage(props) {
 				</>
 			) : (
 				<>
-					<div class='container-fluid'>
-						<div class='row justify-content-center align-items-center'>
-							<div class='col-md-5'>
-								<div class='text-banana-blue fs-1 mt-3 mb-0 text-uppercase text-shadow-light'>
-									<p class='h1 text-main-top'>banana books</p>
-									<p class='h2 text-main-bot'>"Rent more, read more, expand your mind with every Book"</p>
+					<div className='container-fluid'>
+						<div className='row justify-content-center align-items-center'>
+							<div className='col-md-5'>
+								<div className='text-banana-blue fs-1 mt-3 mb-0 text-uppercase text-shadow-light'>
+									<p className='h1 text-main-top'>banana books</p>
+									<p className='h2 text-main-bot'>"Rent more, read more, expand your mind with every Book"</p>
 								</div>
-								<img class='img-fluid w-100' src={frontimg} alt='fajnie sobie ludek siedzi :D' />
+								<img className='img-fluid w-100' src={frontimg} alt='fajnie sobie ludek siedzi :D' />
 							</div>
-							<div class='col-md-5 order-md-last'>
-								<div class='d-flex flex-column align-items-end'>
-									<img class='img-fluid w-25 mt-4' src={frontBook2} alt='' />
-									<img class='img-fluid w-25 mb-0' src={frontBook4} alt='' />
-									<img class='img-fluid w-25 mb-0' src={frontBook3} alt='' />
-									<img class='img-fluid w-25 mb-0' src={frontBook1} alt='' />
+							<div className='col-md-5 order-md-last'>
+								<div className='d-flex flex-column align-items-end'>
+									<img className='img-fluid w-25 mt-4' src={frontBook2} alt='' />
+									<img className='img-fluid w-25 mb-0' src={frontBook4} alt='' />
+									<img className='img-fluid w-25 mb-0' src={frontBook3} alt='' />
+									<img className='img-fluid w-25 mb-0' src={frontBook1} alt='' />
 								</div>
 							</div>
 						</div>
