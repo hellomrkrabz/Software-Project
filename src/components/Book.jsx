@@ -29,8 +29,6 @@ function Book(props) {
         }
     },[])
 
-    console.log(props)
-
     return(
         <>
         {props.variant==="small" &&
@@ -88,12 +86,17 @@ function Book(props) {
                                             className="bg-light col-12"
                                         />
 
-                                        <label>Owner</label>
-                                        <TextField
-                                            disabled
-                                            value={ownerInfo.username}
-                                            className="bg-light col-12"
-                                        />
+                                        
+                                        <Link to={"/Opinions/"+ownerInfo.username}>
+                                            <label>Owner</label>
+                                        </Link>
+                                            <TextField
+                                                disabled
+                                                value={ownerInfo.username}
+                                                className="bg-light col-12"
+                                            />
+                                        
+                                        
                                     </div>
                                 </div>
                                 <div className="row justify-content-center mb-2">

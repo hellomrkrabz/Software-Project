@@ -86,7 +86,7 @@ function Offers(props) {
                     fetchedBooks.push(response.data)
                 })
 
-                if(i === bookIds.length - 1)
+                if(i === bookIds.length - 1 && fetchedBooks!==undefined)
                 {
                     setTimeout(function() {
                         let fbTMP = []
