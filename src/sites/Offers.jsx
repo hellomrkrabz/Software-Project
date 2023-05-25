@@ -55,7 +55,7 @@ function Offers(props) {
     const [addWantedBook, setAddWantedBook] = useState(props.mode==="add" && props.type==="wanted" ? true : false)
     const [offered, setOffered] = useState(true)
     const [isOffered, setIsOffered] = useState(props.mode==="addoffered" && props.type==="personal" ? true : false)
-    const [filter, setFilter] = useState({title:window.location.hash.slice(1), author:"", language:"", publisher:"", ISBN:""})
+    const [filter, setFilter] = useState({title:decodeURI(window.location.hash.slice(1)), author:"", language:"", publisher:"", ISBN:""})
     const [userId, setUserId] = useState();
 
     const [bookIds, setBookIds] = useState([])
@@ -93,6 +93,9 @@ function Offers(props) {
 
                         for(let i = 0; i < bookIds.length; i++)
                         {
+                            if(fetchedBooks[i]===undefined)
+                                break;
+
                             let tmp= {
                                 author: fetchedBooks[i].author,
                                 book_id: fetchedBooks[i].book_id,

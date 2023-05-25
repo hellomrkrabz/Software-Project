@@ -105,7 +105,7 @@ def login():
         db.session.commit()
         print("[INFO]", f"User id: {user.get_id()}")
 
-        resp = jsonify({'user_id': user.get_id(), 'username': user.get_username(), 'key': user.get_key(), 'msg': 'Logged in'})
+        resp = jsonify({'user_id': user.get_id(), 'username': user.get_username(), 'permissions': user.get_permissions().value, 'key': user.get_key(), 'msg': 'Logged in'})
 
         response = make_response(resp)
         response.headers['Access-Control-Allow-Credentials'] = True
