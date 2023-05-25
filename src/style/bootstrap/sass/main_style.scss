@@ -73,6 +73,22 @@ $grid-row-columns: 8;
 	color: $banana-blue;
 }
 
+//=================================================================================FRONTPAGE===============================================================================
+
+//Added due to VERI SMOL SIZES PROVIDED BY BOOTSTRAP, I HAD NO CLUE HOW TO DO IT ANOTHER WAY PLEASE DON'T SHOUT OUT ME IF YOU FIND THIS ONE D:
+
+.text-main-top {
+	font-size: 5.9vw;
+	width: 65vw;
+}
+
+//Same with this one :(
+
+.text-main-bot {
+	font-size: 3vw;
+	width: 65vw;
+}
+
 //=================================================================================CUSTOM ANIMATONS===========================================================================
 @keyframes fadeIn {
 	0% {

@@ -7,6 +7,10 @@ import pattern from '../media/datapattern.png'
 import jojo from '../media/jojo.png'
 import beer from '../media/beer.png'
 import frontimg from '../media/frontpageNotLoggedIn.png'
+import frontBook1 from '../media/frontBook1.png'
+import frontBook2 from '../media/frontBook2.png'
+import frontBook3 from '../media/frontBook3.png'
+import frontBook4 from '../media/frontBook4.png'
 import Textfield from '@mui/material/TextField'
 import Book from '../components/Book'
 import BookViewer from '../components/BookViewer'
@@ -98,12 +102,24 @@ function FrontPage(props) {
 				</>
 			) : (
 				<>
-					<div className='container'>
-						<div className='text-banana-blue fs-1 mt-3 mb-0 text-uppercase text-shadow-light'>
-							<p class='h1'>banana books</p>
-							<p class='h2'>"Rent more, read more, expand your mind with every Book"</p>
+					<div class='container-fluid'>
+						<div class='row justify-content-center align-items-center'>
+							<div class='col-md-5'>
+								<div class='text-banana-blue fs-1 mt-3 mb-0 text-uppercase text-shadow-light'>
+									<p class='h1 text-main-top'>banana books</p>
+									<p class='h2 text-main-bot'>"Rent more, read more, expand your mind with every Book"</p>
+								</div>
+								<img class='img-fluid w-100' src={frontimg} alt='fajnie sobie ludek siedzi :D' />
+							</div>
+							<div class='col-md-5 order-md-last'>
+								<div class='d-flex flex-column align-items-end'>
+									<img class='img-fluid w-25 mt-4' src={frontBook2} alt='' />
+									<img class='img-fluid w-25 mb-0' src={frontBook4} alt='' />
+									<img class='img-fluid w-25 mb-0' src={frontBook3} alt='' />
+									<img class='img-fluid w-25 mb-0' src={frontBook1} alt='' />
+								</div>
+							</div>
 						</div>
-						<img src={frontimg} alt='fajnie sobie ludek siedzi :D' />
 					</div>
 				</>
 			)}
