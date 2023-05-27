@@ -10,8 +10,11 @@ from .transaction import Transaction
 from .report import Report
 from . import db
 import json
-
+from datetime import date
+import sqlalchemy
+from sqlalchemy import text, create_engine, ForeignKey
 bp = Blueprint("api", __name__, url_prefix='/api')
+engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 #---------------------info about books---------------------------
 
@@ -250,8 +253,18 @@ def get_shelves():
 def get_user_transactions(username):
     user = User.query.filter_by(username=username).first()
     if user is not None:
-        transactions = Transaction.query.filter_by(borrower_id=user.id);
-        if transactions is not None:
+        transactions = Transaction.query.all()
+        print(transactions)
+        filtered_transactions = []
+        for t in transactions:
+            owned_book = Owned_Book.query.filter_by(owned_book_id=t.book_id).first()
+            if owned_book.owner_id == user.id:
+                print(t)
+                filtered_transactions.append(t)
+
+        filtered_transactions_2 = Transaction.query.filter_by(borrower_id=user.id)
+        filtered_transactions += filtered_transactions_2
+        if filtered_transactions is not None:
             transactions_json = [{
                 'id': t.get_id(),
                 'reservation_date': t.get_reservation_date(),
@@ -261,9 +274,26 @@ def get_user_transactions(username):
                 'book_id': t.get_book_id(),
                 'borrower_id': t.get_borrower_id(),
                 'borrower_username': t.get_borrower_username()
-            } for t in transactions]
+            } for t in filtered_transactions]
             return jsonify({'transactions': transactions_json})
     return jsonify({'msg': 'it no good'})
+
+@bp.route('/transaction/<t_id>', methods=['GET'])
+def get_transaction_by_id(t_id):
+   transaction = Transaction.query.filter_by(transaction_id=t_id).first()
+   if transaction is not None:
+        transaction_json = {
+            'id': transaction.get_id(),
+            'reservation_date': transaction.get_reservation_date(),
+            'rent_date': transaction.get_rent_date(),
+            'return_date': transaction.get_return_date(),
+            'state': transaction.get_state().name,
+            'book_id': transaction.get_book_id(),
+            'borrower_id': transaction.get_borrower_id(),
+            'borrower_username': transaction.get_borrower_username()
+        }
+        return jsonify({'transaction': transaction_json})
+   return jsonify({'msg': 'it no good'})
 
 @bp.route('/transaction/<username>/<t_id>', methods=['GET'])
 def get_transaction(username, t_id):
@@ -518,9 +548,9 @@ def add_or_edit_entity(entity_type, action):
             borrower_id = user.id
             if action == "add":
                 entity = Transaction(
-                    reservation_date=reservation_date,
-                    rent_date=rent_date,
-                    return_date=return_date,
+                    reservation_date=date.today(),
+                    rent_date=sqlalchemy.sql.null(),
+                    return_date=sqlalchemy.sql.null(),
                     state=state,
                     book_id=book_id,
                     borrower_id=borrower_id

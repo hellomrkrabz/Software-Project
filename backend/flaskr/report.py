@@ -36,6 +36,7 @@ class Report(db.Model):
         return self.status
 
     def get_repoter_id(self):
+
         return self.reporter_id
 
     def get_opinion_info(self):

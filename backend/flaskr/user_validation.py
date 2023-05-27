@@ -124,3 +124,13 @@ def logout():
     session.clear()
     return True
     #return redirect("http://www.google.com")
+
+@bp.route('/change_user/<username>', methods=['POST'])
+def change_user(username):
+    data = request.get_json()
+    permissions = data['permissions']
+    user = User.query.filter_by(username=username).first()
+    if user is not None:
+        user.permissions = permissions
+        db.session.commit()
+    return jsonify({"msg": "Successfully changed permissions"})
