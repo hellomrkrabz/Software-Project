@@ -24,7 +24,6 @@ function Book(props) {
         {
             axios.get("http://localhost:5000/api/user/" + props.owner_id).then((response) => {
                 setOwnerInfo(response.data.user)
-                console.log(response.data.user)
             })
         }
     },[])

@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
-import search from '../media/search.png'
 import win31 from '../media/win31.png'
 import korwin from '../media/korwin.png'
 import pattern from '../media/datapattern.png'
@@ -11,10 +10,10 @@ import frontBook1 from '../media/frontBook1.png'
 import frontBook2 from '../media/frontBook2.png'
 import frontBook3 from '../media/frontBook3.png'
 import frontBook4 from '../media/frontBook4.png'
-import Textfield from '@mui/material/TextField'
 import Book from '../components/Book'
-import BookViewer from '../components/BookViewer'
 import { Link } from 'react-router-dom'
+import axios from "axios"
+import { v4 } from 'uuid'
 
 function FrontPage(props) {
 	var book1 = {
@@ -46,8 +45,62 @@ function FrontPage(props) {
 		isbn:4,
 		owner_id:4,
 	}
+	var sessionUsername = sessionStorage.getItem("sessionUserUsername")
 
+	const [bookIds, setBookIds] = useState([])
+	const [books, setBooks] = useState([])
+	const [userId, setUserId] = useState()
 	const [filter, setFilter] = useState('')
+
+	useEffect(() => {
+        axios.get("http://localhost:5000/api/user_info/"+sessionUsername).then((response) => {
+            setUserId(response.data.user.id)
+            axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
+                setBookIds(response.data.books)
+            })
+        })
+    }, []);
+
+	useEffect(()=>{
+        if(bookIds!==undefined && bookIds.length > 0)
+        {
+            var fetchedBooks = []
+            for(let i = 0; i < bookIds.length; i++){
+
+                axios.get("http://localhost:5000/api/book_info/" + bookIds[i].book_id).then((response)=>{
+                    fetchedBooks.push(response.data)
+                })
+
+                if(i === bookIds.length - 1 && fetchedBooks!==undefined)
+                {
+                    setTimeout(function() {
+                        let fbTMP = []
+
+                        for(let i = 0; i < bookIds.length; i++)
+                        {
+                            if(fetchedBooks[i]===undefined)
+                                break;
+
+                            let tmp= {
+                                author: fetchedBooks[i].author,
+                                book_id: fetchedBooks[i].book_id,
+                                cover_photo: fetchedBooks[i].cover_photo,
+                                google_book_id: fetchedBooks[i].google_book_id,
+                                isbn: fetchedBooks[i].isbn,
+                                title: fetchedBooks[i].title,
+                                rentable: bookIds[i].rentable
+                            }
+                            fbTMP.push(tmp)
+                        }
+
+                        setBooks(fbTMP.slice(0,5))
+						console.log(fbTMP.slice(0,5))
+                    }, 1000);
+                }
+            }
+
+        }
+    },[bookIds])
 
 	return (
 		<>
@@ -89,21 +142,11 @@ function FrontPage(props) {
 						</div>
 
 						<div className='row gx-5 m-0 mt-4 mb-3 flex-grow-1 d-flex justify-content-center row-cols-lg-5 row-cols-sm-3'>
-							<div className='col d-flex flex-grow-1'>
-								<Book variant='medium' border {...book1}></Book>
-							</div>
-							<div className='col d-flex flex-grow-1'>
-								<Book variant='medium' border {...book2}></Book>
-							</div>
-							<div className='col d-flex flex-grow-1'>
-								<Book variant='medium' border {...book3}></Book>
-							</div>
-							<div className='col d-flex flex-grow-1'>
-								<Book variant='medium' border {...book4}></Book>
-							</div>
-							<div className='col d-flex flex-grow-1'>
-								<Book variant='medium' border {...book4}></Book>
-							</div>
+							{books.map((b)=>(
+								<div key={v4()} className='col d-flex flex-grow-1'>
+									<Book variant='medium' border {...b}></Book>
+								</div>
+							))}
 						</div>
 					</div>
 				</>
