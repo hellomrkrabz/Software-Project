@@ -162,7 +162,12 @@ function Book(props) {
         {props.variant==="medium" &&
         <>
             <div className={`col-12 flex-grow-1 ${props.border ? "border":""}` }>
-                <img src={props.src} style={{width: '100%',}}/>
+                {/* <img src={props.src} style={{width: '100%',}}/> */}
+                {props.cover_photo!=="notFound" ?
+                    <img src={props.cover_photo} style={{width: '100%',}}/>
+                    :
+                    <img src={banana} style={{width: '100%',}}/>
+                }
                 <p>{props.title}</p>
 
                 {props.description}<br />

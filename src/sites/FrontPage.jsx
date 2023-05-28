@@ -20,24 +20,31 @@ function FrontPage(props) {
 	var book1 = {
 		title: 'Windows 3.1 PL',
 		description: "'MS Windows 3.1 PL' to książka przeznaczona dla szerokiego kręgu odbiorców zainteresowanych",
-		src: win31,
-		link: '/XD',
+		cover_photo: win31,
+		isbn:1,
+		owner_id:1,
 	}
 	var book2 = {
 		title: 'Niebezpieczne Ubezpieczenia',
 		description: "'W czasach mody, czy wręcz manii ubezpieczeniowej, książka jest niezwykle cenną odtrutką na",
-		src: korwin,
+		cover_photo: korwin,
+		isbn:2,
+		owner_id:2,
 	}
 	var book3 = {
 		title: 'Feature Selection for Data and Pattern Recognition',
 		description:
 			"This book presents recent developments and research trends in the field' of feature selection for data and pattern recognition, highlighting a number of latest advances",
-		src: pattern,
+		cover_photo: pattern,
+		isbn:3,
+		owner_id:3,
 	}
 	var book4 = {
 		title: 'JOJO’s Bizzare Adventure',
 		description: 'A multigenerational tale of the heroic Joestar family and their never-ending battle against evil!',
-		src: jojo,
+		cover_photo: jojo,
+		isbn:4,
+		owner_id:4,
 	}
 
 	const [filter, setFilter] = useState('')
