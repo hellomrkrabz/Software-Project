@@ -10,7 +10,7 @@ import axios from "axios"
 function ProfileComponent(props) {
 
     var loadingBook = {author: "Loading", book_id: -1, cover_photo: loading, google_book_id: "", isbn: "", title: "Loading"}
-    var emptyBook = {author: "", book_id: -1, cover_photo: trans, google_book_id: "", isbn: "", title: ""}
+    var emptyBook = {author: "", book_id: -1, cover_photo: trans, google_book_id: "", isbn: "", title: "Nothing here :("}
 
     var username = sessionStorage.getItem("sessionUserUsername")
 
@@ -85,7 +85,7 @@ function ProfileComponent(props) {
             setTimeout(() => {setWantedBooks(fetched)}, 2000);
         }else
         {
-
+            setWantedBooks([emptyBook])
         }
     },[wantedBookIds])
 
