@@ -160,13 +160,13 @@ function Book(props) {
 
         {props.variant==="medium" &&
         <>
-            <div className={`col-12 flex-grow-1 ${props.border ? "border":""}` }>
-                {/* <img src={props.src} style={{width: '100%',}}/> */}
+            <div className={`col-12 d-flex flex-column justify-content-center align-items-center ${props.border ? "border":""}` }>
                 {props.cover_photo!=="notFound" ?
-                    <img src={props.cover_photo} style={{width: '100%',}}/>
+                    <img src={props.cover_photo} alt="book" height="200" width="160"/>
                     :
-                    <img src={banana} style={{width: '100%',}}/>
+                    <img src={banana} alt="book" height="200" width="160"/>
                 }
+
                 <p>{props.title}</p>
 
                 {props.description}<br />

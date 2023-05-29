@@ -93,8 +93,24 @@ function FrontPage(props) {
                             fbTMP.push(tmp)
                         }
 
-                        setBooks(fbTMP.slice(0,5))
-						console.log(fbTMP.slice(0,5))
+						let othersBooks = []
+						for(let i = 0; i < fbTMP.length; i++)
+						{
+							for(let j = 0; j < bookIds.length; j++)
+							{
+								if(bookIds[j].book_id===fbTMP[i].book_id)
+								{
+									if(bookIds[j].owner_id!==userId)
+									{
+										let tmp = {...fbTMP[i],...bookIds[j]}
+										othersBooks.push(tmp)
+									}
+								}
+							}
+						}
+
+                        setBooks(othersBooks.slice(0,5))
+						console.log(othersBooks.slice(0,5))
                     }, 1000);
                 }
             }
