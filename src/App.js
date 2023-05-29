@@ -85,7 +85,7 @@ function App() {
         navigate: "/",
       },
     ];
-  }else if(sessionUserKey!==null && sessionUserPermissions === "3")consoel
+  }else if(sessionUserKey!==null && sessionUserPermissions === "3")
   {//logged in admin
     var routes = [
       // {
