@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField"
 import axios from 'axios'
 import Popup from 'reactjs-popup';
@@ -32,6 +32,12 @@ function Login() {
             }
         });
     }
+
+    // useEffect(()=>{
+    //     axios.post("http://localhost:5000/user_validation/change_user/Maryla", {
+    //         permissions: "admin"
+    //     })
+    // })
 
     return (
         <>

@@ -14,13 +14,14 @@ import Opinions from "./sites/Opinions.jsx";
 import Help from "./sites/Help.jsx";
 import Offers from "./sites/Offers.jsx";
 
-var sessionUserKey = sessionStorage.getItem("sessionUserKey")
 var sessionUsername = sessionStorage.getItem("sessionUserUsername")
 var sessionUserPermissions = sessionStorage.getItem("sessionPermissions")
+var sessionUserKey = sessionStorage.getItem("sessionUserKey")
 
 function App() {
 
-  if(sessionUserKey!==null && sessionUserPermissions !== 5 && sessionUserPermissions !== 3)
+
+  if(sessionUserKey!==undefined && (sessionUserPermissions === "2" || sessionUserPermissions === "4"))
   {//logged in
     var routes = [
       {
@@ -84,12 +85,16 @@ function App() {
         navigate: "/",
       },
     ];
-  }else if(sessionUserKey!==null && sessionUserPermissions === 3)
+  }else if(sessionUserKey!==null && sessionUserPermissions === "3")consoel
   {//logged in admin
     var routes = [
+      // {
+      //   path: '/',
+      //   element: <FrontPage isLoggedIn={true} username={sessionUsername}/>,
+      // },
       {
-        path: '/',
-        element: <FrontPage isLoggedIn={true} username={sessionUsername}/>,
+        path: '*',
+        navigate: "/Reports",
       },
       {
         path: '/Logout',
@@ -105,7 +110,7 @@ function App() {
       },
       {
         path: '*',
-        navigate: "/",
+        navigate: "/Reports",
       },
     ];
   }

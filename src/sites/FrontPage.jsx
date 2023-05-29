@@ -53,12 +53,15 @@ function FrontPage(props) {
 	const [filter, setFilter] = useState('')
 
 	useEffect(() => {
+		if(sessionUsername!==null)
+		{
         axios.get("http://localhost:5000/api/user_info/"+sessionUsername).then((response) => {
             setUserId(response.data.user.id)
             axios.get("http://localhost:5000/api/owned_book_info").then((response) => {
                 setBookIds(response.data.books)
             })
         })
+		}
     }, []);
 
 	useEffect(()=>{
@@ -110,7 +113,7 @@ function FrontPage(props) {
 						}
 
                         setBooks(othersBooks.slice(0,5))
-						console.log(othersBooks.slice(0,5))
+						//console.log(othersBooks.slice(0,5))
                     }, 1000);
                 }
             }
