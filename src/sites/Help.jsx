@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import $ from 'jquery'
 import collapse from "bootstrap/js/src/collapse";
 
 function Help(props) {
-
+    const helpAccordions = ["wantedBooks","offeredBooks","personalLibrary","transactions","userRating","profile"]
     useEffect(() => {
         const handleHashChange = () => {
-          const hash = window.location.hash;
-          const targetAccordion = $(hash);
+          const hash = window.location.hash.substring(1);
+          const targetAccordion = document.getElementById(hash);
     
-          if (targetAccordion.length) {
-            // Scroll to the accordion item if needed
-            $('html, body').animate(
-              {
-                scrollTop: targetAccordion.offset().top,
-              },
-              'slow'
-            );
-    
-            // Open the accordion item
-            targetAccordion
-              .closest('.accordion')
-              .find('.accordion-header')
-              .removeClass('collapsed')
-              .attr('aria-expanded', 'true');
-            targetAccordion.addClass('show');
+            for(var i = 0; i < helpAccordions.length;i++){
+                document.getElementById(helpAccordions[i]).classList.remove("show")
+            }
+
+          if (targetAccordion != undefined) {
+            targetAccordion.classList.add("show")
           }
         };
     
@@ -34,6 +23,14 @@ function Help(props) {
     
         // Check the initial hash on component mount
         handleHashChange();
+
+        var myCollapsible = document.getElementsByClassName('accordion-collapse')
+        for(var i = 0;i < myCollapsible.length;i++){
+            myCollapsible[i].addEventListener('show.bs.collapse', function (e) {
+                console.log(e.target.id)
+                window.location.hash = e.target.id
+            });
+        }
     
         // Clean up the event listener on component unmount
         return () => {
