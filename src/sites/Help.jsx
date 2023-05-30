@@ -1,9 +1,45 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import $ from 'jquery'
 import collapse from "bootstrap/js/src/collapse";
 
 function Help(props) {
 
+    useEffect(() => {
+        const handleHashChange = () => {
+          const hash = window.location.hash;
+          const targetAccordion = $(hash);
+    
+          if (targetAccordion.length) {
+            // Scroll to the accordion item if needed
+            $('html, body').animate(
+              {
+                scrollTop: targetAccordion.offset().top,
+              },
+              'slow'
+            );
+    
+            // Open the accordion item
+            targetAccordion
+              .closest('.accordion')
+              .find('.accordion-header')
+              .removeClass('collapsed')
+              .attr('aria-expanded', 'true');
+            targetAccordion.addClass('show');
+          }
+        };
+    
+        // Listen for hash changes
+        window.addEventListener('hashchange', handleHashChange);
+    
+        // Check the initial hash on component mount
+        handleHashChange();
+    
+        // Clean up the event listener on component unmount
+        return () => {
+          window.removeEventListener('hashchange', handleHashChange);
+        };
+      }, []);
 
 
     return (
@@ -19,7 +55,7 @@ function Help(props) {
             <div class="accordion" id="helpAccordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#wantedBooks" aria-expanded="false" aria-controls="wantedBooks">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wantedBooks" aria-expanded="false" aria-controls="wantedBooks">
                             Wanted Books
                         </button>
                     </h2>
