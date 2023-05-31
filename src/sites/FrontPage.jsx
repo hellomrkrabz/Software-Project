@@ -156,9 +156,9 @@ function FrontPage(props) {
 							</div>
 						</div>
 
-						<div className='row gx-5 m-0 mt-4 mb-3 flex-grow-1 d-flex justify-content-center row-cols-lg-5 row-cols-sm-3'>
+						<div className='row gx-5 m-0 mt-4 mb-3 flex-grow-1 row-cols-lg-5 row-cols-sm-3'>
 							{books.map(b => (
-								<div key={v4()} className='col d-flex flex-grow-1'>
+								<div key={v4()} className='col d-flex'>
 									<Book variant='medium' border {...b}></Book>
 								</div>
 							))}
