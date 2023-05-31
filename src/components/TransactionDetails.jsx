@@ -120,14 +120,102 @@ function TransactionDetails(props) {
                             <div className="col-12 mb-2">
                                 <div className="mb-2">
                                         Status:
-                                    </div>
+                                </div>
                                 <div className="d-flex align-items-center justify-content-center bg-secondary text-black p-3 rounded">
 
                                     {status}
                                 </div>
-                        </div>
+                            </div>
                         </div>
 
+                        
+                        {/* FIXME: remove d-none class from all divs, I added it only for development */}
+{/* status = 1 (reservation) and user = book_owner =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Accept Reservation</button>
+                            </div>
+                            <div className="col-3">
+                                <button className="btn btn-outline-danger col-12">Reject Reservation</button>
+                            </div>
+                        </div>
+{/* =======================status = 3 (your_turn) user = borrower================================================================================================ */}
+                        <div className="col-12 mb-3 d-flex align-items-stretch mt-3 ">
+                            <div className="row col-6 gy-3">
+                                <div className="col-4">
+                                    From:
+                                </div>  
+                                <div className="col-6">
+                                    <input type="date" id="" className="form-control"/>
+                                </div>
+                                <div className="col-4">
+                                    To:
+                                </div>
+                                <div className="col-6">
+                                    <input type="date" id="" className="form-control"/>
+                                </div>
+                            </div>
+                            <div className="col-6 d-flex justify-content-center align-items-stretch">
+                                <button className="btn btn-banana-primary col-6">Submite rent period</button>
+                            </div>
+                        </div>
+{/* status = 4 (rent_period_confirmation???) and user = book_owner =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Confirm reservation period</button>
+                            </div>
+                            <div className="col-3">
+                                <button className="btn btn-outline-danger col-12">Reject reservation period</button>
+                            </div>
+                        </div>
+{/* status = 5 (accepted_date)  and user = book_owner =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Confirm book passing</button>
+                            </div>
+                        </div>               
+{/* status = 6 (passed_down)  and user = borrower =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
+                            </div>
+                        </div>   
+{/* status = 7 (lent)  and user = borrower =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Book returned</button>
+                            </div>
+                        </div>   
+{/* status = 7 (lent)  and user = book_owner and deadline overdue =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Book not returned</button>
+                            </div>
+                        </div>  
+{/* status = 8 (returned)  and user = book_owner =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
+                            </div>
+                            <div className="col-3">
+                                <button className="btn btn-outline-danger col-12">Book not delivered</button>
+                            </div>
+                        </div>   
+{/* status = 9 (successfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Review</button>
+                            </div>
+                        </div> 
+{/* status = 10 (successfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
+                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                            <div className="col-3">
+                                <button className="btn btn-banana-primary col-12">Review</button>
+                            </div>
+                        </div> 
+
+                        <hr className="mt-5"/>
                         <div className="d-flex justify-content-center">
                             <button className="btn btn-banana-primary col-12 col-lg-6 col-xl-4 p-2" onClick={() => { props.updateShowDetailsFromChildren(false) }}>Hide Details</button>
                         </div>

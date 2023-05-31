@@ -19,18 +19,18 @@ function TransactionList(props) {
 
     const [transactions, setTransactions] = useState([]);
 
-    const [detailsUsername, setDetailsUsername] = useState("k");
+    const [detailsUsername, setDetailsUsername] = useState("dupa_mariana");
     const [detailsBook, setDetailsBook] = useState("1");
     const [detailsReservationDate, setDetailsReservationDate] = useState("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-    const [detailsRentDate, setDetailsRentDate] = useState("k");
-    const [detailsStatus, setDetailsStatus] = useState("k");
-    const [detailsReturnDate, setDetailsReturnDate] = useState("k");
-    const [detailsTitle, setDetailsTitle] = useState("k");
+    const [detailsRentDate, setDetailsRentDate] = useState("dupa_mariana");
+    const [detailsStatus, setDetailsStatus] = useState("dupa_mariana");
+    const [detailsReturnDate, setDetailsReturnDate] = useState("dupa_mariana");
+    const [detailsTitle, setDetailsTitle] = useState("dupa_mariana");
     const [detailsAuthor, setDetailsAuthor] = useState("k");
     const [detailsCoverPhoto, setDetailsCoverPhoto] = useState("k");
     const [detailsIsbn, setDetailsIsbn] = useState("k");
     const [detailsCondition, setDetailsCondition] = useState("k");
-    //const [detailsIsFinished, setDetailsIsFinished] = useState((props.status === "finished" || props.status === "failed") ? true : false); //finished/failed do zmiany na faktyczne statusy - ¿eby pokazywac guzik do recenzji
+    //const [detailsIsFinished, setDetailsIsFinished] = useState((props.status === "finished" || props.status === "failed") ? true : false); //finished/failed do zmiany na faktyczne statusy - ï¿½eby pokazywac guzik do recenzji
 
     //Getting user's all transactions'
     useEffect(() => {
@@ -47,27 +47,25 @@ function TransactionList(props) {
 
     //Updating data from db whenever detailsKey changes
     useEffect(() => {
-        //console.log("GOT HERE!!!!!!")
         // Take all details for a transaction from db and assign them to appropriate hooks (axios)
 
-        //po klikniêciu show details detailskey == transaction.key
-        axios.get("http://localhost:5000/api/transaction/" + sessionUsername + "/" + detailsKey).then((response) => {
+        //po klikniï¿½ciu show details detailskey == transaction.key
+        axios.get("http://localhost:5000/api/transaction/" + detailsKey).then((response) => {
             
             var transactionJson = response.data; 
-            //console.log(transactionJson);
             if (transactionJson.msg === undefined) {
 
                 setDetailsUsername(transactionJson.transaction.borrower_username);
-                setDetailsReservationDate((transactionJson.transaction.reservation_date).slice(0,-12));
-                setDetailsRentDate((transactionJson.transaction.rent_date).slice(0, -12));
-                setDetailsReturnDate((transactionJson.transaction.return_date).slice(0, -12));
+                setDetailsReservationDate(transactionJson.transaction.reservation_date ? (transactionJson.transaction.reservation_date).slice(0,-12) : "");
+                setDetailsRentDate(transactionJson.transaction.rent_date ? (transactionJson.transaction.rent_date).slice(0,-12) : "");
+                setDetailsReturnDate(transactionJson.transaction.return_date ? (transactionJson.transaction.return_date).slice(0,-12) : "");
                 setDetailsStatus(transactionJson.transaction.state);
                 setDetailsBook(transactionJson.transaction.book_id);
+                return(transactionJson.transaction.book_id)
                 
             }
-        }).then(() => {
-                axios.get("http://localhost:5000/api/book_info/" + detailsBook).then((response) => {
-                    //console.log(response.data);
+        }).then((book_id) => {
+                axios.get("http://localhost:5000/api/book_info/" + book_id).then((response) => {
 
                     var book_json = response.data;
                     setDetailsTitle(book_json.title);
