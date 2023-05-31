@@ -13,6 +13,7 @@ import json
 from datetime import date
 import sqlalchemy
 from .book import States
+from .transaction import StatesForTransactions
 from sqlalchemy import text, create_engine, ForeignKey
 from .email_sender import send_mail_with_msg, send_mail_with_html, send_mail_from_html_file
 from .html_proccesors import html_attr_inputter_by_id, attr_input_args_id, html_inner_inputter_by_id ,inner_html_input_args_id
@@ -547,13 +548,13 @@ def add_or_edit_entity(entity_type, action):
                 entity.visible = visible
                 entity.content = content
 
-        elif entity_type == 'transaction':
+        elif entity_type == 'transaction':           
             reservation_date = data['reservation_date']
             rent_date = data['rent_date']
             return_date = data['return_date']
             book_id = data['book_id']
             state = data['state']
-            user = User.query.filter_by(key=data['borrower_key']).first()
+            user = User.query.filter_by(id=data['borrower_key']).first()
             specific_book = Owned_Book.query.filter_by(owned_book_id=book_id).first()
             owner = User.query.filter_by(id=specific_book.get_owner_id()).first()
             borrower_id = user.id
@@ -579,14 +580,14 @@ def add_or_edit_entity(entity_type, action):
                                          inputter_list)
 
             elif action == "edit":
-                entity = Transaction.query.filter_by(id=data['id']).first()
+                entity = Transaction.query.filter_by(transaction_id=data['id']).first()
                 entity.rent_date = rent_date
                 entity.return_date = return_date
-                entity.state = state
+                entity.state = StatesForTransactions(state)
 
                 if state in (2,3,5,6,7,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
-                                                            "http://localhost:3000/Transactions" + entity.get_id())
+                                                            "http://localhost:3000/Transactions" + str(entity.get_id()))
                     inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
 
                     inputter_list_borrower = []

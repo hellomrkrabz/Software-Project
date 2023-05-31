@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 function TransactionDetails(props) {
-    const [transactionId, setTransactionID] = useState(props.transactionID);
+    const [transactionId, setTransactionID] = useState(props.detailsKey);
     const [username, setUsername] = useState(props.user);
     const [title, setTitle] = useState(props.title);
     const [author, setAuthor] = useState(props.author);
@@ -141,7 +141,7 @@ function TransactionDetails(props) {
 
                                 <div className="col-3">
                                     <button className="btn btn-banana-primary col-12" onClick={()=>{
-                                        axios.post("http://localhost:5000/api/transactions/edit", {
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
                                             reservation_date:null,
                                             rent_date:null,
                                             return_date:null,
@@ -154,7 +154,7 @@ function TransactionDetails(props) {
                                 </div>
                                 <div className="col-3">
                                     <button className="btn btn-outline-danger col-12" onClick={()=>{
-                                        axios.post("http://localhost:5000/api/transactions/edit", {
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
                                             reservation_date:null,
                                             rent_date:null,
                                             return_date:null,
