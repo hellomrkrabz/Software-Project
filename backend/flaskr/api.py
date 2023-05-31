@@ -549,7 +549,7 @@ def add_or_edit_entity(entity_type, action):
             state = data['state']
             user = User.query.filter_by(key=data['borrower_key']).first()
             specific_book = Owned_Book.query.filter_by(owned_book_id=book_id).first()
-            owner = specific_book.get_owner_id()
+            owner = User.query.filter_by(id=specific_book.get_owner_id()).first()
             borrower_id = user.id
             if action == "add":
                 entity = Transaction(
@@ -561,7 +561,7 @@ def add_or_edit_entity(entity_type, action):
                     borrower_id=borrower_id
                 )
                 attr_inputter_args = attr_input_args_id("status-change-link", "href",
-                                                        "http://localhost:3000/Transactions" + entity.get_id())
+                                                        "http://localhost:3000/Transactions")
                 inner_html_inputter_args = inner_html_input_args_id("username", owner.get_username())
 
                 inputter_list = []
