@@ -36,7 +36,7 @@ class Transaction(db.Model):
     rent_date = db.Column(db.DateTime, default=datetime.date, nullable = True)
     return_date = db.Column(db.DateTime, default=datetime.date, nullable = True)
     state = db.Column(db.Enum(StatesForTransactions))
-    book_id = db.Column(db.Integer, db.ForeignKey('shelves.shelf_id'))
+    book_id = db.Column(db.Integer, db.ForeignKey('owned_books.owned_book_id'))
     borrower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def get_id(self):
