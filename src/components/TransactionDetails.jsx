@@ -19,8 +19,12 @@ function TransactionDetails(props) {
     const [status, setStatus] = useState(props.status);
     const [book, setBook] = useState(props.book);
     const [coverPhoto, setCoverPhoto] = useState(props.coverPhoto);
+    const [borrowerId, setBorrowerId] = useState(props.borrowerId);
+    const [ownerId, setOwnerId] = useState(props.ownerId);
 
-
+    const [convertedReturnDate, setConvertedReturnDate] = useState(new Date(props.returnDate))
+    var currentDate = new Date();
+    var sessionUserId = sessionStorage.getItem("sessionUserId")
 
     return (
         <>  
@@ -131,89 +135,109 @@ function TransactionDetails(props) {
                         
                         {/* FIXME: remove d-none class from all divs, I added it only for development */}
 {/* status = 1 (reservation) and user = book_owner =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
+                        {status==="reservation" && sessionUserId == ownerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
 
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Accept Reservation</button>
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Accept Reservation</button>
+                                </div>
+                                <div className="col-3">
+                                    <button className="btn btn-outline-danger col-12">Reject Reservation</button>
+                                </div>
                             </div>
-                            <div className="col-3">
-                                <button className="btn btn-outline-danger col-12">Reject Reservation</button>
-                            </div>
-                        </div>
+                        }
 {/* =======================status = 3 (your_turn) user = borrower================================================================================================ */}
-                        <div className="col-12 mb-3 d-flex align-items-stretch mt-3 ">
-                            <div className="row col-6 gy-3">
-                                <div className="col-4">
-                                    From:
-                                </div>  
-                                <div className="col-6">
-                                    <input type="date" id="" className="form-control"/>
+                        {status==="your_turn" && sessionUserId === borrowerId &&
+                            <div className="col-12 mb-3 d-flex align-items-stretch mt-3 ">
+                                <div className="row col-6 gy-3">
+                                    <div className="col-4">
+                                        From:
+                                    </div>  
+                                    <div className="col-6">
+                                        <input type="date" id="" className="form-control"/>
+                                    </div>
+                                    <div className="col-4">
+                                        To:
+                                    </div>
+                                    <div className="col-6">
+                                        <input type="date" id="" className="form-control"/>
+                                    </div>
                                 </div>
-                                <div className="col-4">
-                                    To:
-                                </div>
-                                <div className="col-6">
-                                    <input type="date" id="" className="form-control"/>
+                                <div className="col-6 d-flex justify-content-center align-items-stretch">
+                                    <button className="btn btn-banana-primary col-6">Submite rent period</button>
                                 </div>
                             </div>
-                            <div className="col-6 d-flex justify-content-center align-items-stretch">
-                                <button className="btn btn-banana-primary col-6">Submite rent period</button>
-                            </div>
-                        </div>
+                        }
 {/* status = 4 (rent_period_confirmation???) and user = book_owner =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Confirm reservation period</button>
+                        {status==="dates_chosen" && sessionUserId === ownerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Confirm reservation period</button>
+                                </div>
+                                <div className="col-3">
+                                    <button className="btn btn-outline-danger col-12">Reject reservation period</button>
+                                </div>
                             </div>
-                            <div className="col-3">
-                                <button className="btn btn-outline-danger col-12">Reject reservation period</button>
-                            </div>
-                        </div>
+                        }
 {/* status = 5 (accepted_date)  and user = book_owner =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Confirm book passing</button>
-                            </div>
-                        </div>               
+                        {status==="accepted_date" && sessionUserId === ownerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Confirm book passing</button>
+                                </div>
+                            </div>  
+                        }             
 {/* status = 6 (passed_down)  and user = borrower =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
-                            </div>
-                        </div>   
+                        {status==="passed_down" && sessionUserId == borrowerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
+                                </div>
+                            </div>   
+                        } 
 {/* status = 7 (lent)  and user = borrower =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Book returned</button>
-                            </div>
-                        </div>   
+                        {status==="lent" && sessionUserId == borrowerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Book returned</button>
+                                </div>
+                            </div>   
+                        }
 {/* status = 7 (lent)  and user = book_owner and deadline overdue =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Book not returned</button>
-                            </div>
-                        </div>  
+                        {status==="lent" && currentDate > convertedReturnDate && sessionUserId == ownerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Book not returned</button>
+                                </div>
+                            </div>  
+                        }
 {/* status = 8 (returned)  and user = book_owner =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
-                            </div>
-                            <div className="col-3">
-                                <button className="btn btn-outline-danger col-12">Book not delivered</button>
-                            </div>
-                        </div>   
+                        {status==="returned" && sessionUserId == ownerId &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
+                                </div>
+                                <div className="col-3">
+                                    <button className="btn btn-outline-danger col-12">Book not delivered</button>
+                                </div>
+                            </div>   
+                        }
 {/* status = 9 (successfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Review</button>
-                            </div>
-                        </div> 
-{/* status = 10 (successfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
-                        <div className="col-12 d-flex justify-content-around py-2 align-items-center d-none">
-                            <div className="col-3">
-                                <button className="btn btn-banana-primary col-12">Review</button>
-                            </div>
-                        </div> 
+                        {status==="successfully_finished" && 
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Review</button>
+                                </div>
+                            </div> 
+                        }
+{/* status = 10 (unsuccessfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
+                        {status==="unsuccessfully_finished" &&
+                            <div className="col-12 d-flex justify-content-around py-2 align-items-center">
+                                <div className="col-3">
+                                    <button className="btn btn-banana-primary col-12">Review</button>
+                                </div>
+                            </div> 
+                        }
 
                         <hr className="mt-5"/>
                         <div className="d-flex justify-content-center">

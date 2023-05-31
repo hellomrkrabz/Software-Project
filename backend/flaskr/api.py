@@ -285,6 +285,9 @@ def get_user_transactions(username):
 def get_transaction_by_id(t_id):
    transaction = Transaction.query.filter_by(transaction_id=t_id).first()
    if transaction is not None:
+
+        owned_book = Owned_Book.query.filter_by(owned_book_id=transaction.get_book_id()).first()
+
         transaction_json = {
             'id': transaction.get_id(),
             'reservation_date': transaction.get_reservation_date(),
@@ -293,7 +296,8 @@ def get_transaction_by_id(t_id):
             'state': transaction.get_state().name,
             'book_id': transaction.get_book_id(),
             'borrower_id': transaction.get_borrower_id(),
-            'borrower_username': transaction.get_borrower_username()
+            'borrower_username': transaction.get_borrower_username(),
+            'owner_id': owned_book.get_id()
         }
         return jsonify({'transaction': transaction_json})
    return jsonify({'msg': 'it no good'})

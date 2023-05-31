@@ -33,6 +33,8 @@ function TransactionList(props) {
     const [detailsCoverPhoto, setDetailsCoverPhoto] = useState("");
     const [detailsIsbn, setDetailsIsbn] = useState("");
     const [detailsCondition, setDetailsCondition] = useState("");
+    const [borrowerId, setBorrowerId] = useState();
+    const [ownerId, setOwnerId] = useState();
     //const [detailsIsFinished, setDetailsIsFinished] = useState((props.status === "finished" || props.status === "failed") ? true : false); //finished/failed do zmiany na faktyczne statusy - �eby pokazywac guzik do recenzji
 
     //Getting user's all transactions'
@@ -71,6 +73,8 @@ function TransactionList(props) {
                 setDetailsReturnDate(transactionJson.transaction.return_date ? (transactionJson.transaction.return_date).slice(0,-12) : "");
                 setDetailsStatus(transactionJson.transaction.state);
                 setDetailsBook(transactionJson.transaction.book_id);
+                setBorrowerId(transactionJson.transaction.borrower_id);
+                setOwnerId(transactionJson.transaction.owner_id)
                 return(transactionJson.transaction.book_id)
                 
             }
@@ -95,7 +99,7 @@ function TransactionList(props) {
             {
                 showDetails ?
                     <>
-                        <TransactionDetails key={v4()} detailsKey={detailsKey} title={detailsTitle} author={detailsAuthor} coverPhoto={detailsCoverPhoto} isbn={detailsIsbn} condition={detailsCondition} user={detailsUsername} reservationDate={detailsReservationDate} rentDate={detailsRentDate} returnDate={detailsReturnDate} status={detailsStatus} book={detailsBook} updateShowDetailsFromChildren={setShowDetails}> </TransactionDetails >
+                        <TransactionDetails key={v4()} detailsKey={detailsKey} title={detailsTitle} author={detailsAuthor} coverPhoto={detailsCoverPhoto} isbn={detailsIsbn} condition={detailsCondition} user={detailsUsername} reservationDate={detailsReservationDate} rentDate={detailsRentDate} returnDate={detailsReturnDate} status={detailsStatus} book={detailsBook} updateShowDetailsFromChildren={setShowDetails} borrowerId={borrowerId} ownerId={ownerId}> </TransactionDetails >
                     </>
                     :
                     <>

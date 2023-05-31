@@ -17,6 +17,7 @@ import Offers from "./sites/Offers.jsx";
 var sessionUsername = sessionStorage.getItem("sessionUserUsername")
 var sessionUserPermissions = sessionStorage.getItem("sessionPermissions")
 var sessionUserKey = sessionStorage.getItem("sessionUserKey")
+var sessionUserId = sessionStorage.getItem("sessionUserId")
 
 function App() {
 

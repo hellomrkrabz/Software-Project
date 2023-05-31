@@ -5,21 +5,29 @@ from datetime import datetime
 import enum
 from sqlalchemy import text, create_engine, ForeignKey
 
+# class States(enum.Enum):
+#     reservation = 1
+#     accepted_reservation = 2
+#     passed_down = 3
+#     lent = 4
+#     returned = 5
+#     cancelled = 6
+#     successfully_finished = 7
+#     unsuccessfully_finished = 8
+
 engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 class StatesForTransactions(enum.Enum):
     reservation = 1
     accepted_reservation = 2
     your_turn = 3
-    dates_chosen = 4
-    dates_rejected = 5
-    accepted_date = 6
-    passed_down = 7
-    lent = 8
-    returned = 9
-    cancelled = 10
-    successfully_finished = 11
-    unsuccessfully_finished = 12
+    accepted_date = 4
+    passed_down = 5
+    lent = 6
+    returned = 7
+    cancelled = 8
+    successfully_finished = 9
+    unsuccessfully_finished = 10
 
 class Transaction(db.Model):
     __tablename__ = 'transactions'
