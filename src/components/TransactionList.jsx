@@ -66,7 +66,7 @@ function TransactionList(props) {
             
             var transactionJson = response.data; 
             if (transactionJson.msg === undefined) {
-
+                console.log(transactionJson.transaction)
                 setDetailsUsername(transactionJson.transaction.borrower_username);
                 setDetailsReservationDate(transactionJson.transaction.reservation_date ? (transactionJson.transaction.reservation_date).slice(0,-12) : "");
                 setDetailsRentDate(transactionJson.transaction.rent_date ? (transactionJson.transaction.rent_date).slice(0,-12) : "");
@@ -75,6 +75,7 @@ function TransactionList(props) {
                 setDetailsBook(transactionJson.transaction.book_id);
                 setBorrowerId(transactionJson.transaction.borrower_id);
                 setOwnerId(transactionJson.transaction.owner_id)
+                setDetailsCondition(transactionJson.transaction.condition); 
                 return(transactionJson.transaction.book_id)
                 
             }
@@ -85,8 +86,7 @@ function TransactionList(props) {
                     setDetailsTitle(book_json.title);
                     setDetailsAuthor(book_json.author);
                     setDetailsCoverPhoto(book_json.cover_photo);
-                    setDetailsIsbn(book_json.isbn);
-                    setDetailsCondition(book_json.condition);                    
+                    setDetailsIsbn(book_json.isbn);                   
                 })            
         })
 

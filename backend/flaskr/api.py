@@ -12,6 +12,7 @@ from . import db
 import json
 from datetime import date
 import sqlalchemy
+from .book import States
 from sqlalchemy import text, create_engine, ForeignKey
 from .email_sender import send_mail_with_msg, send_mail_with_html, send_mail_from_html_file
 from .html_proccesors import html_attr_inputter_by_id, attr_input_args_id, html_inner_inputter_by_id ,inner_html_input_args_id
@@ -297,7 +298,8 @@ def get_transaction_by_id(t_id):
             'book_id': transaction.get_book_id(),
             'borrower_id': transaction.get_borrower_id(),
             'borrower_username': transaction.get_borrower_username(),
-            'owner_id': owned_book.get_id()
+            'owner_id': owned_book.get_id(),
+            'condition': States(owned_book.get_book_state()).name,
         }
         return jsonify({'transaction': transaction_json})
    return jsonify({'msg': 'it no good'})
