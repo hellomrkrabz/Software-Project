@@ -13,6 +13,9 @@ import json
 from datetime import date
 import sqlalchemy
 from sqlalchemy import text, create_engine, ForeignKey
+from .email_sender import send_mail_with_msg, send_mail_with_html, send_mail_from_html_file
+from .html_proccesors import html_attr_inputter_by_id, attr_input_args_id, html_inner_inputter_by_id ,inner_html_input_args_id
+
 bp = Blueprint("api", __name__, url_prefix='/api')
 engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
@@ -545,6 +548,8 @@ def add_or_edit_entity(entity_type, action):
             book_id = data['book_id']
             state = data['state']
             user = User.query.filter_by(key=data['borrower_key']).first()
+            specific_book = Owned_Book.query.filter_by(owned_book_id=book_id).first()
+            owner = specific_book.get_owner_id()
             borrower_id = user.id
             if action == "add":
                 entity = Transaction(
@@ -555,11 +560,84 @@ def add_or_edit_entity(entity_type, action):
                     book_id=book_id,
                     borrower_id=borrower_id
                 )
+                attr_inputter_args = attr_input_args_id("status-change-link", "href",
+                                                        "http://localhost:3000/Transactions" + entity.get_id())
+                inner_html_inputter_args = inner_html_input_args_id("username", owner.get_username())
+
+                inputter_list = []
+                inputter_list.append(html_attr_inputter_by_id(attr_inputter_args))
+                inputter_list.append(html_inner_inputter_by_id(inner_html_inputter_args))
+
+                send_mail_from_html_file(owner.get_email(), "Banana books: New transaction",
+                                         "reservation_notify.html",
+                                         inputter_list)
+
             elif action == "edit":
                 entity = Transaction.query.filter_by(id=data['id']).first()
                 entity.rent_date = rent_date
                 entity.return_date = return_date
                 entity.state = state
+
+                if state in (2,3,5,6,7,10,11,12):
+                    attr_inputter_args = attr_input_args_id("status-change-link", "href",
+                                                            "http://localhost:3000/Transactions" + entity.get_id())
+                    inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
+
+                    inputter_list_borrower = []
+                    inputter_list_borrower.append(html_attr_inputter_by_id(attr_inputter_args))
+                    inputter_list_borrower.append(html_inner_inputter_by_id(inner_html_inputter_args))
+
+                    match state:
+                        case 2:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_accepted.html",
+                                             inputter_list_borrower)
+                        case 3:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_collection.html",
+                                             inputter_list_borrower)
+                        case 5:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "email_confirmation.html",
+                                             inputter_list_borrower) #do zmiany
+                        case 6:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
+                                             inputter_list_borrower)
+                        case 7:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "email_confirmation.html",
+                                             inputter_list_borrower) #do zmiany
+                        case 10:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_cancelled.html",
+                                             inputter_list_borrower)
+                        case 11:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                                             inputter_list_borrower)
+                        case 12:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                                             inputter_list_borrower)
+
+                if state in (4,9,10,11,12):
+                    attr_inputter_args = attr_input_args_id("status-change-link", "href",
+                                                            "http://localhost:3000/Transactions" + entity.get_id())
+                    inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
+
+                    inputter_list_owner = []
+                    inputter_list_owner.append(html_attr_inputter_by_id(attr_inputter_args))
+                    inputter_list_owner.append(html_inner_inputter_by_id(inner_html_inputter_args))
+                    match state:
+                        case 4:
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update",
+                                                     "reservation_confirmation.html",
+                                                     inputter_list_owner)
+                        case 9:
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "reservation_collection.html",
+                                             inputter_list_owner) #do zmiany
+                        case 10:
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "transaction_cancelled.html",
+                                             inputter_list_owner)
+                        case 11:
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                                             inputter_list_owner)
+                        case 12:
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                                             inputter_list_owner)
 
         elif entity_type == 'report':
             content = data['content']
