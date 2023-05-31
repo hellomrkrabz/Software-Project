@@ -69,6 +69,10 @@ function App() {
         element: <Transactions site="/Transactions" username={sessionUsername} />,
       },
       {
+        path: '/Transactions/:t_id',
+        element: <Transactions site="/Transactions" username={sessionUsername} />,
+      },
+      {
         path: '/Reports',
         element: <Reports username={sessionUsername}/>,
       },

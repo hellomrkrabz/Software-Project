@@ -217,7 +217,15 @@ function TransactionDetails(props) {
 
                         <hr className="mt-5"/>
                         <div className="d-flex justify-content-center">
-                            <button className="btn btn-banana-primary col-12 col-lg-6 col-xl-4 p-2" onClick={() => { props.updateShowDetailsFromChildren(false) }}>Hide Details</button>
+                            <button className="btn btn-banana-primary col-12 col-lg-6 col-xl-4 p-2" onClick={() => 
+                                {
+                                    props.updateShowDetailsFromChildren(false) 
+                                    if(window.location.pathname.split('/').length === 3)
+                                    {
+                                        //window.location.replace("/Transactions");
+                                        history.pushState({}, null, "/Transactions");
+                                    }
+                                }}>Hide Details</button>
                         </div>
                     </div>
                 </div>
