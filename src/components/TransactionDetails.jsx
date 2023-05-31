@@ -3,6 +3,7 @@ import Book from "./Book.jsx";
 import { v4 } from "uuid";
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField"
+import axios from 'axios';
 
 
 
@@ -139,10 +140,30 @@ function TransactionDetails(props) {
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
 
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Accept Reservation</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transactions/edit", {
+                                            reservation_date:null,
+                                            rent_date:null,
+                                            return_date:null,
+                                            book_id:book,
+                                            state:2,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Accept Reservation</button>
                                 </div>
                                 <div className="col-3">
-                                    <button className="btn btn-outline-danger col-12">Reject Reservation</button>
+                                    <button className="btn btn-outline-danger col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transactions/edit", {
+                                            reservation_date:null,
+                                            rent_date:null,
+                                            return_date:null,
+                                            book_id:book,
+                                            state:8,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Reject Reservation</button>
                                 </div>
                             </div>
                         }
