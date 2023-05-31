@@ -19,7 +19,7 @@ function Transaction(props) {
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/book_info/" + book).then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             var book_json = response.data;
             setTitle(book_json.title);
             setAuthor(book_json.author);
@@ -56,7 +56,7 @@ function Transaction(props) {
                                             {status}
                                         </div>    
                                         <div className="col-6">
-                                            <button className="col-12 btn btn-banana-primary " onClick={() => { console.log(props.transactionID);props.updateShowDetailsFromChildren(true); props.updateDetailsKey(props.transactionID); }}>Details</button>
+                                            <button className="col-12 btn btn-banana-primary " onClick={() => {props.updateShowDetailsFromChildren(true); props.updateDetailsKey(props.transactionID); }}>Details</button>
                                         </div>
                                     </div>
                             </div>                                              
