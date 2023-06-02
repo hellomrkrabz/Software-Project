@@ -554,7 +554,7 @@ def add_or_edit_entity(entity_type, action):
             return_date = data['return_date']
             book_id = data['book_id']
             state = data['state']
-            user = User.query.filter_by(id=data['borrower_key']).first()
+            user = User.query.filter_by(key=data['borrower_key']).first()
             specific_book = Owned_Book.query.filter_by(owned_book_id=book_id).first()
             owner = User.query.filter_by(id=specific_book.get_owner_id()).first()
             borrower_id = user.id
