@@ -159,7 +159,7 @@ function TransactionDetails(props) {
                                             rent_date:null,
                                             return_date:null,
                                             book_id:book,
-                                            state:8,
+                                            state:10,
                                             borrower_key:borrowerId,
                                             id:transactionId,
                                         })
@@ -175,17 +175,27 @@ function TransactionDetails(props) {
                                         From:
                                     </div>  
                                     <div className="col-6">
-                                        <input type="date" id="" className="form-control"/>
+                                        <input type="date" id="" value={rentDate} onChange={(e)=>{setRentDate(e.target.value)}} className="form-control"/>
                                     </div>
                                     <div className="col-4">
                                         To:
                                     </div>
                                     <div className="col-6">
-                                        <input type="date" id="" className="form-control"/>
+                                        <input type="date" id="" value={returnDate} onChange={(e)=>{setRentDate(e.target.value)}} className="form-control"/>
                                     </div>
                                 </div>
                                 <div className="col-6 d-flex justify-content-center align-items-stretch">
-                                    <button className="btn btn-banana-primary col-6">Submite rent period</button>
+                                    <button className="btn btn-banana-primary col-6" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:4,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}
+                                    >Submite rent period</button>
                                 </div>
                             </div>
                         }
@@ -193,69 +203,193 @@ function TransactionDetails(props) {
                         {status==="dates_chosen" && sessionUserId === ownerId &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Confirm reservation period</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:6,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Confirm reservation period</button>
                                 </div>
                                 <div className="col-3">
-                                    <button className="btn btn-outline-danger col-12">Reject reservation period</button>
+                                    <button className="btn btn-outline-danger col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:5,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Reject reservation period</button>
                                 </div>
                             </div>
                         }
-{/* status = 5 (accepted_date)  and user = book_owner =======================================================================================================================*/}
+{/* =======================status = 5 (dates_rejected) user = borrower================================================================================================ */}
+                        {status==="dates_rejected" && sessionUserId === borrowerId &&
+                            <div className="col-12 mb-3 d-flex align-items-stretch mt-3 ">
+                                <div className="row col-6 gy-3">
+                                    <div className="col-4">
+                                        From:
+                                    </div>  
+                                    <div className="col-6">
+                                        <input type="date" id="" value={rentDate} onChange={(e)=>{setRentDate(e.target.value)}} className="form-control"/>
+                                    </div>
+                                    <div className="col-4">
+                                        To:
+                                    </div>
+                                    <div className="col-6">
+                                        <input type="date" id="" value={returnDate} onChange={(e)=>{setRentDate(e.target.value)}} className="form-control"/>
+                                    </div>
+                                </div>
+                                <div className="col-6 d-flex justify-content-center align-items-stretch">
+                                    <button className="btn btn-banana-primary col-6" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:4,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}
+                                    >Submite new rent period</button>
+                                </div>
+                            </div>
+                        }
+{/* status = 6 (accepted_date)  and user = book_owner =======================================================================================================================*/}
                         {status==="accepted_date" && sessionUserId === ownerId &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Confirm book passing</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:7,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Confirm book passing</button>
                                 </div>
                             </div>  
                         }             
-{/* status = 6 (passed_down)  and user = borrower =======================================================================================================================*/}
+{/* status = 7 (passed_down)  and user = borrower =======================================================================================================================*/}
                         {status==="passed_down" && sessionUserId == borrowerId &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:8,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Confirm book receipt</button>
                                 </div>
                             </div>   
                         } 
-{/* status = 7 (lent)  and user = borrower =======================================================================================================================*/}
+{/* status = 8 (lent)  and user = borrower =======================================================================================================================*/}
                         {status==="lent" && sessionUserId == borrowerId &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Book returned</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:9,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Book returned</button>
                                 </div>
                             </div>   
                         }
-{/* status = 7 (lent)  and user = book_owner and deadline overdue =======================================================================================================================*/}
+{/* status = 8 (lent)  and user = book_owner and deadline overdue =======================================================================================================================*/}
                         {status==="lent" && currentDate > convertedReturnDate && sessionUserId == ownerId &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Book not returned</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:12,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Book not returned</button>
                                 </div>
                             </div>  
                         }
-{/* status = 8 (returned)  and user = book_owner =======================================================================================================================*/}
+{/* status = 9 (returned)  and user = book_owner =======================================================================================================================*/}
                         {status==="returned" && sessionUserId == ownerId &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Confirm book receipt</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:11,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Confirm book receipt</button>
                                 </div>
                                 <div className="col-3">
-                                    <button className="btn btn-outline-danger col-12">Book not delivered</button>
+                                    <button className="btn btn-outline-danger col-12" onClick={()=>{
+                                        axios.post("http://localhost:5000/api/transaction/edit", {
+                                            rent_date:rentDate,
+                                            return_date:returnDate,
+                                            book_id:book,
+                                            state:12,
+                                            borrower_key:borrowerId,
+                                            id:transactionId,
+                                        })
+                                    }}>Book not delivered</button>
                                 </div>
                             </div>   
                         }
-{/* status = 9 (successfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
+{/* status = 11 (successfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
                         {status==="successfully_finished" && 
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Review</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        // axios.post("http://localhost:5000/api/transaction/edit", {
+                                        //     rent_date:rentDate,
+                                        //     return_date:returnDate,
+                                        //     book_id:book,
+                                        //     state:8,
+                                        //     borrower_key:borrowerId,
+                                        //     id:transactionId,
+                                        // })
+                                        console.log("dodaj popupa tukej do dodawania opini")
+                                    }} >Review</button>
                                 </div>
                             </div> 
                         }
-{/* status = 10 (unsuccessfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
+{/* status = 12 (unsuccessfully_finished)  and user = book_owner or borrower =======================================================================================================================*/}
                         {status==="unsuccessfully_finished" &&
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
-                                    <button className="btn btn-banana-primary col-12">Review</button>
+                                    <button className="btn btn-banana-primary col-12" onClick={()=>{
+                                        // axios.post("http://localhost:5000/api/transaction/edit", {
+                                        //     rent_date:rentDate,
+                                        //     return_date:returnDate,
+                                        //     book_id:book,
+                                        //     state:8,
+                                        //     borrower_key:borrowerId,
+                                        //     id:transactionId,
+                                        // })
+                                        console.log("dodaj popupa tukej do dodawania opini")
+                                    }} >Review</button>
                                 </div>
                             </div> 
                         }
