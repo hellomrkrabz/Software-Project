@@ -536,11 +536,13 @@ def add_or_edit_entity(entity_type, action):
 
             if action == "add":
                 entity = Review(
-                    rating=rating,
-                    visible=visible,
-                    content=content,
-                    borrower_id=borrower_id,
-                    renter_id=renter_id
+                    rating = rating,
+                    visible = visible,
+                    content = content,
+                    borrower_id = borrower_id,
+                    renter_id = renter_id,
+                    reported = False,
+                    date = date.today(),
                 )
             elif action == "edit":
                 entity = Review.query.filter_by(id=data['id']).first()

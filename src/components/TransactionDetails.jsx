@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
 import Book from "./Book.jsx";
-import { v4 } from "uuid";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField"
 import axios from 'axios';
-
+import Popup from 'reactjs-popup';
+import SelectButBetter from 'react-select';
 
 
 function TransactionDetails(props) {
@@ -22,10 +21,36 @@ function TransactionDetails(props) {
     const [coverPhoto, setCoverPhoto] = useState(props.coverPhoto);
     const [borrowerId, setBorrowerId] = useState(props.borrowerId);
     const [ownerId, setOwnerId] = useState(props.ownerId);
+    const [displayAddOpinion, setDisplayAddOpinion] = useState(false);
+    const [opinionContent, setOpinionContent] = useState("");
+    const [opinionScore, setOpinionScore] = useState(0);
 
     const [convertedReturnDate, setConvertedReturnDate] = useState(new Date(props.returnDate))
     var currentDate = new Date();
     var sessionUserId = sessionStorage.getItem("sessionUserId")
+
+    let opinionScoreOptions = [
+        {
+            value: 1,
+            label: 1
+        },
+        {
+            value: 2,
+            label: 2
+        },
+        {
+            value: 3,
+            label: 3
+        },
+        {
+            value: 4,
+            label: 4
+        },
+        {
+            value: 5,
+            label: 5
+        },
+    ]
 
     return (
         <>  
@@ -362,15 +387,7 @@ function TransactionDetails(props) {
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
                                     <button className="btn btn-banana-primary col-12" onClick={()=>{
-                                        // axios.post("http://localhost:5000/api/transaction/edit", {
-                                        //     rent_date:rentDate,
-                                        //     return_date:returnDate,
-                                        //     book_id:book,
-                                        //     state:8,
-                                        //     borrower_key:borrowerId,
-                                        //     id:transactionId,
-                                        // })
-                                        console.log("dodaj popupa tukej do dodawania opini")
+                                        setDisplayAddOpinion(true)
                                     }} >Review</button>
                                 </div>
                             </div> 
@@ -380,19 +397,44 @@ function TransactionDetails(props) {
                             <div className="col-12 d-flex justify-content-around py-2 align-items-center">
                                 <div className="col-3">
                                     <button className="btn btn-banana-primary col-12" onClick={()=>{
-                                        // axios.post("http://localhost:5000/api/transaction/edit", {
-                                        //     rent_date:rentDate,
-                                        //     return_date:returnDate,
-                                        //     book_id:book,
-                                        //     state:8,
-                                        //     borrower_key:borrowerId,
-                                        //     id:transactionId,
-                                        // })
-                                        console.log("dodaj popupa tukej do dodawania opini")
+                                        setDisplayAddOpinion(true)
                                     }} >Review</button>
                                 </div>
                             </div> 
                         }
+
+                        <Popup id="popup" open={displayAddOpinion} position="bottom" onClose={()=>setDisplayAddOpinion(false)}>
+                            <div className="d-flex justify-content-center row">
+                                <div className="d-flex flex-column col-10">
+                                    <h2 className="d-flex justify-content-start">Opinion content</h2>
+                                    <TextField multiline
+                                        rows={4}
+                                        style={{backgroundColor:"white"}} 
+                                        value={opinionContent} 
+                                        onChange={(e)=>{setOpinionContent(e.target.value)}} 
+                                    />
+                                    <h2 className="d-flex justify-content-start">Opinion score</h2>
+                                    <SelectButBetter
+                                        value={opinionScore}
+                                        options={opinionScoreOptions}
+                                        onChange={setOpinionScore}
+                                    />
+
+                                </div>
+                                <button className="btn btn-banana-primary col-3 mt-3" onClick={()=>{
+                                    const date = new Date();
+                                    axios.post("http://localhost:5000/api/opinion/add", {
+                                        rating: opinionScore.value,
+                                        visible: true,
+                                        content: opinionContent,
+                                        borrower_id: borrowerId,
+                                        renter_id: ownerId
+                                    }).then(()=>{
+                                        setDisplayAddOpinion(false);
+                                    })
+                                }}>Add opinion</button>
+                            </div>
+                        </Popup>
 
                         <hr className="mt-5"/>
                         <div className="d-flex justify-content-center">
