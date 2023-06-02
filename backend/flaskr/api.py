@@ -652,10 +652,11 @@ def add_or_edit_entity(entity_type, action):
             content = data['content']
             report_date = data['date']
             opinion_id = data['opinion_id']
-            reported_user = User.query.filter_by(username=data['reported']).first()
+            #reported_user = User.query.filter_by(id=data['reported']).first()
             reporter_user = User.query.filter_by(username=data['reporter']).first()
-            reported_id = reported_user.id
+            #reported_id = reported_user.id
             reporter_id = reporter_user.id
+            reported_id = data['reported']
             if action == "add":
                 entity = Report(
                     content=content,
