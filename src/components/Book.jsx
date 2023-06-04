@@ -10,6 +10,7 @@ import axios from 'axios'
 function Book(props) {
 
     var sessionUserKey= sessionStorage.getItem("sessionUserKey")
+    var sessionUserId = sessionStorage.getItem("sessionUserId")
 
     const [displayDetails, setDisplayDetails] = useState(false)
     const [displayReserve, setDisplayReserve] = useState(true)
@@ -110,7 +111,7 @@ function Book(props) {
                                                         return_date:String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
                                                         book_id:props.book_id,
                                                         state:"reservation",
-                                                        borrower_key: sessionUserKey,
+                                                        borrower_key:sessionUserId,
                                                     }).then(()=>{
                                                         setDisplayReserve(false)
                                                     })  

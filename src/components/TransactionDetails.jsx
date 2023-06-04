@@ -172,7 +172,7 @@ function TransactionDetails(props) {
                                             return_date:null,
                                             book_id:book,
                                             state:2,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Accept Reservation</button>
@@ -185,7 +185,7 @@ function TransactionDetails(props) {
                                             return_date:null,
                                             book_id:book,
                                             state:10,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Reject Reservation</button>
@@ -216,7 +216,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:4,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}
@@ -234,7 +234,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:6,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Confirm reservation period</button>
@@ -246,7 +246,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:5,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Reject reservation period</button>
@@ -277,7 +277,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:4,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}
@@ -295,7 +295,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:7,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Confirm book passing</button>
@@ -312,7 +312,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:8,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Confirm book receipt</button>
@@ -329,7 +329,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:9,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Book returned</button>
@@ -346,7 +346,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:12,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Book not returned</button>
@@ -363,7 +363,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:11,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Confirm book receipt</button>
@@ -375,7 +375,7 @@ function TransactionDetails(props) {
                                             return_date:returnDate,
                                             book_id:book,
                                             state:12,
-                                            borrower_key:borrowerId,
+                                            borrower_id:borrowerId,
                                             id:transactionId,
                                         })
                                     }}>Book not delivered</button>
