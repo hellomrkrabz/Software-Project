@@ -551,7 +551,7 @@ def add_or_edit_entity(entity_type, action):
                 entity.content = content
 
         elif entity_type == 'transaction':           
-            reservation_date = data['reservation_date']
+            #reservation_date = data['reservation_date']
             rent_date = data['rent_date']
             return_date = data['return_date']
             book_id = data['book_id']
@@ -624,7 +624,7 @@ def add_or_edit_entity(entity_type, action):
 
                 if state in (4,9,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
-                                                            "http://localhost:3000/Transactions" + entity.get_id())
+                                                            "http://localhost:3000/Transactions" + str(entity.get_id()))
                     inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
 
                     inputter_list_owner = []
