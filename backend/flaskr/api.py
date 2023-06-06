@@ -141,7 +141,8 @@ def get_users():
         'key': u.get_key(),
         'phone_number': u.get_phone_number(),
         'city': u.get_city(),
-        'details': u.get_details()
+        'details': u.get_details(),
+        'permissions': u.get_permissions().name,
     }for u in users]
 
     return jsonify({'users': users_json})
@@ -385,15 +386,24 @@ def get_opinions():
 @bp.route('/reports', methods=['GET'])
 def get_reports():
     reports = Report.query.all()
+
+    for r in reports:
+        r.reporter_username = User.query.filter_by(id=r.get_reporter_id()).first().get_username()
+        r.reported_username = User.query.filter_by(id=r.get_reported_id()).first().get_username()
+
     if reports is not None:
         report_json = [{
             'reportDate': r.get_report_date(),
             'reporter': r.get_reporter_id(),
             'reported': r.get_reported_id(),
+            'reporter_username': r.reporter_username,
+            'reported_username': r.reported_username,
             'status': r.get_status(),
             'opinionDate': r.get_opinion_date(),
             'opinionContent': r.get_opinion_info(),
-            'reportContent': r.get_content()
+            'opinion_id': r.get_opinion_id(),
+            'reportContent': r.get_content(),
+            'report_id': r.get_report_id()
         } for r in reports]
         return jsonify({'reports': report_json})
     return jsonify({'msg': 'it no good'})
@@ -676,7 +686,7 @@ def add_or_edit_entity(entity_type, action):
                     reported_id=reported_id
                 )
             elif action == "edit":
-                entity = Report.query.filter_by(id=data['id']).first()
+                entity = Report.query.filter_by(report_id=data['id']).first()
                 status = data['state']
                 entity.status = status
 
