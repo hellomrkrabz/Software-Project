@@ -308,7 +308,7 @@ def get_transaction_by_id(t_id):
             'book_id': transaction.get_book_id(),
             'borrower_id': transaction.get_borrower_id(),
             'borrower_username': transaction.get_borrower_username(),
-            'owner_id': owned_book.get_id(),
+            'owner_id': owned_book.get_owner_id(),
             'condition': States(owned_book.get_book_state()).name,
         }
         return jsonify({'transaction': transaction_json})

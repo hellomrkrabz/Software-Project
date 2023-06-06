@@ -30,8 +30,8 @@ function TransactionDetails(props) {
     const [minDate, setMinDate] = useState(new Date())
     var sessionUserId = sessionStorage.getItem("sessionUserId")
 
-    console.log(rentDate)
-    console.log(typeof(rentDate))
+    //console.log(rentDate)
+    //console.log(typeof(rentDate))
 
     let opinionScoreOptions = [
         {

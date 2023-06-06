@@ -66,7 +66,7 @@ function TransactionList(props) {
             
             var transactionJson = response.data; 
             if (transactionJson.msg === undefined) {
-                console.log(transactionJson.transaction)
+                //console.log(transactionJson.transaction)
                 setDetailsUsername(transactionJson.transaction.borrower_username);
                 setDetailsReservationDate(transactionJson.transaction.reservation_date ? (transactionJson.transaction.reservation_date).slice(0,-12) : "");
                 setDetailsRentDate(transactionJson.transaction.rent_date ? (transactionJson.transaction.rent_date).slice(0,-12) : "");

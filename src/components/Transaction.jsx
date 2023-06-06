@@ -68,9 +68,9 @@ function Transaction(props) {
                                             rent_date:null,
                                             return_date:null,
                                             book_id:1,
-                                            state:3,
+                                            state:11,
                                             borrower_id:9,
-                                            id:3,
+                                            id:11,
                                         })
                                     }}>Here be dragons</button> */}
                     </div>
