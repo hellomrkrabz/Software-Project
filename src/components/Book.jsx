@@ -109,9 +109,9 @@ function Book(props) {
                                                         reservation_date: String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
                                                         rent_date:String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
                                                         return_date:String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
-                                                        book_id:props.book_id,
+                                                        book_id:props.owned_book_id,
                                                         state:"reservation",
-                                                        borrower_key:sessionUserId,
+                                                        borrower_id:sessionUserId,
                                                     }).then(()=>{
                                                         setDisplayReserve(false)
                                                     })  
@@ -239,9 +239,9 @@ function Book(props) {
                                                 reservation_date: String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
                                                 rent_date:String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
                                                 return_date:String(date.getFullYear()) + "-" + String(("0" + date.getMonth()).slice(-2)) + "-" + String(("0" + date.getDate()).slice(-2)),
-                                                book_id:props.book_id,
+                                                book_id:props.owned_book_id,
                                                 state:"reservation",
-                                                borrower_key: sessionUserKey,
+                                                borrower_id:sessionUserId,
                                             }).then(()=>{
                                                 setDisplayReserve(false)
                                             })  
