@@ -273,8 +273,8 @@ def get_user_transactions(username):
 
         for t in filtered_transactions:
             owned_book = Owned_Book.query.filter_by(owned_book_id=t.get_book_id()).first()
-            abstract_book = Book.query.filter_by(book_id=owned_book.get_book_id()).first()
-            t.book_info = abstract_book
+            t.book_info = Book.query.filter_by(book_id=owned_book.get_book_id()).first()
+            t.owner_info = User.query.filter_by(id=owned_book.get_owner_id()).first()
 
 
         if filtered_transactions is not None:
@@ -288,6 +288,7 @@ def get_user_transactions(username):
                 'book_id':t.book_info.get_id(),
                 'borrower_id': t.get_borrower_id(),
                 'borrower_username': t.get_borrower_username(),
+                'owner_username': t.owner_info.get_username(),
                 'title_for_testing': t.book_info.get_title()
             } for t in filtered_transactions]
             return jsonify({'transactions': transactions_json})
@@ -299,6 +300,7 @@ def get_transaction_by_id(t_id):
    if transaction is not None:
 
         owned_book = Owned_Book.query.filter_by(owned_book_id=transaction.get_book_id()).first()
+        book_owner = User.query.filter_by(id=owned_book.get_owner_id()).first()
 
         transaction_json = {
             'id': transaction.get_id(),
@@ -309,6 +311,7 @@ def get_transaction_by_id(t_id):
             'book_id': transaction.get_book_id(),
             'borrower_id': transaction.get_borrower_id(),
             'borrower_username': transaction.get_borrower_username(),
+            'owner_username': book_owner.get_username(),
             'owner_id': owned_book.get_owner_id(),
             'condition': States(owned_book.get_book_state()).name,
         }

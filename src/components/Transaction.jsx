@@ -5,17 +5,18 @@ import { v4 } from "uuid";
 import axios from 'axios'
 
 function Transaction(props) {
+
+    var sessionUserId = sessionStorage.getItem("sessionUserId")
+
     const [username, setUsername] = useState(props.user);
+    const [ownerName, setOwnerName] = useState(props.ownerName);
+    const [borrowerId, setBorrowerId] = useState(props.borrowerId);
     const [title, setTitle] = useState("Titel");
     const [author, setAuthor] = useState("Writer");
     const [reservationDate, setReservationDate] = useState(props.reservationDate);
     const [status, setStatus] = useState(props.status);
     const [book, setBook] = useState(props.book);
-    const [coverPhoto, setCoverPhoto] = useState("");
-    
-
-
-    //const [showDetails, setShowDetails] = useState(props.updateShowDetailsFromChildren);
+    const [coverPhoto, setCoverPhoto] = useState("");    
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/book_info/" + book).then((response) => {
@@ -48,7 +49,11 @@ function Transaction(props) {
                                             <br></br>
                                         </div>
                                         <div>
-                                            {username}
+                                            {borrowerId==sessionUserId ?
+                                                <div>{ownerName}</div>
+                                                :
+                                                <div>{username}</div>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-4 row h-25 gx-3">

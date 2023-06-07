@@ -9,6 +9,7 @@ import SelectButBetter from 'react-select';
 function TransactionDetails(props) {
     const [transactionId, setTransactionID] = useState(props.detailsKey);
     const [username, setUsername] = useState(props.user);
+    const [ownerName, setOwnerName] = useState(props.ownerName);
     const [title, setTitle] = useState(props.title);
     const [author, setAuthor] = useState(props.author);
     const [isbn, setIsbn] = useState(props.isbn);
@@ -55,11 +56,7 @@ function TransactionDetails(props) {
             label: 5
         },
     ]
-
-    useEffect(()=>{
-        console.log(minDate)
-        console.log(typeof(rentDate))
-    },[minDate])
+    
 
     return (
         <>  
@@ -71,7 +68,11 @@ function TransactionDetails(props) {
                             Transaction Details:
                         </div>
                         <div className="fw-normal fs-5 text-shadow-light mb-2">
-                            Username: {username}
+                            Username:   {borrowerId==sessionUserId ?
+                                            <div>{ownerName}</div>
+                                            :
+                                            <div>{username}</div>
+                                        }
                         </div>
                         <div className="col-12 col-sm-6 col-lg-4 col-xl-3 mb-2">
                             <Book variant="transactionDetails" author={author} cover_photo={coverPhoto} title={title} key={book}> </Book>
