@@ -19,6 +19,7 @@ function TransactionDetails(props) {
     const [condition, setCondition] = useState(props.condition);
     const [status, setStatus] = useState(props.status);
     const [book, setBook] = useState(props.book);
+    const [ownedBook, setOwnedBook] = useState(props.ownedBook);
     const [coverPhoto, setCoverPhoto] = useState(props.coverPhoto);
     const [borrowerId, setBorrowerId] = useState(props.borrowerId);
     const [ownerId, setOwnerId] = useState(props.ownerId);
@@ -180,7 +181,7 @@ function TransactionDetails(props) {
                                             reservation_date:null,
                                             rent_date:null,
                                             return_date:null,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:2,
                                             borrower_id:borrowerId,
                                             id:transactionId,
