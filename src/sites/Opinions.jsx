@@ -75,7 +75,7 @@ function Opinions(props) {
 
     async function fetchOpinion()
     {
-        const response = await axios.get("http://localhost:5000/api/opinions/" + sessionUsername)
+        const response = await axios.get("http://localhost:5000/api/opinions/" + window.location.pathname.split('/').pop())
         let fetchedOpinions = response.data.opinions
 
         setOpinions(fetchedOpinions)

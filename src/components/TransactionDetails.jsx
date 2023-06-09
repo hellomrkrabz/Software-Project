@@ -194,7 +194,7 @@ function TransactionDetails(props) {
                                             reservation_date:null,
                                             rent_date:null,
                                             return_date:null,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:10,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -237,7 +237,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:4,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -255,7 +255,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:6,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -267,7 +267,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:5,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -298,7 +298,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:4,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -316,7 +316,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:7,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -333,7 +333,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:8,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -350,7 +350,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:9,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -367,7 +367,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:12,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -384,7 +384,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:11,
                                             borrower_id:borrowerId,
                                             id:transactionId,
@@ -396,7 +396,7 @@ function TransactionDetails(props) {
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             rent_date:rentDate,
                                             return_date:returnDate,
-                                            book_id:book,
+                                            book_id:ownedBook,
                                             state:12,
                                             borrower_id:borrowerId,
                                             id:transactionId,
