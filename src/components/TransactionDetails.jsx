@@ -479,8 +479,8 @@ function TransactionDetails(props) {
                                             rating: opinionScore.value,
                                             visible: true,
                                             content: opinionContent,
-                                            borrower_id: borrowerId,
-                                            renter_id: ownerId
+                                            borrower_id: ownerId,
+                                            renter_id: borrowerId
                                         }).then(()=>{
                                             reload()
                                             setDisplayAddOpinion(false);
@@ -490,8 +490,8 @@ function TransactionDetails(props) {
                                             rating: opinionScore.value,
                                             visible: true,
                                             content: opinionContent,
-                                            borrower_id: ownerId,
-                                            renter_id: borrowerId
+                                            borrower_id: borrowerId,
+                                            renter_id: ownerId
                                         }).then(()=>{
                                             setDisplayAddOpinion(false);
                                         })
