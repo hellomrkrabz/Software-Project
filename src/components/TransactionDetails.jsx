@@ -446,15 +446,27 @@ function TransactionDetails(props) {
                                 </div>
                                 <button className="btn btn-banana-primary col-3 mt-3" onClick={()=>{
                                     const date = new Date();
-                                    axios.post("http://localhost:5000/api/opinion/add", {
-                                        rating: opinionScore.value,
-                                        visible: true,
-                                        content: opinionContent,
-                                        borrower_id: borrowerId,
-                                        renter_id: ownerId
-                                    }).then(()=>{
-                                        setDisplayAddOpinion(false);
-                                    })
+                                    if(sessionUserId == borrowerId){
+                                        axios.post("http://localhost:5000/api/opinion/add", {
+                                            rating: opinionScore.value,
+                                            visible: true,
+                                            content: opinionContent,
+                                            borrower_id: borrowerId,
+                                            renter_id: ownerId
+                                        }).then(()=>{
+                                            setDisplayAddOpinion(false);
+                                        })
+                                    }else{
+                                        axios.post("http://localhost:5000/api/opinion/add", {
+                                            rating: opinionScore.value,
+                                            visible: true,
+                                            content: opinionContent,
+                                            borrower_id: ownerId,
+                                            renter_id: borrowerId
+                                        }).then(()=>{
+                                            setDisplayAddOpinion(false);
+                                        })
+                                    }
                                 }}>Add opinion</button>
                             </div>
                         </Popup>

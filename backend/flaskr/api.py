@@ -627,13 +627,13 @@ def add_or_edit_entity(entity_type, action):
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_collection.html",
                                              inputter_list_borrower)
                         case 5:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "email_confirmation.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
                                              inputter_list_borrower) #do zmiany
                         case 6:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
                                              inputter_list_borrower)
                         case 7:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "email_confirmation.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
                                              inputter_list_borrower) #do zmiany
                         case 10:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_cancelled.html",
