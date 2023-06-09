@@ -621,28 +621,28 @@ def add_or_edit_entity(entity_type, action):
 
                     match state:
                         case 2:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_accepted.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_accepted.html",
                                              inputter_list_borrower)
                         case 3:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_collection.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_collection.html",
                                              inputter_list_borrower)
                         case 5:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
                                              inputter_list_borrower) #do zmiany
                         case 6:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
                                              inputter_list_borrower)
                         case 7:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "reservation_contact.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
                                              inputter_list_borrower) #do zmiany
                         case 10:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_cancelled.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_cancelled.html",
                                              inputter_list_borrower)
                         case 11:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_borrower)
                         case 12:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_borrower)
 
                 if state in (4,9,10,11,12):
@@ -655,20 +655,20 @@ def add_or_edit_entity(entity_type, action):
                     inputter_list_owner.append(html_inner_inputter_by_id(inner_html_inputter_args))
                     match state:
                         case 4:
-                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update",
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update",
                                                      "reservation_confirmation.html",
                                                      inputter_list_owner)
                         case 9:
-                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "reservation_collection.html",
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_collection.html",
                                              inputter_list_owner) #do zmiany
                         case 10:
-                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "transaction_cancelled.html",
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_cancelled.html",
                                              inputter_list_owner)
                         case 11:
-                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_owner)
                         case 12:
-                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction status update", "transaction_finished.html",
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_owner)
 
         elif entity_type == 'report':
