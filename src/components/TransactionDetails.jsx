@@ -35,6 +35,10 @@ function TransactionDetails(props) {
     //console.log(rentDate)
     //console.log(typeof(rentDate))
 
+    const reload = () => {
+        window.location.replace("Transactions/"+ transactionId)
+    }
+
     let opinionScoreOptions = [
         {
             value: 1,
@@ -185,6 +189,8 @@ function TransactionDetails(props) {
                                             state:2,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Accept Reservation</button>
                                 </div>
@@ -198,6 +204,8 @@ function TransactionDetails(props) {
                                             state:10,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Reject Reservation</button>
                                 </div>
@@ -241,6 +249,8 @@ function TransactionDetails(props) {
                                             state:4,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}
                                     >Submite rent period</button>
@@ -259,6 +269,8 @@ function TransactionDetails(props) {
                                             state:6,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Confirm reservation period</button>
                                 </div>
@@ -271,6 +283,8 @@ function TransactionDetails(props) {
                                             state:5,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Reject reservation period</button>
                                 </div>
@@ -302,6 +316,8 @@ function TransactionDetails(props) {
                                             state:4,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}
                                     >Submite new rent period</button>
@@ -320,6 +336,8 @@ function TransactionDetails(props) {
                                             state:7,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Confirm book passing</button>
                                 </div>
@@ -337,6 +355,8 @@ function TransactionDetails(props) {
                                             state:8,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Confirm book receipt</button>
                                 </div>
@@ -354,6 +374,8 @@ function TransactionDetails(props) {
                                             state:9,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Book returned</button>
                                 </div>
@@ -371,6 +393,8 @@ function TransactionDetails(props) {
                                             state:12,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Book not returned</button>
                                 </div>
@@ -388,6 +412,8 @@ function TransactionDetails(props) {
                                             state:11,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Confirm book receipt</button>
                                 </div>
@@ -400,6 +426,8 @@ function TransactionDetails(props) {
                                             state:12,
                                             borrower_id:borrowerId,
                                             id:transactionId,
+                                        }).then(()=>{
+                                            reload()
                                         })
                                     }}>Book not delivered</button>
                                 </div>
@@ -454,6 +482,7 @@ function TransactionDetails(props) {
                                             borrower_id: borrowerId,
                                             renter_id: ownerId
                                         }).then(()=>{
+                                            reload()
                                             setDisplayAddOpinion(false);
                                         })
                                     }else{
