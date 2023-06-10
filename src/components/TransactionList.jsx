@@ -38,6 +38,19 @@ function TransactionList(props) {
     const [ownerId, setOwnerId] = useState();
     //const [detailsIsFinished, setDetailsIsFinished] = useState((props.status === "finished" || props.status === "failed") ? true : false); //finished/failed do zmiany na faktyczne statusy - �eby pokazywac guzik do recenzji
 
+    function compareTransactions(a, b) {
+        let aDate = new Date(a.rent_date)
+        let bDate = new Date(b.rent_date)
+        if (aDate < bDate) {
+          return -1;
+        }
+        if (aDate > bDate) {
+          return 1;
+        }
+        // a must be equal to b
+        return 0;
+      }
+
     //Getting user's all transactions'
     useEffect(() => {
 
@@ -50,6 +63,9 @@ function TransactionList(props) {
         
         axios.get("http://localhost:5000/api/transactions/" + sessionUsername).then((response) => {
             var trans = response.data.transactions;
+            console.log(trans)
+            trans.sort(compareTransactions)
+            console.log(trans)
             setTransactions(trans);
             //console.log(response.data.transactions)
             return trans;
