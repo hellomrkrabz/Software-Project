@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField"
 import axios from 'axios';
 import Popup from 'reactjs-popup';
 import SelectButBetter from 'react-select';
+import fancyStatusTranslator from "../scripts/fancyStatusTranslator.js";
 
 
 function TransactionDetails(props) {
@@ -31,9 +32,6 @@ function TransactionDetails(props) {
     var currentDate = new Date();
     const [minDate, setMinDate] = useState(new Date())
     var sessionUserId = sessionStorage.getItem("sessionUserId")
-
-    //console.log(rentDate)
-    //console.log(typeof(rentDate))
 
     const reload = () => {
         window.location.replace("Transactions/"+ transactionId)
@@ -168,7 +166,7 @@ function TransactionDetails(props) {
                                 </div>
                                 <div className="d-flex align-items-center justify-content-center bg-secondary text-black p-3 rounded">
 
-                                    {status}
+                                    {fancyStatusTranslator(status)}
                                 </div>
                             </div>
                         </div>

@@ -63,9 +63,7 @@ function TransactionList(props) {
         
         axios.get("http://localhost:5000/api/transactions/" + sessionUsername).then((response) => {
             var trans = response.data.transactions;
-            console.log(trans)
             trans.sort(compareTransactions)
-            console.log(trans)
             setTransactions(trans);
             //console.log(response.data.transactions)
             return trans;

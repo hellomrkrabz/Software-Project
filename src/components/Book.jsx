@@ -262,20 +262,18 @@ function Book(props) {
             <>
                 <div className="col">
                     <div key={props.id} className="d-flex flex-column align-items-center">
-                        <Link to={props.link}>
-                            <div >
-                                {props.imageLinks !== undefined && props.imageLinks.smallThumbnail !== undefined &&
-                                    <img src={props.imageLinks.smallThumbnail} alt="book" style={{width: "100%",height:"100%", objectFit: "cover"}}/>
-                                }                               
+                        <div >
+                            {props.imageLinks !== undefined && props.imageLinks.smallThumbnail !== undefined &&
+                                <img src={props.imageLinks.smallThumbnail} alt="book" style={{width: "100%",height:"100%", objectFit: "cover"}}/>
+                            }
 
-                                {props.cover_photo !== "notFound" ?
-                                    <img src={props.cover_photo} alt="book" height="200" width="130" />
-                                    :
-                                    <img src={banana} alt="book" height="500" width="325" />
-                                }
+                            {props.cover_photo !== "notFound" ?
+                                <img src={props.cover_photo} alt="book" height="200" width="130" />
+                                :
+                                <img src={banana} alt="book" height="500" width="325" />
+                            }
 
-                            </div>
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </>

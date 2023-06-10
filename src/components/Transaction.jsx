@@ -3,6 +3,7 @@ import Book from "./Book.jsx";
 import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import axios from 'axios'
+import fancyStatusTranslator from "../scripts/fancyStatusTranslator.js";
 
 function Transaction(props) {
 
@@ -58,7 +59,7 @@ function Transaction(props) {
                                     </div>
                                     <div className="col-4 row h-25 gx-3">
                                         <div className="col-6 d-flex align-items-center justify-content-center bg-secondary text-black rounded-1"> 
-                                            {status}
+                                            {fancyStatusTranslator(status)}
                                         </div>    
                                         <div className="col-6">
                                             <button className="col-12 btn btn-banana-primary " onClick={() => {props.updateShowDetailsFromChildren(true); props.updateDetailsKey(props.transactionID); }}>Details</button>
