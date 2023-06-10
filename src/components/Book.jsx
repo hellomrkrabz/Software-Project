@@ -85,16 +85,15 @@ function Book(props) {
                                             value={props.isbn}
                                             className="bg-light col-12"
                                         />
+                                        <div class="col-12 d-flex flex-column align-items-start mb-3">
+                                            <label className="col-form-label">Owner</label>
+                                            <Link to={"/Opinions/"+ownerInfo.username} className="text-decoration-none">
+                                                <div class="col-12 d-flex align-items-center bg-light rounded">
+                                                    <input type="button" readonly className="btn btn-outline-banana-blue col-12 form-control-plaintext text-dark fs-5" role="button" value={ownerInfo.username}/>
+                                                </div>
+                                            </Link>
+                                        </div>
 
-                                        
-                                        <Link to={"/Opinions/"+ownerInfo.username}>
-                                            <label>Owner</label>
-                                        </Link>
-                                            <TextField
-                                                disabled
-                                                value={ownerInfo.username}
-                                                className="bg-light col-12"
-                                            />
                                         
                                         
                                     </div>
