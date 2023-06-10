@@ -75,7 +75,7 @@ function Transaction(props) {
                                             book_id:1,
                                             state:3,
                                             borrower_id:1,
-                                            id:1,
+                                            id:3,
                                         })
                                     }}>Here be dragons</button> */}
                     </div>

@@ -34,12 +34,6 @@ function Login() {
         });
     }
 
-    // useEffect(()=>{
-    //     axios.post("http://localhost:5000/user_validation/change_user/Maryla", {
-    //         permissions: "admin"
-    //     })
-    // })
-
     return (
         <>
             <div>

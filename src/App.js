@@ -13,6 +13,7 @@ import Reports from './sites/Reports.jsx'
 import Opinions from "./sites/Opinions.jsx";
 import Help from "./sites/Help.jsx";
 import Offers from "./sites/Offers.jsx";
+import UserManagment from "./sites/UserManagment.jsx";
 
 var sessionUsername = sessionStorage.getItem("sessionUserUsername")
 var sessionUserPermissions = sessionStorage.getItem("sessionPermissions")
@@ -73,10 +74,10 @@ function App() {
         path: '/Transactions/:t_id',
         element: <Transactions site="/Transactions" username={sessionUsername} />,
       },
-      {
-        path: '/Reports',
-        element: <Reports username={sessionUsername}/>,
-      },
+      // {
+      //   path: '/Reports',
+      //   element: <Reports username={sessionUsername}/>,
+      // },
       {
         path: '/Opinions/:username',
         element: <Opinions username={sessionUsername}/>,
@@ -85,6 +86,10 @@ function App() {
         path: '/Help',
         element: <Help isLoggedIn={true} username={sessionUsername}/>,
       },
+      // {
+      //   path: '/UserManagment',
+      //   element: <UserManagment isLoggedIn={true} username={sessionUsername}/>,
+      // },
       {
         path: '*',
         navigate: "/",
@@ -114,6 +119,10 @@ function App() {
         element: <Opinions username={sessionUsername}/>,
       },
       {
+        path: '/UserManagment',
+        element: <UserManagment isLoggedIn={true} username={sessionUsername}/>,
+      },
+      {
         path: '*',
         navigate: "/Reports",
       },
@@ -135,8 +144,8 @@ function App() {
         element: <Login />,
       },
       {
-          path: '/AccountVerification/:generatedstring',
-          element: <AccountVerification />,
+        path: '/AccountVerification/:generatedstring',
+        element: <AccountVerification />,
       },
       {
         path: '*',
