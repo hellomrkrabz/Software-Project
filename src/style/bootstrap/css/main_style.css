@@ -48,6 +48,7 @@
   --bs-light-rgb: 248, 249, 250;
   --bs-dark-rgb: 33, 37, 41;
   --bs-banana-blue-rgb: 33, 197, 187;
+  --bs-banana-blue-dark-rgb: 23, 217, 207;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
@@ -8295,6 +8296,17 @@ textarea.form-control-lg {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-banana-blue-rgb), var(--bs-bg-opacity)) !important;
 }
+
+.bg-report-btn {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-banana-blue-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-report-btn:hover {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-banana-blue-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
 
 .bg-black, .book-title {
   --bs-bg-opacity: 1;
