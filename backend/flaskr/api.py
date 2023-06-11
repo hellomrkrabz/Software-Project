@@ -621,7 +621,7 @@ def add_or_edit_entity(entity_type, action):
                     inputter_list_borrower.append(html_attr_inputter_by_id(attr_inputter_args))
                     inputter_list_borrower.append(html_inner_inputter_by_id(inner_html_inputter_args))
 
-                    inputter_list_borrower_w_book = inputter_list_borrower
+                    inputter_list_borrower_w_book = inputter_list_borrower.copy()
                     inputter_list_borrower_w_book.append(html_inner_inputter_by_id(inner_book_name_args))
 
                     match state:
@@ -654,13 +654,13 @@ def add_or_edit_entity(entity_type, action):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
                                                             "http://localhost:3000/Transactions" + str(entity.get_id()))
                     inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
+                    inner_book_name_args = inner_html_input_args_id("book_name", general_book.get_title())
 
                     inputter_list_owner = []
                     inputter_list_owner.append(html_attr_inputter_by_id(attr_inputter_args))
                     inputter_list_owner.append(html_inner_inputter_by_id(inner_html_inputter_args))
 
-                    inner_book_name_args = inner_html_input_args_id("book_name", general_book.get_title())
-                    inputter_list_owner_w_book = inputter_list_owner
+                    inputter_list_owner_w_book = inputter_list_owner.copy()
                     inputter_list_owner_w_book.append(html_inner_inputter_by_id(inner_book_name_args))
                     match state:
                         case 4:
