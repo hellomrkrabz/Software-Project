@@ -5,6 +5,9 @@ import enum
 import base64
 import json
 from .transaction import Transaction
+from sqlalchemy import text, create_engine
+engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
+
 
 class States(enum.Enum):
     mint = 1
@@ -18,8 +21,8 @@ class Book(db.Model):
     __tablename__ = 'books'
     book_id = db.Column(db.Integer, primary_key=True)
     google_book_id = db.Column(db.String(30))
-    isbn = db.Column(db.String(15))
-    title = db.Column(db.String(120))
+    isbn = db.Column(db.String(150))
+    title = db.Column(db.String(300))
     author = db.Column(db.String(120))
     cover_photo = db.Column(db.String(300))
     wanted_books = db.relationship('Wanted_Book',
@@ -97,3 +100,11 @@ class Wanted_Book(db.Model):
 
     def get_foreign_book_id(self):
         return self.foreign_book_id
+
+#DO ZROBIENIA
+def check_if_first_in_queue(self):
+    sql = text("""SELECT transaction_id FROM transactions t
+    WHERE t.state = 2 AND t.book_id =""" + str(self.id) + """AND t.reservation_date in (SELECT MIN(reservation) FROM transactions)""")
+    with engine.connect() as con:
+        result = con.execute(sql).scalar()
+    return result

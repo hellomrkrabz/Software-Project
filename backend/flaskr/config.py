@@ -8,6 +8,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
 
+
     @staticmethod
     def init_app(app):
         pass

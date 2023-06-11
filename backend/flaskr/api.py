@@ -126,6 +126,16 @@ def get_wanted_book_info_username(u_username):
             return jsonify({'books': book_json})
         return jsonify({'msg': 'No books?:('})
 
+@bp.route('/return_books/', methods=['GET'])
+def get_all_books():
+    books = Book.query.all()
+    if books is not None:
+        books_json = [{
+            'book': b.get_title()
+        } for b in books]
+        return jsonify({'books': books_json})
+    return jsonify({'msg': 'no books?'})
+
 #---------------------info about users---------------------------
 
 @bp.route('/user_info', methods=['GET'])
@@ -386,6 +396,24 @@ def get_opinions():
         return jsonify({'opinions': opinion_json})
     return jsonify({'msg': 'it no good'})
 
+
+@bp.route('/opinion_from_to/<author>/<about>', methods=['GET'])
+def get_opinion_if_exists(author,about):
+    author = User.query.filter_by(username=author).first()
+    about = User.query.filter_by(username=about).first()
+    opinion = author.check_if_opinion_exists(about)
+    correct_opinion = Review.query.filter_by(review_id=opinion).first()
+    if author and about is not None:
+        if correct_opinion is not None:
+            opinion_json = [{
+                'user': correct_opinion.get_renter_id(),
+                'date': correct_opinion.get_date(),
+                'score': correct_opinion.get_rating(),
+                'content': correct_opinion.get_content(),
+                'opinion_id': correct_opinion.get_id()
+            }]
+            return jsonify({'opinion': opinion_json})
+    return jsonify({'msg': 'no opinion'})
 #---------------------report stuff---------------------------
 @bp.route('/reports', methods=['GET'])
 def get_reports():
@@ -610,6 +638,8 @@ def add_or_edit_entity(entity_type, action):
                 entity.rent_date = rent_date
                 entity.return_date = return_date
                 entity.state = StatesForTransactions(state)
+                book_id = entity.book_id
+                book_rented= Owned_Book.query.filter_by(owned_book_id=book_id).first()
 
                 if state in (2,3,5,6,7,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
@@ -641,12 +671,24 @@ def add_or_edit_entity(entity_type, action):
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_passed_down.html",
                                              inputter_list_borrower_w_book) 
                         case 10:
+                            next_transaction_id = book_rented.check_if_first_in_queue()
+                            if next_transaction_id is not None:
+                                next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
+                                next_transaction.state = 3
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_cancelled.html",
                                              inputter_list_borrower)
                         case 11:
+                            next_transaction_id = book_rented.check_if_first_in_queue()
+                            if next_transaction_id is not None:
+                                next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
+                                next_transaction.state = 3
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_borrower)
                         case 12:
+                            next_transaction_id = book_rented.check_if_first_in_queue()
+                            if next_transaction_id is not None:
+                                next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
+                                next_transaction.state = 3
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_borrower)
 
@@ -719,12 +761,3 @@ def add_or_edit_entity(entity_type, action):
 
 
 
-@bp.route('/return_books/', methods=['GET'])
-def get_all_books():
-    books = Book.query.all()
-    if books is not None:
-        books_json = [{
-            'book': b.get_title()
-        } for b in books]
-        return jsonify({'books': books_json})
-    return jsonify({'msg': 'no books?'})

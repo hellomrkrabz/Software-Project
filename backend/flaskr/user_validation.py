@@ -9,14 +9,28 @@ from .html_proccesors import html_attr_inputter_by_id, attr_input_args_id, html_
 from psycopg2.errorcodes import UNIQUE_VIOLATION
 from psycopg2 import errors
 import secrets
+from sqlalchemy import text, create_engine, ForeignKey
 
 bp = Blueprint("user_validation", __name__, url_prefix='/user_validation')
 
 regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
+engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 @bp.route('/register', methods=['POST'])
 def Register():
+
+    if check_if_users_empty() is not True:
+        admin = User(email='bananbooksofficial@gmail.com',
+                     password=generate_password_hash('5xHpTWXQ5SiHent'),
+                     verificationHash=generate_password_hash('bananbooksofficial@gmail.com'),
+                     avatar='../public/avatars/swinior.jpg',
+                     username='admin_bananow',
+                     key='null',
+                     permissions=Permissions.admin)
+        db.session.add(admin)
+        db.session.commit()
+
     data = request.get_json()
 
     email = data['sentEmail']
@@ -134,3 +148,10 @@ def change_user(username):
         user.permissions = permissions
         db.session.commit()
     return jsonify({"msg": "Successfully changed permissions"})
+
+def check_if_users_empty():
+    sql = text("""SELECT TRUE FROM users u
+    LIMIT 1 """)
+    with engine.connect() as con:
+        result = con.execute(sql).scalar()
+    return result

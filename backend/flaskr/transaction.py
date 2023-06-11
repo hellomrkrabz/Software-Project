@@ -5,16 +5,6 @@ from datetime import datetime
 import enum
 from sqlalchemy import text, create_engine, ForeignKey
 
-# class States(enum.Enum):
-#     reservation = 1
-#     accepted_reservation = 2
-#     passed_down = 3
-#     lent = 4
-#     returned = 5
-#     cancelled = 6
-#     successfully_finished = 7
-#     unsuccessfully_finished = 8
-
 engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 class StatesForTransactions(enum.Enum):

@@ -5,6 +5,7 @@ import psycopg2
 from flask_cors import CORS
 from .config import config
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 mail = Mail()
@@ -64,6 +65,8 @@ def create_app(test_config=None):
     with app.app_context():
     #    db.drop_all()
         db.create_all()
+    #przetestuj
+
 
     #initialize email sender
     app.config['MAIL_SERVER']='smtp.gmail.com'
@@ -76,6 +79,7 @@ def create_app(test_config=None):
     app.config['MAIL_DEBUG'] = False
 
     mail = Mail(app)
+
 
     return app
 
