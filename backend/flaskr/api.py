@@ -632,7 +632,7 @@ def add_or_edit_entity(entity_type, action):
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_collection.html",
                                              inputter_list_borrower)
                         case 5:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_rejected.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_rejected.html",
                                              inputter_list_borrower)
                         case 6:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",

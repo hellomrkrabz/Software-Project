@@ -86,7 +86,7 @@ function Book(props) {
                                             value={props.isbn}
                                             className="bg-light col-12"
                                         />
-                                        <div class="col-12 d-flex flex-column align-items-start mb-3">
+                                        <div className="col-12 d-flex flex-column align-items-start mb-3">
                                             <label className="col-form-label">Owner</label>
                                             <Link to={"/Opinions/"+ownerInfo.username} className="text-decoration-none">
                                                 <div class="col-12 d-flex align-items-center bg-light rounded">
