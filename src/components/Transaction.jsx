@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import axios from 'axios'
 import fancyStatusTranslator from "../scripts/fancyStatusTranslator.js";
+import findCookie from "../scripts/findCookie.jsx";
 
 function Transaction(props) {
 
-    var sessionUserId = sessionStorage.getItem("sessionUserId")
+    var sessionUserId = findCookie("sessionUserId")
 
     const [username, setUsername] = useState(props.user);
     const [ownerName, setOwnerName] = useState(props.ownerName);

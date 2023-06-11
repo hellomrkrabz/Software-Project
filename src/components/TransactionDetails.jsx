@@ -5,6 +5,7 @@ import axios from 'axios';
 import Popup from 'reactjs-popup';
 import SelectButBetter from 'react-select';
 import fancyStatusTranslator from "../scripts/fancyStatusTranslator.js";
+import findCookie from "../scripts/findCookie.jsx";
 
 
 function TransactionDetails(props) {
@@ -31,7 +32,7 @@ function TransactionDetails(props) {
     const [convertedReturnDate, setConvertedReturnDate] = useState(new Date(props.returnDate))
     var currentDate = new Date();
     const [minDate, setMinDate] = useState(new Date())
-    var sessionUserId = sessionStorage.getItem("sessionUserId")
+    var sessionUserId = findCookie("sessionUserId")
 
     const reload = () => {
         window.location.replace("Transactions/"+ transactionId)

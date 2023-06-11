@@ -4,6 +4,7 @@ import Transaction from "./Transaction.jsx"
 import { v4 } from "uuid";
 import TransactionDetails from "./TransactionDetails.jsx";
 import axios from 'axios'
+import findCookie from "../scripts/findCookie.jsx";
 
 function TransactionList(props) {
 
@@ -17,7 +18,7 @@ function TransactionList(props) {
     const [detailsKey, setDetailsKey] = useState(1);
 
     //All this gets updated from db whenever detailsKey changes
-    var sessionUsername = sessionStorage.getItem("sessionUserUsername");
+    var sessionUsername = findCookie("sessionUserUsername");
 
     const [transactions, setTransactions] = useState([]);
 

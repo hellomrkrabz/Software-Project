@@ -14,9 +14,10 @@ import { v4 } from "uuid";
 import axios from "axios"
 import Book from "./Book";
 import SelectButBetter from 'react-select';
+import findCookie from "../scripts/findCookie";
 
-var sessionUserKey= sessionStorage.getItem("sessionUserKey")
-var sessionUsername= sessionStorage.getItem("sessionUserUsername")
+var sessionUserKey= findCookie("sessionUserKey")
+var sessionUsername= findCookie("sessionUserUsername")
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },

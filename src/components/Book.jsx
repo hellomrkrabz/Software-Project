@@ -6,11 +6,12 @@ import Popup from 'reactjs-popup';
 import popupStyle from "../style/popup_style.css"
 import TextField from "@mui/material/TextField"
 import axios from 'axios'
+import findCookie from "../scripts/findCookie";
 
 function Book(props) {
 
-    var sessionUserKey= sessionStorage.getItem("sessionUserKey")
-    var sessionUserId = sessionStorage.getItem("sessionUserId")
+    var sessionUserKey= findCookie("sessionUserKey")
+    var sessionUserId = findCookie("sessionUserId")
 
     const [displayDetails, setDisplayDetails] = useState(false)
     const [displayReserve, setDisplayReserve] = useState(true)
