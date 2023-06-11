@@ -613,7 +613,7 @@ def add_or_edit_entity(entity_type, action):
 
                 if state in (2,3,5,6,7,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
-                                                            "http://localhost:3000/Transactions" + str(entity.get_id()))
+                                                            "http://localhost:3000/Transactions/" + str(entity.get_id()))
                     inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
                     inner_book_name_args = inner_html_input_args_id("book_name", general_book.get_title())
 
@@ -652,7 +652,7 @@ def add_or_edit_entity(entity_type, action):
 
                 if state in (4,9,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
-                                                            "http://localhost:3000/Transactions" + str(entity.get_id()))
+                                                            "http://localhost:3000/Transactions/" + str(entity.get_id()))
                     inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
                     inner_book_name_args = inner_html_input_args_id("book_name", general_book.get_title())
 
@@ -668,7 +668,7 @@ def add_or_edit_entity(entity_type, action):
                                                      "reservation_confirmation.html",
                                                      inputter_list_owner)
                         case 9:
-                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_collection.html",
+                            send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_returned.html",
                                              inputter_list_owner)
                         case 10:
                             send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_cancelled.html",
