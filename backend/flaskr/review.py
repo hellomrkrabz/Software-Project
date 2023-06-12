@@ -3,6 +3,8 @@ import psycopg2
 from . import db
 from datetime import datetime
 from .report import Report
+from sqlalchemy import text, create_engine, ForeignKey
+engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -39,6 +41,13 @@ class Review(db.Model):
 
     def get_date(self):
         return self.date
+
+    def get_author_username(self):
+        sql = text("""SELECT username FROM users u JOIN reviews r ON u.id = r.renter_id
+        WHERE r.renter_id = """ + str(self.renter_id))
+        with engine.connect() as con:
+            result = con.execute(sql).scalar()
+        return result
 
 
 

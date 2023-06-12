@@ -377,7 +377,8 @@ def get_user_opinions(username):
                 'date': o.get_date(),
                 'score': o.get_rating(),
                 'content': o.get_content(),
-                'opinion_id': o.get_id()
+                'opinion_id': o.get_id(),
+                'username': o.get_author_username()
             } for o in opinions]
             return jsonify({'opinions': opinion_json})
     return jsonify({'msg': 'it no good'})
