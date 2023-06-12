@@ -656,8 +656,11 @@ def add_or_edit_entity(entity_type, action):
 
                     match state:
                         case 2:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_accepted.html",
+                            previous_transaction_id = book_rented.if_no_previous_transaction()
+                            if previous_transaction_id is None:
+                                send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_accepted.html",
                                              inputter_list_borrower)
+                                entity.state = 'your_turn'
                         case 3:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_collection.html",
                                              inputter_list_borrower)
@@ -674,28 +677,28 @@ def add_or_edit_entity(entity_type, action):
                             next_transaction_id = book_rented.check_if_first_in_queue()
                             if next_transaction_id is not None:
                                 next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
-                                next_transaction.state = 3
+                                next_transaction.state = 'your_turn'
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_cancelled.html",
                                              inputter_list_borrower)
                         case 11:
                             next_transaction_id = book_rented.check_if_first_in_queue()
                             if next_transaction_id is not None:
                                 next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
-                                next_transaction.state = 3
+                                next_transaction.state = 'your_turn'
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_borrower)
                         case 12:
                             next_transaction_id = book_rented.check_if_first_in_queue()
                             if next_transaction_id is not None:
                                 next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
-                                next_transaction.state = 3
+                                next_transaction.state = 'your_turn'
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_finished.html",
                                              inputter_list_borrower)
 
                 if state in (4,9,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
                                                             "http://localhost:3000/Transactions/" + str(entity.get_id()))
-                    inner_html_inputter_args = inner_html_input_args_id("username", user.get_username())
+                    inner_html_inputter_args = inner_html_input_args_id("username", owner.get_username())
                     inner_book_name_args = inner_html_input_args_id("book_name", general_book.get_title())
 
                     inputter_list_owner = []

@@ -85,6 +85,24 @@ class Owned_Book(db.Model):
     def get_book_id(self):
         return self.book_id
 
+    def if_no_previous_transaction(self):
+        sql = text("""SELECT transaction_id FROM transactions t
+        WHERE t.state IN ('accepted_reservation','your_turn', 'dates_chosen',
+        'dates_rejected','accepted_date', 'passed_down', 'lent', 'returned') 
+        AND t.book_id =""" + str(self.book_id))
+        with engine.connect() as con:
+            result = con.execute(sql).scalar()
+        return result
+
+    def check_if_first_in_queue(self):
+        sql = text("""SELECT transaction_id FROM transactions t
+        WHERE t.state = 2 AND t.book_id =""" + str(
+            self.id) + """AND t.reservation_date in (SELECT MIN(reservation) FROM transactions)""")
+        with engine.connect() as con:
+            result = con.execute(sql).scalar()
+        return result
+
+
 class Wanted_Book(db.Model):
     __tablename__ = 'wanted_books'
     wanted_book_id = db.Column(db.Integer, primary_key=True)
@@ -101,10 +119,4 @@ class Wanted_Book(db.Model):
     def get_foreign_book_id(self):
         return self.foreign_book_id
 
-#DO ZROBIENIA
-def check_if_first_in_queue(self):
-    sql = text("""SELECT transaction_id FROM transactions t
-    WHERE t.state = 2 AND t.book_id =""" + str(self.id) + """AND t.reservation_date in (SELECT MIN(reservation) FROM transactions)""")
-    with engine.connect() as con:
-        result = con.execute(sql).scalar()
-    return result
+
