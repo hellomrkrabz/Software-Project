@@ -331,13 +331,24 @@ function TransactionDetails(props) {
                                         From:
                                     </div>  
                                     <div className="col-6">
-                                        <input type="date" id="" value={rentDate} onChange={(e)=>{setRentDate(e.target.value)}} className="form-control"/>
+                                        <input type="date" id="" value={rentDate} onChange={(e)=>{
+                                            setRentDate(e.target.value)
+
+                                            let result = new Date(e.target.value);
+                                            result.setDate(result.getDate() + 1);
+                                            let year = result.getFullYear();
+                                            let month = String(result.getMonth() + 1).padStart(2, '0');
+                                            let day = String(result.getDate()).padStart(2, '0');
+
+                                            let tmpDate = year + '-' + month + '-' + day;
+                                            setMinDate(tmpDate)
+                                        }} className="form-control"/>
                                     </div>
                                     <div className="col-4">
                                         To:
                                     </div>
                                     <div className="col-6">
-                                        <input type="date" id="" value={returnDate} onChange={(e)=>{setRentDate(e.target.value)}} className="form-control"/>
+                                        <input type="date" id="" min={minDate.toString()} value={returnDate} onChange={(e)=>{setReturnDate(e.target.value)}} className="form-control"/>
                                     </div>
                                 </div>
                                 <div className="col-6 d-flex justify-content-center align-items-stretch">
