@@ -69,7 +69,7 @@ function Transaction(props) {
                             </div>                                              
                         </div>
 
-                        <button className="btn btn-banana-primary col-12" onClick={()=>{
+                        {/* <button className="btn btn-banana-primary col-12" onClick={()=>{
                                         axios.post("http://localhost:5000/api/transaction/edit", {
                                             reservation_date:"Mon, 12 Jun 2023 00:00:00 GMT",
                                             rent_date:"Mon, 12 Jun 2023 00:00:00 GMT",
@@ -79,7 +79,7 @@ function Transaction(props) {
                                             borrower_id:5,
                                             id:8,
                                         })
-                                    }}>Here be dragons</button>
+                                    }}>Here be dragons</button> */}
                     </div>
                 </>
     );
