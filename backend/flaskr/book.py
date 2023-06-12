@@ -104,11 +104,13 @@ class Owned_Book(db.Model):
             result = con.execute(sql).scalar()
         print("tu ok")
         print(result)
-        sql = text("""SELECT transaction_id from transactions where reservation_date='"""+ result.strftime("%a, %d %b %Y %H:%M:%S %Z") + "'")
-        print("tu nie")
-        with engine.connect() as con:
-            result = con.execute(sql).scalar()
-            print(result)
+
+        if result is not None:
+            sql = text("""SELECT transaction_id from transactions where reservation_date='"""+ result.strftime("%a, %d %b %Y %H:%M:%S %Z") + "'")
+            print("tu nie")
+            with engine.connect() as con:
+                result = con.execute(sql).scalar()
+                print(result)
         return result
 
 

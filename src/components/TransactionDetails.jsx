@@ -28,6 +28,8 @@ function TransactionDetails(props) {
     const [displayAddOpinion, setDisplayAddOpinion] = useState(false);
     const [opinionContent, setOpinionContent] = useState("");
     const [opinionScore, setOpinionScore] = useState(0);
+    const [addedReviewAlready, setAddedReviewAlready] = useState(false)
+    const [reviewId, setReviewId] = useState()
 
     const [convertedReturnDate, setConvertedReturnDate] = useState(new Date(props.returnDate))
     var currentDate = new Date();
@@ -42,6 +44,35 @@ function TransactionDetails(props) {
         let url = "/Transactions/"+transactionId
         location.href=url;
     }
+
+    useState(()=>{
+        if(username && ownerName)
+        {
+            if(sessionUserId == ownerId)
+            {
+                axios.get("http://localhost:5000/api/opinion_from_to/"+ownerName+"/"+username).then((response) => {
+                    console.log(response.data)
+                    if(response.data.msg !== "no opinion")
+                    {
+                        setOpinionContent(response.data.opinion[0].content)
+                        setOpinionScore(response.data.opinion[0].score)
+                        setReviewId(response.data.opinion[0].opinion_id)
+                    }
+                })  
+            }else if(sessionUserId == borrowerId)
+            {
+                axios.get("http://localhost:5000/api/opinion_from_to/"+username+"/"+ownerName).then((response) => {
+                    console.log(response.data)
+                    if(response.data.msg !== "no opinion")
+                    {
+                        setOpinionContent(response.data.opinion[0].content)
+                        setOpinionScore(response.data.opinion[0].score)
+                        setReviewId(response.data.opinion[0].opinion_id)
+                    }
+                })  
+            }
+        }
+    },[ownerName])
 
     let opinionScoreOptions = [
         {
@@ -470,7 +501,7 @@ function TransactionDetails(props) {
                                     />
                                     <h2 className="d-flex justify-content-start">Opinion score</h2>
                                     <SelectButBetter
-                                        value={opinionScore}
+                                        value={opinionScore.value}
                                         options={opinionScoreOptions}
                                         onChange={setOpinionScore}
                                     />
@@ -479,26 +510,59 @@ function TransactionDetails(props) {
                                 <button className="btn btn-banana-primary col-3 mt-3" onClick={()=>{
                                     const date = new Date();
                                     if(sessionUserId == borrowerId){
-                                        axios.post("http://localhost:5000/api/opinion/add", {
-                                            rating: opinionScore.value,
-                                            visible: true,
-                                            content: opinionContent,
-                                            borrower_id: ownerId,
-                                            renter_id: borrowerId
-                                        }).then(()=>{
-                                            reload()
-                                            setDisplayAddOpinion(false);
-                                        })
+                                        if(!addedReviewAlready)
+                                        {
+                                            axios.post("http://localhost:5000/api/opinion/add", {
+                                                rating: opinionScore.value,
+                                                visible: true,
+                                                content: opinionContent,
+                                                borrower_id: ownerId,
+                                                renter_id: borrowerId
+                                            }).then(()=>{
+                                                reload()
+                                                setDisplayAddOpinion(false);
+                                            })
+                                        }else
+                                        {
+                                            axios.post("http://localhost:5000/api/opinion/edit", {
+                                                rating: opinionScore.value,
+                                                visible: true,
+                                                content: opinionContent,
+                                                borrower_id: ownerId,
+                                                renter_id: borrowerId,
+                                                id: reviewId
+                                            }).then(()=>{
+                                                reload()
+                                                setDisplayAddOpinion(false);
+                                            })
+                                        }
                                     }else{
-                                        axios.post("http://localhost:5000/api/opinion/add", {
-                                            rating: opinionScore.value,
-                                            visible: true,
-                                            content: opinionContent,
-                                            borrower_id: borrowerId,
-                                            renter_id: ownerId
-                                        }).then(()=>{
-                                            setDisplayAddOpinion(false);
-                                        })
+                                        if(!addedReviewAlready)
+                                        {
+                                            axios.post("http://localhost:5000/api/opinion/add", {
+                                                rating: opinionScore.value,
+                                                visible: true,
+                                                content: opinionContent,
+                                                borrower_id: borrowerId,
+                                                renter_id: ownerId
+                                            }).then(()=>{
+                                                reload()
+                                                setDisplayAddOpinion(false);
+                                            })
+                                        }else
+                                        {
+                                            axios.post("http://localhost:5000/api/opinion/edit", {
+                                                rating: opinionScore.value,
+                                                visible: true,
+                                                content: opinionContent,
+                                                borrower_id: ownerId,
+                                                renter_id: borrowerId,
+                                                id: reviewId
+                                            }).then(()=>{
+                                                reload()
+                                                setDisplayAddOpinion(false);
+                                            })
+                                        }
                                     }
                                 }}>Add opinion</button>
                             </div>

@@ -596,7 +596,7 @@ def add_or_edit_entity(entity_type, action):
                     date = date.today(),
                 )
             elif action == "edit":
-                entity = Review.query.filter_by(id=data['id']).first()
+                entity = Review.query.filter_by(review_id=data['id']).first()
                 entity.rating = rating
                 entity.visible = visible
                 entity.content = content
