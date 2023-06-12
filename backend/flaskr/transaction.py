@@ -24,9 +24,9 @@ class StatesForTransactions(enum.Enum):
 class Transaction(db.Model):
     __tablename__ = 'transactions'
     transaction_id = db.Column(db.Integer, primary_key=True)
-    reservation_date = db.Column(db.DateTime, default=datetime.date)
-    rent_date = db.Column(db.DateTime, default=datetime.date, nullable = True)
-    return_date = db.Column(db.DateTime, default=datetime.date, nullable = True)
+    reservation_date = db.Column(db.DateTime, default=datetime)
+    rent_date = db.Column(db.DateTime, default=datetime, nullable = True)
+    return_date = db.Column(db.DateTime, default=datetime, nullable = True)
     state = db.Column(db.Enum(StatesForTransactions))
     book_id = db.Column(db.Integer, db.ForeignKey('owned_books.owned_book_id'))
     borrower_id = db.Column(db.Integer, db.ForeignKey('users.id'))

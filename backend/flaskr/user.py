@@ -153,8 +153,8 @@ class User(db.Model):
         return result
 
     def check_if_opinion_exists(self,about):
-        sql = text("""SELECT review_id FROM review r
-        WHERE r.renter_id = """ + str(self.id) + """AND r.borrower_id = """ + str(about.id))
+        sql = text("""SELECT review_id FROM reviews r
+        WHERE r.renter_id = """ + str(self.id) + """ AND r.borrower_id = """ + str(about.id))
         with engine.connect() as con:
             result = con.execute(sql).scalar()
         return result

@@ -641,8 +641,6 @@ def add_or_edit_entity(entity_type, action):
                 book_id = entity.book_id
                 book_rented= Owned_Book.query.filter_by(owned_book_id=book_id).first()
 
-                print("co jest kurwa")
-
                 if state in (2,3,5,6,7,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
                                                             "http://localhost:3000/Transactions/" + str(entity.get_id()))
@@ -655,6 +653,10 @@ def add_or_edit_entity(entity_type, action):
 
                     inputter_list_borrower_w_book = inputter_list_borrower.copy()
                     inputter_list_borrower_w_book.append(html_inner_inputter_by_id(inner_book_name_args))
+
+                    inner_owner_email_args = inner_html_input_args_id("owner_email", owner.get_email())
+                    inputter_list_owner_data = inputter_list_borrower.copy()
+                    inputter_list_owner_data.append(inner_owner_email_args)
 
                     match state:
                         case 2:
@@ -671,7 +673,7 @@ def add_or_edit_entity(entity_type, action):
                                              inputter_list_borrower)
                         case 6:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
-                                             inputter_list_borrower)
+                                             inputter_list_owner_data)
                         case 7:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_passed_down.html",
                                              inputter_list_borrower_w_book) 
@@ -711,11 +713,18 @@ def add_or_edit_entity(entity_type, action):
 
                     inputter_list_owner_w_book = inputter_list_owner.copy()
                     inputter_list_owner_w_book.append(html_inner_inputter_by_id(inner_book_name_args))
+
+                    inner_borrower_email_args = inner_html_input_args_id("borrower_email", user.get_email())
+                    inputter_list_borrower_data = inputter_list_owner.copy()
+                    inputter_list_borrower_data.append(inner_borrower_email_args)
                     match state:
                         case 4:
                             send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update",
                                                      "reservation_confirmation.html",
                                                      inputter_list_owner)
+                        case 6:
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
+                                             inputter_list_borrower_data)
                         case 9:
                             send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_returned.html",
                                              inputter_list_owner)
