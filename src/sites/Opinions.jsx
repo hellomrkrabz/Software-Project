@@ -76,7 +76,7 @@ function Opinions(props) {
 
     async function fetchOpinion()
     {
-        const response = await axios.get("http://localhost:5000/api/opinions/" + window.location.pathname.split('/').pop())
+        const response = await axios.get("http://localhost:5000/api/opinions/" + decodeURI(window.location.pathname.split('/').pop()))
         let fetchedOpinions = response.data.opinions
 
         setOpinions(fetchedOpinions)
@@ -163,7 +163,7 @@ function Opinions(props) {
                             <OpinionGrid opinions={opinionsToDisplay} setDetails={setDetails} setDisplayDetails={setDisplayDetails}/>
                         </div>
                         <div className="col-3 bg-banana-blue bg-opacity-25 d-flex flex-column h-100">
-                            <h3>{username}'s opinions</h3>
+                            <h3>{decodeURI(window.location.pathname.split('/').pop())}'s opinions</h3>
                             <div className="d-flex flex-column flex-grow-1">
                                 <Search>
                                     <SearchIconWrapper>

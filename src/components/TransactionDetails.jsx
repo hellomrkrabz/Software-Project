@@ -35,7 +35,7 @@ function TransactionDetails(props) {
     var sessionUserId = findCookie("sessionUserId")
 
     const reload = () => {
-        window.location.replace("Transactions/"+ transactionId)
+        window.location.replace("Transactions/" + transactionId)
     }
 
     let opinionScoreOptions = [

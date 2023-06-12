@@ -96,8 +96,8 @@ class Owned_Book(db.Model):
 
     def check_if_first_in_queue(self):
         sql = text("""SELECT transaction_id FROM transactions t
-        WHERE t.state = 2 AND t.book_id =""" + str(
-            self.id) + """AND t.reservation_date in (SELECT MIN(reservation) FROM transactions)""")
+        WHERE t.state = 'accepted_reservation' AND t.book_id =""" + str(
+            self.book_id) + """ AND t.reservation_date in (SELECT MIN(reservation_date) FROM transactions)""")
         with engine.connect() as con:
             result = con.execute(sql).scalar()
         return result
