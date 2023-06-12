@@ -35,6 +35,9 @@ function TransactionDetails(props) {
     var sessionUserId = findCookie("sessionUserId")
 
     const reload = () => {
+        if(isNaN(transactionId))
+            setTransactionID(window.location.pathname.split('/').pop())
+
         window.location.replace("Transactions/" + transactionId)
     }
 
