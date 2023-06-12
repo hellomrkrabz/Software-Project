@@ -39,13 +39,66 @@ function TransactionList(props) {
     const [ownerId, setOwnerId] = useState();
     //const [detailsIsFinished, setDetailsIsFinished] = useState((props.status === "finished" || props.status === "failed") ? true : false); //finished/failed do zmiany na faktyczne statusy - �eby pokazywac guzik do recenzji
 
+    let states = [
+        {
+            n:"reservation",
+            v:1
+        },
+        {
+            n:"accepted_reservation",
+            v:2
+        },
+        {
+            n:"your_turn",
+            v:3
+        },
+        {
+            n:"dates_chosen",
+            v:4
+        },
+        {
+            n:"dates_rejected",
+            v:5
+        },
+        {
+            n:"accepted_date",
+            v:6
+        },
+        {
+            n:"passed_down",
+            v:7
+        },
+        {
+            n:"lent",
+            v:8
+        },
+        {
+            n:"returned",
+            v:9
+        },
+        {
+            n:"cancelled",
+            v:10
+        },
+        {
+            n:"successfully_finished",
+            v:11
+        },
+        {
+            n:"unsuccessfully_finished",
+            v:12
+        },
+    ]
+
     function compareTransactions(a, b) {
-        let aDate = new Date(a.rent_date)
-        let bDate = new Date(b.rent_date)
-        if (aDate < bDate) {
+
+        let aS = (states.find(element => element.n === a.state)).v;
+        let bS = (states.find(element => element.n === b.state)).v;
+
+        if (aS < bS) {
           return -1;
         }
-        if (aDate > bDate) {
+        if (aS > bS) {
           return 1;
         }
         // a must be equal to b

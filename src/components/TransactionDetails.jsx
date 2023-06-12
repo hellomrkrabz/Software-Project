@@ -51,7 +51,6 @@ function TransactionDetails(props) {
             if(sessionUserId == ownerId)
             {
                 axios.get("http://localhost:5000/api/opinion_from_to/"+ownerName+"/"+username).then((response) => {
-                    console.log(response.data)
                     if(response.data.msg !== "no opinion")
                     {
                         setOpinionContent(response.data.opinion[0].content)
@@ -62,7 +61,6 @@ function TransactionDetails(props) {
             }else if(sessionUserId == borrowerId)
             {
                 axios.get("http://localhost:5000/api/opinion_from_to/"+username+"/"+ownerName).then((response) => {
-                    console.log(response.data)
                     if(response.data.msg !== "no opinion")
                     {
                         setOpinionContent(response.data.opinion[0].content)
