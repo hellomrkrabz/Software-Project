@@ -38,7 +38,9 @@ function TransactionDetails(props) {
         if(isNaN(transactionId))
             setTransactionID(window.location.pathname.split('/').pop())
 
-        window.location.replace("Transactions/" + transactionId)
+        //window.location.replace("Transactions/" + transactionId)
+        let url = "/Transactions/"+transactionId
+        location.href=url;
     }
 
     let opinionScoreOptions = [

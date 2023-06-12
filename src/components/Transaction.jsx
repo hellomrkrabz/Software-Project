@@ -75,9 +75,9 @@ function Transaction(props) {
                                             rent_date:"Mon, 12 Jun 2023 00:00:00 GMT",
                                             return_date:"Mon, 12 Jun 2023 00:00:00 GMT",
                                             book_id:1,
-                                            state:9,
-                                            borrower_id:5,
-                                            id:8,
+                                            state:3,
+                                            borrower_id:4,
+                                            id:4,
                                         })
                                     }}>Here be dragons</button> */}
                     </div>
