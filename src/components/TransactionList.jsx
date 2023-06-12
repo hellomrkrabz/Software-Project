@@ -176,7 +176,7 @@ function TransactionList(props) {
                                 <div>
                                     <br></br>
                                 </div>
-                                <Transaction user={t.borrower_username} ownerName={t.owner_username} detailsKey={detailsKey} reservationDate={t.reservation_date} updateShowDetailsFromChildren={setShowDetails} updateDetailsKey={setDetailsKey} status={t.state} transactionID={t.id} book={t.book_id} borrowerId={t.borrower_id}> </Transaction>
+                                <Transaction user={t.borrower_username} ownerName={t.owner_username} detailsKey={detailsKey} reservationDate={t.reservation_date} rentDate={t.rent_date} returnDate={t.return_date} updateShowDetailsFromChildren={setShowDetails} updateDetailsKey={setDetailsKey} status={t.state} transactionID={t.id} book={t.book_id} borrowerId={t.borrower_id}> </Transaction>
                             </div>
                         )}
                     </>

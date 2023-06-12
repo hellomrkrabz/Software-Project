@@ -6,6 +6,8 @@ import axios from 'axios'
 import fancyStatusTranslator from "../scripts/fancyStatusTranslator.js";
 import findCookie from "../scripts/findCookie.jsx";
 
+const formatter = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
 function Transaction(props) {
 
     var sessionUserId = findCookie("sessionUserId")
@@ -16,6 +18,8 @@ function Transaction(props) {
     const [title, setTitle] = useState("Titel");
     const [author, setAuthor] = useState("Writer");
     const [reservationDate, setReservationDate] = useState(props.reservationDate);
+    const [rentDate, serRentDate] = useState( String(new Date(props.rentDate).getDate()).padStart(2, '0') + "." + String(new Date(props.rentDate).getMonth() + 1).padStart(2, '0') + "." + new Date(props.rentDate).getFullYear() );
+    const [returnDate, setReturnDate] = useState(String(new Date(props.returnDate).getDate()).padStart(2, '0') + "." + String(new Date(props.returnDate).getMonth() + 1).padStart(2, '0') + "." + new Date(props.returnDate).getFullYear());
     const [status, setStatus] = useState(props.status);
     const [book, setBook] = useState(props.book);
     const [coverPhoto, setCoverPhoto] = useState("");    
@@ -42,7 +46,7 @@ function Transaction(props) {
                                     </div>
                                     <div className="col-6 fw-normal fs-4 text-shadow-light">
                                         <div>
-                                            {reservationDate}
+                                            {rentDate.slice(-4)!="1970" ? rentDate : ""}{rentDate.slice(-4)!="1970" && returnDate.slice(-4)!="1970" ? "-" : "Dates to be chosen"}{returnDate.slice(-4)!="1970" ? returnDate : ""}
                                         </div>
                                         <div className="fs-6">
                                             {title}
