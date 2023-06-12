@@ -6,6 +6,7 @@ import base64
 import json
 from .transaction import Transaction
 from sqlalchemy import text, create_engine
+from datetime import datetime
 engine = create_engine("postgresql://banana_books_user:p5KDYaDuvdp5rwHoVyO9bkH2uXkSedzB@dpg-cgljb682qv24jlvodv40-a.frankfurt-postgres.render.com/banana_books")
 
 
@@ -95,11 +96,19 @@ class Owned_Book(db.Model):
         return result
 
     def check_if_first_in_queue(self):
-        sql = text("""SELECT transaction_id FROM transactions t
-        WHERE t.state = 'accepted_reservation' AND t.book_id =""" + str(
-            self.book_id) + """ AND t.reservation_date in (SELECT MIN(reservation_date) FROM transactions)""")
+        sql = text("""SELECT MIN(tr.reservation_date),tr.state,tr.transaction_id FROM transactions tr 
+                GROUP BY tr.transaction_id
+                HAVING tr.state='accepted_reservation' AND tr.book_id=""" + str(
+            self.book_id) + " ")
         with engine.connect() as con:
             result = con.execute(sql).scalar()
+        print("tu ok")
+        print(result)
+        sql = text("""SELECT transaction_id from transactions where reservation_date='"""+ result.strftime("%a, %d %b %Y %H:%M:%S %Z") + "'")
+        print("tu nie")
+        with engine.connect() as con:
+            result = con.execute(sql).scalar()
+            print(result)
         return result
 
 

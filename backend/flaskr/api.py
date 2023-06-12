@@ -641,6 +641,8 @@ def add_or_edit_entity(entity_type, action):
                 book_id = entity.book_id
                 book_rented= Owned_Book.query.filter_by(owned_book_id=book_id).first()
 
+                print("co jest kurwa")
+
                 if state in (2,3,5,6,7,10,11,12):
                     attr_inputter_args = attr_input_args_id("status-change-link", "href",
                                                             "http://localhost:3000/Transactions/" + str(entity.get_id()))
@@ -674,7 +676,9 @@ def add_or_edit_entity(entity_type, action):
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_passed_down.html",
                                              inputter_list_borrower_w_book) 
                         case 10:
+                            print("tu ok")
                             next_transaction_id = book_rented.check_if_first_in_queue()
+                            print(next_transaction_id)
                             if next_transaction_id is not None:
                                 next_transaction = Transaction.query.filter_by(transaction_id=next_transaction_id).first()
                                 next_transaction.state = 'your_turn'
