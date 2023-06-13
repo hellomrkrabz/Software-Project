@@ -673,7 +673,7 @@ def add_or_edit_entity(entity_type, action):
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_rejected.html",
                                              inputter_list_borrower)
                         case 6:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact_for_borrower.html",
                                              inputter_list_owner_data)
                         case 7:
                             send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_passed_down.html",
@@ -724,7 +724,7 @@ def add_or_edit_entity(entity_type, action):
                                                      "reservation_confirmation.html",
                                                      inputter_list_owner)
                         case 6:
-                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact.html",
+                            send_mail_from_html_file(user.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "reservation_contact_for_owner.html",
                                              inputter_list_borrower_data)
                         case 9:
                             send_mail_from_html_file(owner.get_email(), "Banana books: Transaction "+str(data["id"])+" status update", "transaction_returned.html",
