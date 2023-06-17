@@ -151,7 +151,6 @@ function TransactionList(props) {
     useEffect(() => {
         if(detailsKey!=="")
         {
-            console.log("raz")
             // Take all details for a transaction from db and assign them to appropriate hooks (axios)
 
             //po klikni�ciu show details detailskey == transaction.key
