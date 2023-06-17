@@ -15,7 +15,7 @@ function TransactionList(props) {
 
 
     // for details page usage - gets set in Transaction when show details is clicked
-    const [detailsKey, setDetailsKey] = useState(1);
+    const [detailsKey, setDetailsKey] = useState("");
 
     //All this gets updated from db whenever detailsKey changes
     var sessionUsername = findCookie("sessionUserUsername");
@@ -124,42 +124,67 @@ function TransactionList(props) {
         })
     }, [])
 
+    useEffect(()=>{
+        if(showDetails===false)
+        {
+            setDetailsUsername("");
+            setDetailsOwnerName("");
+            setDetailsBook("");
+            setDetailsOwnedBook("");
+            setDetailsReservationDate("");
+            setDetailsRentDate("");
+            setDetailsStatus("");
+            setDetailsReturnDate("");
+            setDetailsTitle("");
+            setDetailsAuthor("");
+            setDetailsCoverPhoto("notFound");
+            setDetailsIsbn("");
+            setDetailsCondition("");
+            setBorrowerId();
+            setOwnerId();
+        }
+    },[showDetails])
+
   
 
     //Updating data from db whenever detailsKey changes
     useEffect(() => {
-        // Take all details for a transaction from db and assign them to appropriate hooks (axios)
+        if(detailsKey!=="")
+        {
+            console.log("raz")
+            // Take all details for a transaction from db and assign them to appropriate hooks (axios)
 
-        //po klikni�ciu show details detailskey == transaction.key
-        axios.get("http://localhost:5000/api/transaction/" + detailsKey).then((response) => {
-            
-            var transactionJson = response.data; 
-            if (transactionJson.msg === undefined) {
-                //console.log(transactionJson.transaction)
-                setDetailsUsername(transactionJson.transaction.borrower_username);
-                setDetailsReservationDate(transactionJson.transaction.reservation_date ? (transactionJson.transaction.reservation_date).slice(0,-12) : "");
-                setDetailsRentDate(transactionJson.transaction.rent_date ? (transactionJson.transaction.rent_date).slice(0,-12) : "");
-                setDetailsReturnDate(transactionJson.transaction.return_date ? (transactionJson.transaction.return_date).slice(0,-12) : "");
-                setDetailsStatus(transactionJson.transaction.state);
-                setDetailsBook(transactionJson.transaction.book_id);
-                setDetailsOwnedBook(transactionJson.transaction.owned_book_id);
-                setBorrowerId(transactionJson.transaction.borrower_id);
-                setOwnerId(transactionJson.transaction.owner_id)
-                setDetailsCondition(transactionJson.transaction.condition);
-                setDetailsOwnerName(transactionJson.transaction.owner_username)
-                return(transactionJson.transaction.book_id)
+            //po klikni�ciu show details detailskey == transaction.key
+            axios.get("http://localhost:5000/api/transaction/" + detailsKey).then((response) => {
                 
-            }
-        }).then((book_id) => {
-                axios.get("http://localhost:5000/api/book_info/" + book_id).then((response) => {
+                var transactionJson = response.data; 
+                if (transactionJson.msg === undefined) {
+                    //console.log(transactionJson.transaction)
+                    setDetailsUsername(transactionJson.transaction.borrower_username);
+                    setDetailsReservationDate(transactionJson.transaction.reservation_date ? (transactionJson.transaction.reservation_date).slice(0,-12) : "");
+                    setDetailsRentDate(transactionJson.transaction.rent_date ? (transactionJson.transaction.rent_date).slice(0,-12) : "");
+                    setDetailsReturnDate(transactionJson.transaction.return_date ? (transactionJson.transaction.return_date).slice(0,-12) : "");
+                    setDetailsStatus(transactionJson.transaction.state);
+                    setDetailsBook(transactionJson.transaction.book_id);
+                    setDetailsOwnedBook(transactionJson.transaction.owned_book_id);
+                    setBorrowerId(transactionJson.transaction.borrower_id);
+                    setOwnerId(transactionJson.transaction.owner_id)
+                    setDetailsCondition(transactionJson.transaction.condition);
+                    setDetailsOwnerName(transactionJson.transaction.owner_username)
+                    return(transactionJson.transaction.book_id)
+                    
+                }
+            }).then((book_id) => {
+                    axios.get("http://localhost:5000/api/book_info/" + book_id).then((response) => {
 
-                    var book_json = response.data;
-                    setDetailsTitle(book_json.title);
-                    setDetailsAuthor(book_json.author);
-                    setDetailsCoverPhoto(book_json.cover_photo);
-                    setDetailsIsbn(book_json.isbn);                   
-                })            
-        })
+                        var book_json = response.data;
+                        setDetailsTitle(book_json.title);
+                        setDetailsAuthor(book_json.author);
+                        setDetailsCoverPhoto(book_json.cover_photo);
+                        setDetailsIsbn(book_json.isbn);                   
+                    })            
+            })
+        }
     }, [detailsKey])
 
     return (

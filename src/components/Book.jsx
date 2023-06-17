@@ -271,7 +271,7 @@ function Book(props) {
                             {props.cover_photo !== "notFound" ?
                                 <img src={props.cover_photo} alt="book" height="200" width="130" />
                                 :
-                                <img src={banana} alt="book" height="500" width="325" />
+                                <img src={banana} alt="book" height="200" width="130" />
                             }
 
                         </div>
