@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import ScoreComponent from "./ScoreComponent";
+import OpinionGrid from "../components/OpinionGrid";
+import ProfileOpinionComponent from "./ProfileOpinionComponent";
+import { v4 } from "uuid";
 
 function ProfileOpinionsList(props) {
 
@@ -8,38 +11,18 @@ function ProfileOpinionsList(props) {
         <div className="mt-5 row mb-5">
             <p className="fs-5 fw-semibold">Opinions</p>
             <div className="col-9 col-xl-10">
-                <div className="row row-cols-1 row-cols-lg-2 gx-5 gy-2">
-                    <div className="col">
-                        <div className="card text-center ">
-                            <div className="card-header d-flex justify-content-between align-items-center">
-                                <div className="fs-5 fw-semibold">
-                                    {props.sender1}
-                                </div>
-                                <div className="col-4">
-                                    <ScoreComponent score={1.4}></ScoreComponent>
-                                </div>
+                    <div className="container-fluid">
+                        <div className="row row-cols-1 row-cols-lg-2 gx-5 gy-2 mt-2">
+                            {props.opinions.slice(0,2).map((o)=>
+                            <div key={v4()}>
+                                <ProfileOpinionComponent details={o} setDetails={props.setDetails} setDisplayDetails={props.setDisplayDetails} />
                             </div>
-                            <div className="card-body">
-                                {props.text1}
-                            </div>
-                        </div>
-                    </div>
+                            )}
 
-                    <div className="col">
-                        <div className="card text-center ">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                                <div className="fs-5 fw-semibold">
-                                    {props.sender2}
-                                </div>
-                                <div className="col-4">
-                                    <ScoreComponent score={2.8}></ScoreComponent>
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                {props.text2}
-                            </div>
-                        </div>  
-                    </div>
+                            {props.opinions.length === 0 &&
+                                <div>Nothing to see here</div>
+                            }
+                        </div>
         
                 </div>
             </div>

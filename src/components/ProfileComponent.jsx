@@ -6,6 +6,7 @@ import loading from "../media/loading.gif"
 import trans from "../media/trans.png"
 import axios from "axios"
 import findCookie from "../scripts/findCookie";
+import OpinionGrid from "../components/OpinionGrid";
 
 
 function ProfileComponent(props) {
@@ -91,6 +92,21 @@ function ProfileComponent(props) {
     },[wantedBookIds])
 
 
+    const [opinions, setOpinions] = useState([])
+    const [details ,setDetails] = useState({user:"", date:"", score:0, content:"", opinion_id:-1})
+    const [displayDetails, setDisplayDetails] = useState(false)
+    async function fetchOpinion()
+    {
+        const response = await axios.get("http://localhost:5000/api/opinions/" + decodeURI(window.location.pathname.split('/').pop()))
+        let fetchedOpinions = response.data.opinions
+
+        setOpinions(fetchedOpinions)
+    }
+    useEffect(() => {
+        fetchOpinion()
+    }, []);
+
+
   return (
     <>
         <div className="container-fluid flex-grow-1 d-flex">
@@ -108,10 +124,8 @@ function ProfileComponent(props) {
                     }
                     
 
-                    <ProfileOpinionsList
-                        sender1={"JustAnormalUser"} text1={"not gut"} moreLink={"/Opinions/" + window.location.pathname.split('/').pop() }
-                        sender2={"AdiffrentUser"} text2={"it was great 2/10"} addLink={"/AddOpinion"}>
-                    </ProfileOpinionsList>
+                    <ProfileOpinionsList opinions={opinions} setDetails={setDetails} setDisplayDetails={setDisplayDetails}/>
+      
                  </div>
             </div>
         </div>
