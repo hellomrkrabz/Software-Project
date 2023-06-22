@@ -13,13 +13,18 @@ function ProfileOpinionsList(props) {
             <div className="col-9 col-xl-10">
                     <div className="container-fluid">
                         <div className="row row-cols-1 row-cols-lg-2 gx-5 gy-2 mt-2">
-                            {props.opinions.slice(0,2).map((o)=>
-                            <div key={v4()}>
-                                <ProfileOpinionComponent details={o} setDetails={props.setDetails} setDisplayDetails={props.setDisplayDetails} />
-                            </div>
+                            {props.opinions!==undefined && props.opinions.length > 1 && props.opinions.slice(0,2).map((o)=>
+                                <div key={v4()}>
+                                    <ProfileOpinionComponent details={o} setDetails={props.setDetails} setDisplayDetails={props.setDisplayDetails} />
+                                </div>
                             )}
+                            {props.opinions!==undefined && props.opinions.length == 1 &&
+                                <div key={v4()}>
+                                    <ProfileOpinionComponent details={props.opinions[0]} setDetails={props.setDetails} setDisplayDetails={props.setDisplayDetails} />
+                                </div>
+                            }
 
-                            {props.opinions.length === 0 &&
+                            {(props.opinions===undefined || props.opinions.length === 0) &&
                                 <div>Nothing to see here</div>
                             }
                         </div>

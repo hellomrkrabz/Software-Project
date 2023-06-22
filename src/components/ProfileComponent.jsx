@@ -24,7 +24,8 @@ function ProfileComponent(props) {
     const [offeredBooks, setOfferedBooks] = useState([loadingBook, loadingBook])
 
     useEffect(()=>{
-        axios.get("http://localhost:5000/api/owned_book_user/"+username).then((response) => {
+        var userFromLink = window.location.pathname.split('/').pop();
+        axios.get("http://localhost:5000/api/owned_book_user/"+userFromLink).then((response) => {
             //console.log(response.data.books)
             setPersonalBookIds(response.data.books)
             let booksIdTMP = []
